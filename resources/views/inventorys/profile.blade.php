@@ -524,63 +524,47 @@
                             <div class="tab-content">
                                 <div class="active tab-pane" id="statuss">
                                     <!-- DONUT CHART -->
-                                    <div class="card card-danger">
-                                        <div class="card-header">
-                                        <h3 class="card-title">ภาพรวม</h3>
-
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                            </button>
-                                        </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div>
-                                                <canvas id="repairsDonutChart"></canvas>
-                                            </div>
-                                            <div style="padding-top: 20px;">
-
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">#</th>
-                                                            <th scope="col">การซ่อม</th>
-                                                            <th scope="col">จำนวนครั้ง</th>
-                                                            <th scope="col">ร้อยละ</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($repairsByIssue as $repair)
-                                                        @php
-                                                            $c = 0;
-                                                        @endphp
-                                                        <tr>
-                                                            <th scope="row">{{ $c }}</td>
-                                                            <td>{{ $repair->issue_name }}</td>
-                                                            <td><!--
-                                                                <div class="progress progress-xs">
-                                                                    <div class="progress-bar progress-bar-danger" style="width: {{ $repair->percentage }}%"></div>
-                                                                </div>-->
-                                                                <span class="badge bg-info">{{ $repair->successful_repairs }}</span>
-
-                                                            </td>
-                                                            <td><span class="badge bg-danger">{{ $repair->percentage }}%</span></td>
-                                                        </tr>
-                                                        @php
-                                                            $c++;
-                                                        @endphp
-                                                        @endforeach
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <!-- /.card-body -->
+                                    <h3 class="card-title">ภาพรวม</h3>
+                                    <div>
+                                        <canvas id="repairsDonutChart"></canvas>
                                     </div>
-                                    <!-- /.card -->
+                                    <div style="padding-top: 20px;">
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">การซ่อม</th>
+                                                    <th scope="col" style="width: 40%"></th>
+                                                    <th scope="col">จำนวนครั้ง / ร้อยละ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $c = 0;
+                                                @endphp
+                                                @foreach($repairsByIssue as $repair)
+                                                <tr>
+                                                    <th scope="row">{{ $c }}</td>
+                                                    <td>{{ $repair->issue_name }}</td>
+                                                    <td>
+                                                        <div class="progress progress-xs">
+                                                            <div class="progress-bar progress-bar-danger" style="width: {{ $repair->percentage }}%"></div>
+                                                        </div>
+
+
+                                                    </td>
+                                                    <td><span class="badge bg-info">{{ $repair->successful_repairs }}</span> <span class="badge bg-danger">{{ $repair->percentage }}%</span></td>
+                                                </tr>
+                                                @php
+                                                    $c++;
+                                                @endphp
+                                                @endforeach
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                 </div>
                                 <!-- /.tab-pane -->
 
