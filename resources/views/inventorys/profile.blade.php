@@ -538,18 +538,17 @@
                                         </div>
                                         </div>
                                         <div class="card-body">
-                                            <div style="width: 100%;">
+                                            <div>
                                                 <canvas id="repairsDonutChart"></canvas>
                                             </div>
                                             <div style="padding-top: 20px;">
                                                 <table class="table table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th style="width: 10px">#</th>
+                                                            <th>#</th>
                                                             <th>การซ่อม</th>
                                                             <th style="width: 40%"></th>
-                                                            <th>จำนวนครั้ง</th>
-                                                            <th style="width: 40px">ร้อยละ</th>
+                                                            <th>จำนวนครั้ง | ร้อยละ</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -566,8 +565,7 @@
                                                                 </div>
 
                                                             </td>
-                                                            <td><span class="badge bg-info">{{ $repair->successful_repairs }}</span></td>
-                                                            <td><span class="badge bg-danger">{{ $repair->percentage }}%</span></td>
+                                                            <td><span class="badge bg-info">{{ $repair->successful_repairs }}</span> <span class="badge bg-danger">{{ $repair->percentage }}%</span></td>
                                                         </tr>
                                                         @endforeach
 
