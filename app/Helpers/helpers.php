@@ -175,3 +175,15 @@ if (!function_exists('getPanakGongById')) {
         return null; // คืนค่า null หากไม่พบ
     }
 }
+
+function getInvDetailsById($id)
+{
+    // ดึงข้อมูลจากตาราง inventory ตาม id ที่กำหนด
+    $inventory = DB::table('inventory')->where('id', $id)->first();
+
+    if ($inventory) {
+        return $inventory->inv_name; // คืนค่ารูปแบบ inv_name (inv_brand / inv_model)
+    }
+
+    return null; // คืนค่า null หากไม่พบ
+}
