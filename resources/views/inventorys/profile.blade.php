@@ -548,8 +548,8 @@
                                                         <tr>
                                                             <th scope="col">#</th>
                                                             <th scope="col">การซ่อม</th>
-                                                            <th scope="col"></th>
-                                                            <th scope="col">จำนวนครั้ง | ร้อยละ</th>
+                                                            <th scope="col">จำนวนครั้ง</th>
+                                                            <th scope="col">ร้อยละ</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -558,16 +558,20 @@
                                                             $c = 0;
                                                         @endphp
                                                         <tr>
-                                                            <th scope="row">{{ $c++ }}</td>
+                                                            <th scope="row">{{ $c }}</td>
                                                             <td>{{ $repair->issue_name }}</td>
-                                                            <td>
+                                                            <td><!--
                                                                 <div class="progress progress-xs">
                                                                     <div class="progress-bar progress-bar-danger" style="width: {{ $repair->percentage }}%"></div>
-                                                                </div>
+                                                                </div>-->
+                                                                <span class="badge bg-info">{{ $repair->successful_repairs }}</span>
 
                                                             </td>
-                                                            <td><span class="badge bg-info">{{ $repair->successful_repairs }}</span> <span class="badge bg-danger">{{ $repair->percentage }}%</span></td>
+                                                            <td><span class="badge bg-danger">{{ $repair->percentage }}%</span></td>
                                                         </tr>
+                                                        @php
+                                                            $c++;
+                                                        @endphp
                                                         @endforeach
 
                                                     </tbody>
