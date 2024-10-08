@@ -20,6 +20,9 @@ Route::get('/departments/search', [DepartmentController::class, 'search'])->name
 //Route::get('/register', [ViewController::class, 'showRegister'])->name('register');
 //Route::post('/register', [AuthController::class, 'register']);
 
+// Line Notify
+Route::post('/notify', [App\Http\Controllers\NotifyController::class, 'send']);
+
 Route::group(['middleware' => ['auth']], function () {
     ///////////////////// Repair
     Route::get('/inventory_search', [MedfixController::class, 'search'])->name('inventory_search');

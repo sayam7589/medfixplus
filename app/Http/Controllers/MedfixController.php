@@ -69,8 +69,16 @@ class MedfixController extends Controller
             'medfix_date' => date('Y-m-d H:i:s'),
         ]);
         //dd($dataset);
-        if(Medfix::create($dataset)){
+        if($medfix = Medfix::create($dataset)){
             Alert::success('ดำเนินการ เสร็จสิ้น!', 'บันทึกข้อมูลเสร็จสิ้น');
+            $title = "🔧🔧 แจ้งซ่อม‼ 🔧🔧";
+            $person = "👤: ".getPrefixShortById($request->medfix_owner_prefix).$request->medfix_owner_fname." ".$request->medfix_owner_lname;
+            $from = "📍: ".getPanakGongById($request->department_id1);
+            $detail = "📋: ".$request->medfix_detail;
+            $tel = "📞: ".$request->medfix_tel;
+            $link = "🚀: http://medfix.dyndns.tv:8080/inventory/".$invid;
+            $message = $title."\n".$detail."\n".$person."\n".$from."\n".$tel."\n".$link;
+            sendLineNotify($message);
             return redirect()->route('inventory', $invid);
         }else{
             Alert::warning('พบข้อผิดพลาด', 'กรุณาตรวจสอบว่ากรอกข้อมูลครับถ้วนแล้ว');

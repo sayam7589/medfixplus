@@ -18,6 +18,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// ใน routes/api.php
+Route::post('/notify', [App\Http\Controllers\NotifyController::class, 'send']);
+
 ////////Line
 // Route::Line {
 //     return $request->user();

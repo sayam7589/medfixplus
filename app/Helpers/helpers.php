@@ -1,5 +1,15 @@
 <?php
 
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+/**
+ * ส่งข้อความผ่าน LINE Notify
+ *
+ * @param string $message ข้อความที่ต้องการส่ง
+ * @return bool ผลลัพธ์การส่ง (true: สำเร็จ, false: ล้มเหลว)
+ */
+
 if (!function_exists('toThaiDateFormat')) {
     function toThaiDateFormat($dateTime) {
         // แปลง string วันเวลาให้เป็น timestamp
@@ -88,4 +98,80 @@ function getThaiMonthAbbreviation($monthNumber){
     ];
 
     return $thaiMonths[$monthNumber] ?? null;
+}
+
+if (!function_exists('sendLineNotify')) {
+    function sendLineNotify(string $message): bool
+    {
+        // รับ Access Token จากไฟล์ .env
+        $token = env('LINE_NOTIFY_TOKEN');
+
+        if (!$token) {
+            Log::error('LINE_NOTIFY_TOKEN ไม่ได้ถูกตั้งค่าในไฟล์ .env');
+            return false;
+        }
+
+        // สร้าง Guzzle HTTP Client
+        $client = new Client();
+
+        try {
+            // ส่ง POST request ไปยัง LINE Notify API
+            $response = $client->request('POST', 'https://notify-api.line.me/api/notify', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $token,
+                ],
+                'form_params' => [
+                    'message' => $message,
+                ],
+            ]);
+
+            // ตรวจสอบสถานะการตอบกลับ
+            if ($response->getStatusCode() === 200) {
+                return true;
+            }
+
+            Log::error('LINE Notify ส่งข้อความไม่สำเร็จ: ' . $response->getBody());
+            return false;
+        } catch (\Exception $e) {
+            // จัดการกับข้อผิดพลาด
+            Log::error('LINE Notify Error: ' . $e->getMessage());
+            return false;
+        }
+    }
+}
+
+if (!function_exists('getPrefixShortById')) {
+    /**
+     * แปลง id เป็น prefix_short
+     *
+     * @param int $id
+     * @return string|null
+     */
+    function getPrefixShortById($id)
+    {
+        // เปลี่ยน 'prefixes' เป็นชื่อของตารางที่เก็บ prefix ของคุณ
+        $prefix = DB::table('prefix')->where('id', $id)->value('prefix_short');
+
+        return $prefix ?: null; // คืนค่า prefix_short หรือ null หากไม่พบ
+    }
+}
+
+if (!function_exists('getPanakGongById')) {
+    /**
+     * แปลง id เป็น panak / gong
+     *
+     * @param int $id
+     * @return string|null
+     */
+    function getPanakGongById($id)
+    {
+        // ดึงข้อมูลจากตาราง department ตาม id ที่กำหนด
+        $department = DB::table('department')->where('id', $id)->first();
+
+        if ($department) {
+            return $department->panag . ' / ' . $department->gong; // คืนค่ารูปแบบ panak / gong
+        }
+
+        return null; // คืนค่า null หากไม่พบ
+    }
 }
