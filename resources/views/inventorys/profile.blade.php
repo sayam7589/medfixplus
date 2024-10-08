@@ -524,7 +524,6 @@
                             <div class="tab-content">
                                 <div class="active tab-pane" id="statuss">
                                     <!-- DONUT CHART -->
-                                    <h3 class="card-title">ภาพรวม</h3>
                                     <div>
                                         <canvas id="repairsDonutChart"></canvas>
                                     </div>
