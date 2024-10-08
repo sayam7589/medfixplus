@@ -542,22 +542,23 @@
                                                 <canvas id="repairsDonutChart"></canvas>
                                             </div>
                                             <div style="padding-top: 20px;">
-                                                <table class="table table-striped">
+
+                                                <table class="table">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>การซ่อม</th>
-                                                            <th style="width: 40%"></th>
-                                                            <th>จำนวนครั้ง | ร้อยละ</th>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">การซ่อม</th>
+                                                            <th scope="col"></th>
+                                                            <th scope="col">จำนวนครั้ง | ร้อยละ</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @foreach($repairsByIssue as $repair)
                                                         @php
-
+                                                            $c = 0;
                                                         @endphp
                                                         <tr>
-                                                            <td>1</td>
+                                                            <th scope="row">{{ $c++ }}</td>
                                                             <td>{{ $repair->issue_name }}</td>
                                                             <td>
                                                                 <div class="progress progress-xs">
