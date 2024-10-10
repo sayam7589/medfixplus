@@ -41,41 +41,37 @@
                                 <div class="card-header">
                                     <h3 class="card-title">เพิ่มกอง/เเผนก</h3>
                                 </div>
-                                <!-- /.card-header -->
                                 <div class="card-body">
                                     <div class="row">
+                                        <!-- Gong Dropdown -->
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="gong">&nbsp;กอง</label>
-                                                <!-- Dropdown to select from existing gongs -->
-                                                <select name="gong" class="form-control" id="gong" onchange="toggleProjectInput(this)">
-                                                    <option value="">-- เลือกกอง --</option>
+                                                <label for="gong">กอง</label>
+                        
+                                                <!-- Input field with Datalist -->
+                                                <input list="gong_options" id="gong" name="gong" class="form-control" placeholder="ระบุชื่อกอง">
+                                                
+                                                <!-- Datalist for predefined gong options -->
+                                                <datalist id="gong_options">
                                                     @foreach($gongs as $gong)
-                                                        <option value="{{ $gong->gong }}" {{ isset($formData['gong']) && $formData['gong'] == $gong->gong ? 'selected' : '' }}>
-                                                            {{ $gong->gong }}
-                                                        </option>
+                                                        <option value="{{ $gong->gong }}">
                                                     @endforeach
-                                                    <option value="other">อื่นๆ (เพิ่มชื่อกองใหม่)</option>
-                                                </select>
-                                            
-                                                <!-- Hidden input field to allow manual input for new gong -->
-                                                <input type="text" name="new_gong" class="form-control mt-2" id="gong_input" placeholder="กรุณาใส่ชื่อกองใหม่" style="display: none;">
+                                                </datalist>
                                             </div>
-                                        </div>
-                            
-                                        <!-- Panag Input and Button in one row -->
+                                        </div>                        
+                        
+                                        <!-- Panag Input and Submit Button -->
                                         <div class="col-md-6">
                                             <label for="panag" class="mr-2">&nbsp;เเผนก</label>
                                             <div class="form-group d-flex align-items-center">
-                                         
+                                  
                                                 <input id="panag" name="panag" type="text" class="form-control mr-2" placeholder="ชื่อเเผนก" required>
-                                                <button type="submit" class="btn btn-primary ">เพิ่ม</button>
+                                                <button type="submit" class="btn btn-primary">เพิ่ม</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
                         </form>
                         </div>                
                     </div>
@@ -210,24 +206,6 @@
         });
     </script>
 
-<script>
-    function toggleProjectInput(selectElement) {
-        var projectInput = document.getElementById('gong_input');
-
-        if (selectElement.value === 'other') {
-            projectInput.style.display = 'block'; // Show input field if "other" is selected
-            projectInput.required = true; // Make input required
-
-            // Update the value of the dropdown when the text input changes
-            projectInput.addEventListener('input', function() {
-                selectElement.value = projectInput.value;
-            });
-        } else {
-            projectInput.style.display = 'none'; // Hide input field otherwise
-            projectInput.required = false; // Make input not required
-            selectElement.value = selectElement.value; // Keep the selected dropdown value
-        }
-    }
 </script>
 
 
