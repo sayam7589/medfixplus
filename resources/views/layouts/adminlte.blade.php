@@ -203,6 +203,15 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{ route('department.create') }}" class="nav-link">
+                                <i class="nav-icon fas fa-building"></i>
+                                <p>
+                                    หน่วยปฏิบัติงาน
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{ route('inventory_brands.create') }}" class="nav-link">
                                 <i class="nav-icon fas fa-box"></i>
                                 <p>

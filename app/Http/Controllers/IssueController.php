@@ -30,7 +30,7 @@ class IssueController extends Controller
             'issue_detail' => $request->issue_name,
             'inv_type'=> '0',
         ]);
-        toast('บันทึกข้อมูล เสร็จสิ้น!','success');
+        toast('บันทึกข้อมูลเสร็จสิ้น!','success');
         return redirect()->route('problem_issue.create');
     }
 
@@ -54,7 +54,7 @@ class IssueController extends Controller
             'issue_detail' => $request->issue,
             'inv_type'=> '0',
         ]);
-        toast('บันทึกข้อมูล เสร็จสิ้น!','success');
+        toast('บันทึกข้อมูลเสร็จสิ้น!','success');
         return redirect()->route('problem_issue.create');
     }
     public function destroy($id)
@@ -62,7 +62,7 @@ class IssueController extends Controller
         $issue = Issue::findOrFail($id);
         $issue->delete();
 
-        toast('ลบข้อมูล เสร็จสิ้น!','success');
+        toast('ลบข้อมูลเสร็จสิ้น!','success');
         return redirect()->route('problem_issue.create');
     }
 }

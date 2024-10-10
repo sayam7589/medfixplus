@@ -441,7 +441,7 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_organize">หน่วยงาน</label>
-                                                                <input type="text" name="rec_organize" class="form-control" id="rec_organize"   value="{{ $inventory->rec_organize }}"  placeholder="หน่วยงาน">
+                                                                <input type="text" name="rec_organize" class="form-control" id="rec_organize"   value="{{ $inventory->department->gong }}"  placeholder="หน่วยงาน">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">

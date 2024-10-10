@@ -28,7 +28,7 @@ class SolvingController extends Controller
         $solving = Solving::create([
             'solving_title' => $request->solving_title,
         ]);
-        toast('บันทึกข้อมูล เสร็จสิ้น!','success');
+        toast('บันทึกข้อมูลเสร็จสิ้น!','success');
         return redirect()->route('problem_solving.create');
     }
 
@@ -50,7 +50,7 @@ class SolvingController extends Controller
         $solving->update([
             'solving_title' => $request->solving,
         ]);
-        toast('บันทึกข้อมูล เสร็จสิ้น!','success');
+        toast('บันทึกข้อมูลเสร็จสิ้น!','success');
         return redirect()->route('problem_solving.create');
     }
     public function destroy($id)
@@ -58,7 +58,7 @@ class SolvingController extends Controller
         $solving = Solving::findOrFail($id);
         $solving->delete();
 
-        toast('ลบข้อมูล เสร็จสิ้น!','success');
+        toast('ลบข้อมูลเสร็จสิ้น!','success');
         return redirect()->route('problem_solving.create');
     }
 }

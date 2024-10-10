@@ -93,4 +93,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/problem_solving_store', [SolvingController::class, 'store'])->name('problem_solving.store')->middleware(['role:admin']);
     Route::put('/problem_solving_update/{id}', [SolvingController::class, 'update'])->name('problem_solving.update')->middleware(['role:admin']);
     Route::delete('/problem_solving_destroy/{id}', [SolvingController::class, 'destroy'])->name('problem_solving.destroy')->middleware(['role:admin']);
+
+
+      /////////////////////department
+      Route::get('department.create', [DepartmentController::class, 'create'])->name('department.create')->middleware(['role:admin']);
+      Route::post('department.store', [DepartmentController::class, 'store'])->name('department.store')->middleware(['role:admin']);
+      Route::put('/department_update/{id}', [DepartmentController::class, 'update'])->name('department.update')->middleware(['role:admin']);
+      Route::delete('/department_destroy/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy')->middleware(['role:admin']);
 });
