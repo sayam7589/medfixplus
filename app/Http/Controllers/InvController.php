@@ -175,8 +175,8 @@ class InvController extends Controller
         $request->validate([
             'project_id' => 'required|integer',
             'inv_type' => 'required|integer',
-            'inv_brand' => 'required|integer',
-            'inv_model' => 'required|string|max:255',
+            'inv_brand' => 'nullable|integer',
+            'inv_model' => 'nullable|string|max:255',
             'inv_detail' => 'nullable|string|max:255',
             'inv_rtaf_serial' => 'nullable|string|max:255',
             'inv_serial_number' => 'nullable|string|max:255',
