@@ -35,7 +35,7 @@
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" id="username" name="username" class="form-control"
-                            placeholder="อีเมล ทอ. ไม่ต้องใส่ @rtaf.mi.th" required>
+                            placeholder="อีเมล ทอ." required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
