@@ -210,7 +210,7 @@
                                 </p>
                             </a>
                         </li>
-
+ 
                         <li class="nav-item">
                             <a href="{{ route('inventory_brands.create') }}" class="nav-link">
                                 <i class="nav-icon fas fa-box"></i>

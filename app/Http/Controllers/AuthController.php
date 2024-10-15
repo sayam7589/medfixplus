@@ -21,14 +21,19 @@ class AuthController extends Controller
         if (session()->has('token')) {
             return redirect()->route('dashboard');
         }
+
         $client = new Client();
+
+        $cleanedUsername = strstr($request->username, '@', true) ?: $request->username;
+        $pass = $request->passwordl;
+        
         $response = $client->post('https://otp.rtaf.mi.th/api/v2/mfa/login', [
             'json' => [
-                'user' => $request->username,
+                'user' => $cleanedUsername,  // This cuts off everything after @ if present
                 'pass' => $request->password,
             ]
         ]);
-
+    
         $data = json_decode($response->getBody(), true);
 
         if (isset($data['token'])) {
@@ -37,7 +42,7 @@ class AuthController extends Controller
             //session(['token' => $token]);
 
             // ดึงข้อมูลผู้ใช้จากฐานข้อมูลท้องถิ่น
-            $user = User::where('username', $request->username)->first();
+            $user = User::where('username', $cleanedUsername)->first();
 
             // ตรวจสอบว่าผู้ใช้มีอยู่ในฐานข้อมูลท้องถิ่นหรือไม่
             if (!$user) {
