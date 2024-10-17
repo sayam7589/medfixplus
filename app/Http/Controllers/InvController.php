@@ -139,34 +139,57 @@ class InvController extends Controller
      */
 
      public function showmulqr(Request $request)
-     {
-         // Check if the request is a POST request (from AJAX)
-         if ($request->isMethod('post')) {
-             $find = $request->input('ids');
-             $ids = implode(',', $find);
+{
+    // Check if the request is a POST request (from AJAX)
+    if ($request->isMethod('post')) {
+        $find = $request->input('ids');
 
-             // Return a JSON response with the redirect URL
-             return response()->json([
-                 'status' => 'success',
-                 'redirect_url' => route('inventorys.mulqr') . '?ids=' . $ids
-             ]);
-         }
+        if (!is_array($find)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Invalid data received',
+            ]);
+        }
 
-         // Handle the GET request (for displaying the QR codes)
-         if ($request->isMethod('get')) {
-             $ids = explode(',', $request->query('ids'));
-             $inventories = Inventory::whereIn('id', $ids)->get();
+        $ids = implode(',', $find);
 
-             $qrcodes = $inventories->mapWithKeys(function($inventory) {
-                 $url = route('inventorys.qr', ['id' => $inventory->id]);
-                 $url = substr($url, 0, -3);
-                 $url = str_replace('inventorys', 'inventory', $url);
-                 return [$inventory->id => QrCode::size(250)->generate($url)];
-             });
+        // Return a JSON response with the redirect URL
+        return response()->json([
+            'status' => 'success',
+            'redirect_url' => route('inventorys.mulqr') . '?ids=' . $ids,
+        ]);
+    }
 
-             return view('inventorys.mulqr', compact('inventories', 'qrcodes'));
-         }
-     }
+    // Handle the GET request (for displaying the QR codes)
+    if ($request->isMethod('get')) {
+        $ids = explode(',', $request->query('ids'));
+
+        // Debug log to ensure the IDs are being passed
+        if (empty($ids)) {
+            return view('errors.general', ['message' => 'No IDs found']);
+        }
+
+        $inventories = Inventory::whereIn('id', $ids)->get();
+
+        // Make sure there are inventories to process
+        if ($inventories->isEmpty()) {
+            return view('errors.general', ['message' => 'No inventories found']);
+        }
+
+        $qrcodes = $inventories->mapWithKeys(function ($inventory) {
+            $url = route('inventorys.qr', ['id' => $inventory->id]); // No need for manual URL modification
+            return [$inventory->id => QrCode::size(250)->generate($url)];
+        });
+
+        return view('inventorys.mulqr', compact('inventories', 'qrcodes'));
+    }
+
+    // Fallback in case the method is neither POST nor GET
+    return response()->json([
+        'status' => 'error',
+        'message' => 'Invalid request method',
+    ]);
+}
 
 
     public function update(Request $request, Inventory $inventory)
