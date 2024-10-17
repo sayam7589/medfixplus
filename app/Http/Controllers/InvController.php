@@ -176,8 +176,8 @@ class InvController extends Controller
             return view('errors.general', ['message' => 'No inventories found']);
         }
 
-        $qrcodes = $inventories->mapWithKeys(function ($inventory) {
-            $url = route('inventorys.qr', ['id' => $inventory->id], true);// No need for manual URL modification
+        $qrcodes = $inventories->mapWithKeys(function($inventory) {
+            $url = 'https://medfix.site/inventory/' . $inventory->id;
             return [$inventory->id => QrCode::size(250)->generate($url)];
         });
 
