@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/inventorys_show', [InvController::class, 'show'])->name('inventorys.show')->middleware(['role:admin']);
     Route::get('/inventorys_edit', [InvController::class, 'edit'])->name('inventorys.edit')->middleware(['role:admin']);
     Route::get('/inventorys/{id}/qr', [InvController::class, 'showqr'])->name('inventorys.qr')->middleware(['role:admin']);
-    Route::match(['get', 'post'], '/inventorys/mulqr', [InvController::class, 'showmulqr'])->name('inventorys.mulqr')->middleware(['role:admin']);
+    Route::post('/inventorys/mulqr', [InvController::class, 'showmulqr'])->name('inventorys.mulqr')->middleware(['role:admin']);
     Route::put('/inventorys_update', [InvController::class, 'update'])->name('inventorys.update')->middleware(['role:admin']);
     Route::delete('/inventorys_destroy', [InvController::class, 'destroy'])->name('inventorys.destroy')->middleware(['role:admin']);
     Route::resource('inventorys', InvController::class);
