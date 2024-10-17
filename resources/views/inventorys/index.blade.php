@@ -298,7 +298,7 @@
                     }
                 },
                 error: function(xhr) {
-                    alert('Error occurred: ' + xhr.statusText);
+                    alert('Error occurred: ' + xhr.status + ' ' + xhr.statusText + '\nResponse: ' + xhr.responseText);
                 }
             });
         } else {
