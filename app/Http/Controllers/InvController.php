@@ -125,7 +125,7 @@ class InvController extends Controller
     {
         $inventory = Inventory::findOrFail($id);
         $qrcode = QrCode::size(250)
-                        ->generate('http://medfix.dyndns.tv:8080/inventory/'.$id);  //edit qrcode here
+                        ->generate('https://medfix.site/inventory/'.$id);  //edit qrcode here
 
         return view('inventorys.qr', compact('inventory', 'qrcode'));
     }
