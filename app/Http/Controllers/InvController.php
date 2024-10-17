@@ -12,6 +12,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Models\PersonalHasInv;
 use App\Models\Medfix;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 Use Alert;
 use App\Models\Issue;
 use App\Models\Solving;
