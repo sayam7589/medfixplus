@@ -253,6 +253,37 @@
 
     table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
+    $('#sendSelected').on('click', function() {
+        var selected = [];
+        $('.row-select:checked').each(function() {
+            selected.push($(this).val());
+        });
+
+        if (selected.length > 0) {
+            // Send selected IDs to a route via AJAX
+            $.ajax({
+                url: 'https://yourdomain.com/inventorys/mulqr',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    ids: selected
+                },
+                success: function(response) {
+                    if (response.redirect_url) {
+                        window.location.href = response.redirect_url;
+                    } else {
+                        alert('An unexpected error occurred.');
+                    }
+                },
+                error: function(xhr) {
+                    alert('Error occurred: ' + xhr.status + ' ' + xhr.statusText + '\nResponse: ' + xhr.responseText);
+                }
+            });
+        } else {
+            alert('กรุณาเลือกข้อมูลที่ต้องการ'); // "Please select data" in Thai
+        }
+    });
+
     table.on('draw', function () {
     // Clear checkboxes when the table is redrawn
     $('input[type="checkbox"]').prop('checked', false);
@@ -275,36 +306,6 @@
     
 
     // Handle send selected button click
-    $('#sendSelected').on('click', function() {
-        var selected = [];
-        $('.row-select:checked').each(function() {
-            selected.push($(this).val());
-        });
-
-        if (selected.length > 0) {
-            // Send selected IDs to a route via AJAX
-            $.ajax({
-                url: '{{ route('inventorys.mulqr') }}',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    ids: selected
-                },
-                success: function(response) {
-                    if (response.redirect_url) {
-                        window.location.href = response.redirect_url;
-                    } else {
-                        alert('An unexpected error occurred.');
-                    }
-                },
-                error: function(xhr) {
-                    alert('Error occurred: ' + xhr.status + ' ' + xhr.statusText + '\nResponse: ' + xhr.responseText);
-                }
-            });
-        } else {
-            alert('กรุณาเลือกข้อมูลที่ต้องการ'); // "Please select data" in Thai
-        }
-    });
 });
 
 </script>
