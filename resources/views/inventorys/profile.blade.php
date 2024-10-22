@@ -730,7 +730,7 @@
                     var query = $(this).val();
                     if (query != '') {
                         $.ajax({
-                            url: "{{ route('departments.search') }}",
+                            url: 'https://medfix.site/departments/search',
                             method: "GET",
                             data: { query: query },
                             success: function(data) {
