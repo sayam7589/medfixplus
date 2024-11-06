@@ -28,7 +28,7 @@
 
         /* Title styling */
         .card-title h4 {
-            font-size: 1.5em;
+            font-size: 2em;
             margin: 5px 0;
         }
 
@@ -43,12 +43,13 @@
         .info {
             font-size: 16px;
             text-align: left;
+            margin-top: 20px; /* Add margin-top to separate from QR code */
         }
 
         /* Print-specific styling */
         @media print {
             @page {
-                size: A5; /* Set to A5 size */
+                size: A4; /* Set to A5 size */
                 margin: 0; /* Remove all margins */
             }
 
@@ -77,10 +78,10 @@
             }
 
             .info {
-                font-size: 18px;
+                font-size: 24px;
                 text-align: left; /* Align text to the left */
                 width: 100%; /* Ensure the section takes up full width */
-                margin: 0; /* Remove any extra margin that might affect alignment */
+                margin: 50px 0 0 0; /* Add top margin for separation from QR code */
                 padding: 0; /* Optional: Remove padding if it's pushing the content */
             }
 
@@ -104,8 +105,7 @@
 </head>
 <body>
 
-        @yield('content')
- 
+    @yield('content')
 
     <script>
         // Automatically trigger the print dialog when the page loads

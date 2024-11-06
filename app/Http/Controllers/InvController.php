@@ -124,7 +124,7 @@ class InvController extends Controller
     public function showqr($id)
     {
         $inventory = Inventory::findOrFail($id);
-        $qrcode = QrCode::size(230)
+        $qrcode = QrCode::size(350)
                         ->generate('https://medfix.site/inventory/'.$id);  //edit qrcode here
 
         return view('inventorys.qr', compact('inventory', 'qrcode'));
@@ -178,7 +178,7 @@ class InvController extends Controller
 
         $qrcodes = $inventories->mapWithKeys(function ($inventory) {
             $url = route('inventorys.qr', ['id' => $inventory->id]); // No need for manual URL modification
-            return [$inventory->id => QrCode::size(230)->generate($url)];
+            return [$inventory->id => QrCode::size(350)->generate($url)];
         });
 
         return view('inventorys.mulqr', compact('inventories', 'qrcodes'));
