@@ -80,7 +80,7 @@
                 font-size: 20px;
                 text-align: left; /* Align text to the left */
                 width: 100%; /* Ensure the section takes up full width */
-                margin: 50px 0 0 0; /* Add top margin for separation from QR code */
+                margin: 30px 0 0 0; /* Add top margin for separation from QR code */
                 padding: 0; /* Optional: Remove padding if it's pushing the content */
             }
 
