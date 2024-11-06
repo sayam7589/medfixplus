@@ -78,6 +78,9 @@
             .info {
                 font-size: 30px;
                 text-align: left; /* Align text to the left */
+                margin-left: 100px;
+                justify-content: flex-start;
+                align-items:center;
                 width: 100%; /* Ensure the section takes up full width */
                 padding: 0; /* Optional: Remove padding if it's pushing the content */
             }
