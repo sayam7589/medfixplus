@@ -262,7 +262,7 @@
         if (selected.length > 0) {
             // Send selected IDs to a route via AJAX
             $.ajax({
-                url: '//127.0.0.1:8000/inventorys/mulqr',
+                url: '//medfix.site/inventorys/mulqr',
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
