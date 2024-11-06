@@ -4,8 +4,8 @@
 
 @section('content')
 <div class="row justify-content-center  mb-2">
-    <div class="card-container col-md-10"">
         @foreach($inventories as $inventory)
+    <div class="card-container col-md-10"">
         <div class="qr-card">
             <div class ="card-title">
                 <h4>Medfix+</h4>
@@ -22,7 +22,7 @@
                 <p><strong>นททสส.พอ.(โทร 20008)</strong></p>
             </div>
         </div>
-        @endforeach
     </div>
+        @endforeach
 </div>
 @endsection
