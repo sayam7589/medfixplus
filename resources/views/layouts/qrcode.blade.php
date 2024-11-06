@@ -24,11 +24,6 @@
             page-break-after: always; /* Page break after each card */
         }
 
-        /* Exclude page break after the last card */
-        .qr-card:last-child {
-            page-break-after: auto;
-        }
-
         /* Title styling */
         .card-title h4 {
             font-size: 2em;
@@ -65,13 +60,11 @@
                 box-sizing: border-box;
             }
 
-  
-
             .info {
                 font-size: 30px;
                 text-align: left;
                 margin-left: 100px;
-                width: 100%;
+                width: 50%;
                 padding: 0;
             }
 
