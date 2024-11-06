@@ -27,7 +27,7 @@
 
         /* Title styling */
         .card-title h4 {
-            font-size: 2em;
+            font-size: 1.5em;
         }
 
         /* QR code section styling */
