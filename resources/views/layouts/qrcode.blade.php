@@ -39,7 +39,7 @@
 
         /* Information section styling */
         .info {
-            font-size: 24px;
+            font-size: 28px;
             text-align: left; 
         }
 
@@ -62,7 +62,7 @@
             }
 
             .info {
-                font-size: 24px;
+                font-size: 28px;
                 text-align: left;
                 margin-left: 80px;
                 width: 100%;

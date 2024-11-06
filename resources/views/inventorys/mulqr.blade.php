@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row justify-content-center  mb-2">
-        @foreach($inventories as $inventory)
+    @foreach($inventories as $inventory)
     <div class="card-container col-md-10"">
         <div class="qr-card">
             <div class ="card-title">
