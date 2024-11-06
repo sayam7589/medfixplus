@@ -21,7 +21,6 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin: 5mm 0 5mm 0; /* Space around cards */
             page-break-after: always; /* Page break after each card */
         }
 
