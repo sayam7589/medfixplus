@@ -88,7 +88,6 @@
                 display: flex;
                 flex-direction: column;
                 text-align: center;
-                page-break-before: auto;
             }
 
         }
