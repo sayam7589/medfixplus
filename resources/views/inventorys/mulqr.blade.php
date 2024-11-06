@@ -20,7 +20,7 @@
                 <p><strong>RTAF-Number:</strong> {{ $inventory->inv_rtaf_serial  ?? 'ไม่พบข้อมูล'}}</p>
                 <p><strong>ชื่อโครงการ:</strong> {{ $inventory->project->project_name  ?? 'ไม่พบข้อมูล'}}</p>
                 <p><strong>วันที่เริ่มใช้:</strong> {{ $inventory->project->project_date  ?? 'ไม่พบข้อมูล'}}</p>
-                <p><strong>นททสส.พอ.(โทร 20008)</strong></p><br>
+                <p><strong>นททสส.พอ.(โทร 20008)</strong></p>
             </div>
         </div>
         @endforeach
