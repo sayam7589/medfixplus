@@ -258,11 +258,11 @@
         $('.row-select:checked').each(function() {
             selected.push($(this).val());
         });
-
+    
         if (selected.length > 0) {
             // Send selected IDs to a route via AJAX
             $.ajax({
-                url: 'https://medfix.site/inventorys/mulqr/',
+                url: '//127.0.0.1:8000/inventorys/mulqr',
                 method: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -276,7 +276,7 @@
                     }
                 },
                 error: function(xhr) {
-                    alert('Error occurred: ' + xhr.status + ' ' + xhr.statusText + '\nResponse: ' + xhr.responseText);
+                    alert('Error occurred: ' + xhr.status + ' ' + xhr.statusText + '\nResponse: ' + xhr.responseText + selected);
                 }
             });
         } else {

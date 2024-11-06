@@ -7,14 +7,15 @@
     <div class="card-container col-md-10"">
         @foreach($inventories as $inventory)
         <div class="qr-card">
-            <h3 class ="card-title">Medfix+</h3>
-            <h3>เเจ้งซ่อม, ลงทะเบียนผู้ใช้งาน</h3>
-            <h3>( กรุณา scan qrcode ด่านล่าง )</h3>
+            <div class ="card-title">
+                <h4>Medfix+</h4>
+                <h4>เเจ้งซ่อม, ลงทะเบียนผู้ใช้งาน</h4>
+                <h5>( กรุณา scan qrcode ด่านล่าง )</h4>
+            </div>
             <div class="qr-code">
                 {!! $qrcodes[$inventory->id] !!}
             </div><br>
             <div class="info">
-            
                 <p><strong>MAC-Address:</strong> {{ $inventory->inv_mac_address ?? 'ไม่พบข้อมูล' }}</p>
                 <p><strong>RTAF-Number:</strong> {{ $inventory->inv_rtaf_serial  ?? 'ไม่พบข้อมูล'}}</p>
                 <p><strong>ชื่อโครงการ:</strong> {{ $inventory->project->project_name  ?? 'ไม่พบข้อมูล'}}</p>
