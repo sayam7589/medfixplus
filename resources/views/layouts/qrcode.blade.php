@@ -21,6 +21,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            page-break-before: always; /* Page break after each card */
             page-break-after: always; /* Page break after each card */
         }
 
@@ -74,6 +75,7 @@
                 display: flex;
                 flex-direction: column;
                 text-align: center;
+                page-break-before: always; /* Page break after each card */
                 page-break-after: always; /* Page break after each card */
             }
 
