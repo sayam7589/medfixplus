@@ -2,17 +2,6 @@
 <html>
 <head>
     <style>
-        /* Container for all QR cards */
-        .card-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         /* Individual QR card styling */
         .qr-card {
             width: 90%;
