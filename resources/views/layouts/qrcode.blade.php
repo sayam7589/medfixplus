@@ -16,8 +16,7 @@
         /* Individual QR card styling */
         .qr-card {
             width: 90%; /* Adjust width for better fit */
-            height: auto;
-            padding: 10px; /* Added padding for spacing */
+            height: auto; /* Added padding for spacing */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -87,7 +86,6 @@
 
             .qr-card {
                 width: 90%; /* Adjust the width */
-                padding: 15px;
                 box-sizing: border-box;
                 display: flex;
                 flex-direction: column;
