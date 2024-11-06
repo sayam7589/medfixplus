@@ -34,14 +34,14 @@
 
         /* QR code section styling */
         .qr-code {
-            width: 100%; /* Adjust QR code width */
+            width: 50%; /* Adjust QR code width */
             height: auto;
             margin: 20px 0;
         }
 
         /* Information section styling */
         .info {
-            font-size: 1em;
+            font-size: 16px;
             text-align: left;
         }
 
@@ -78,7 +78,7 @@
             }
 
             .qr-card {
-                width: 80%; /* Full width for the QR card */
+                width: 90%; /* Full width for the QR card */
                 padding: 80px;
                 box-sizing: border-box;
                 display: flex;
