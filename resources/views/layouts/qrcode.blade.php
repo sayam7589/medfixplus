@@ -74,6 +74,7 @@
                 display: flex;
                 flex-direction: column;
                 text-align: center;
+                page-break-after: always; /* Page break after each card */
             }
 
         }
