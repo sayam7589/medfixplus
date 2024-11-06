@@ -21,7 +21,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            page-break-after: always; /* Page break after each card */
+   
         }
 
         /* Title styling */
@@ -63,7 +63,7 @@
             .info {
                 font-size: 24px;
                 text-align: left;
-                margin-left: 100px;
+                margin-left: 90px;
                 width: 100%;
                 padding: 0;
             }
