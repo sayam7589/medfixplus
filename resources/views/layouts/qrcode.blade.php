@@ -92,7 +92,6 @@
             }
 
             .qr-card:first-child {
-                page-break-before: auto;
                 page-break-after: auto;
             }
         }
