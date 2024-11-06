@@ -63,7 +63,7 @@
             .info {
                 font-size: 24px;
                 text-align: left;
-                margin-left: 80px;
+                margin-left: 85px;
                 width: 100%;
                 padding: 0;
             }

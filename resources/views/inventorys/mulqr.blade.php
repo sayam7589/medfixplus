@@ -10,7 +10,6 @@
             <div class ="card-title">
                 <h4>Medfix+</h4>
                 <h4>เเจ้งซ่อม, ลงทะเบียนผู้ใช้งาน</h4>
-                <h3>( กรุณา scan qrcode ด่านล่าง )</h3>
             </div>
             <div class="qr-code">
                 {!! $qrcodes[$inventory->id] !!}
