@@ -81,7 +81,6 @@
                 width: 100%;
                 padding: 0;
             }
-
             .qr-card {
                 width: 90%;
                 box-sizing: border-box;
@@ -89,7 +88,7 @@
                 flex-direction: column;
                 text-align: center;
                 page-break-before: always;
-                page-break-inside: avoid; /* Prevents breaking within the card */
+                page-break-after: always;
             }
 
             .qr-card:first-child {
