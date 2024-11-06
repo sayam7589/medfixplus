@@ -21,7 +21,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin: 5mm 0 10mm 0; /* Space around cards */
+            margin: 5mm 0 5mm 0; /* Space around cards */
             page-break-after: always; /* Page break after each card */
         }
 
@@ -33,7 +33,6 @@
         /* Title styling */
         .card-title h4 {
             font-size: 2em;
-            margin: 5px 0;
         }
 
         /* QR code section styling */
