@@ -84,7 +84,7 @@
             .qr-card {
                 width: 90%;
                 box-sizing: border-box;
-                display: flex;
+                display: block;
                 flex-direction: column;
                 text-align: center;
                 page-break-before: always;
@@ -92,7 +92,7 @@
             }
 
             .qr-card:first-child {
-                page-break-after: auto;
+                page-break-before: auto;
             }
         }
     </style>
