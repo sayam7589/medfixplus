@@ -31,7 +31,7 @@
 
         /* QR code section styling */
         .qr-code {
-            width: 100%;
+            width: 80%;
             height: auto;
             margin: 20px 0;
         }
@@ -64,7 +64,7 @@
                 font-size: 30px;
                 text-align: left;
                 margin-left: 100px;
-                width: 50%;
+                width: 100%;
                 padding: 0;
             }
 
