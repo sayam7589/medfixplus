@@ -41,8 +41,7 @@
         /* Information section styling */
         .info {
             font-size: 24px;
-            text-align: left;
-            margin-top: 20px; /* Add margin-top to separate from QR code */
+            text-align: left; 
         }
 
         /* Print-specific styling */
@@ -77,10 +76,9 @@
             }
 
             .info {
-                font-size: 24px;
+                font-size: 30px;
                 text-align: left; /* Align text to the left */
                 width: 100%; /* Ensure the section takes up full width */
-                margin: 30px 0 0 0; /* Add top margin for separation from QR code */
                 padding: 0; /* Optional: Remove padding if it's pushing the content */
             }
 
@@ -91,12 +89,12 @@
                 flex-direction: column;
                 text-align: center;
                 page-break-before: always; /* Force a page break before each QR card */
-                margin-top: 10mm; /* Adjust the top margin for a moderate space from the top of the page */
+              /* Adjust the top margin for a moderate space from the top of the page */
             }
 
             .qr-card:first-child {
                 page-break-before: auto; /* Don't break before the first card */
-                margin-top: 5mm; /* Add space for the first card */
+                Add space for the first card */
             }
         }
     </style>

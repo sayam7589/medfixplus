@@ -13,7 +13,7 @@
                 </div>
                 <div class="qr-code">
                     {!! $qrcode !!}
-                </div><br><br><br>
+                </div><br>
                 <div class="info">
                     <p><strong>MAC-Address:</strong> {{ $inventory->inv_mac_address ?? 'ไม่พบข้อมูล' }}</p>
                     <p><strong>RTAF-Number:</strong> {{ $inventory->inv_rtaf_serial  ?? 'ไม่พบข้อมูล'}}</p>
