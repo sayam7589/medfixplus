@@ -70,7 +70,7 @@
             .card-container {
                 width: 100%;
                 height: 100%;
-                justify-content: flex;
+                justify-content: flex-start;
                 padding: 0;
             }
 
@@ -81,19 +81,16 @@
                 width: 100%;
                 padding: 0;
             }
+
             .qr-card {
                 width: 90%;
                 box-sizing: border-box;
                 display: flex;
                 flex-direction: column;
                 text-align: center;
-                page-break-before: always;
-                page-break-after: always;
-            }
-
-            .qr-card:first-child {
                 page-break-before: auto;
             }
+
         }
     </style>
 </head>
