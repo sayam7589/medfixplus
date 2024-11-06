@@ -27,20 +27,20 @@
 
         /* Title styling */
         .card-title h4 {
-            font-size: 2em;
+            font-size: 2.5em;
             margin: 5px 0;
         }
 
         /* QR code section styling */
         .qr-code {
-            width: 50%;
+            width: 100%;
             height: auto;
             margin: 20px 0;
         }
 
         /* Information section styling */
         .info {
-            font-size: 16px;
+            font-size: 24px;
             text-align: left;
             margin-top: 20px; /* Add margin-top to separate from QR code */
         }
@@ -77,7 +77,7 @@
             }
 
             .info {
-                font-size: 20px;
+                font-size: 24px;
                 text-align: left; /* Align text to the left */
                 width: 100%; /* Ensure the section takes up full width */
                 margin: 30px 0 0 0; /* Add top margin for separation from QR code */

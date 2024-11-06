@@ -124,7 +124,7 @@ class InvController extends Controller
     public function showqr($id)
     {
         $inventory = Inventory::findOrFail($id);
-        $qrcode = QrCode::size(350)
+        $qrcode = QrCode::size(400)
                         ->generate('https://medfix.site/inventory/'.$id);  //edit qrcode here
 
         return view('inventorys.qr', compact('inventory', 'qrcode'));
