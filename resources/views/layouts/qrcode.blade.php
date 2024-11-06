@@ -32,7 +32,7 @@
 
         /* Title styling */
         .card-title h4 {
-            font-size: 2.5em;
+            font-size: 2em;
             margin: 5px 0;
         }
 
