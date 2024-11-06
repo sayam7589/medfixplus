@@ -61,7 +61,7 @@
             }
 
             .info {
-                font-size: 30px;
+                font-size: 24px;
                 text-align: left;
                 margin-left: 100px;
                 width: 100%;
