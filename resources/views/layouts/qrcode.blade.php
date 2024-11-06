@@ -5,7 +5,7 @@
         /* Container for all QR cards */
         .card-container {
             display: flex;
-            flex-direction: column; /* Stack QR cards vertically */
+            flex-direction: column;
             align-items: center;
             height: 100%;
             margin: 0;
@@ -89,6 +89,7 @@
                 flex-direction: column;
                 text-align: center;
                 page-break-before: always;
+                page-break-inside: avoid; /* Prevents breaking within the card */
             }
 
             .qr-card:first-child {
