@@ -5,7 +5,7 @@
         /* Container for all QR cards */
         .card-container {
             display: flex;
-            flex-direction: column; /* Ensure QR cards are stacked vertically */
+            flex-direction: column; /* Stack QR cards vertically */
             align-items: center;
             height: 100%;
             margin: 0;
@@ -15,14 +15,19 @@
 
         /* Individual QR card styling */
         .qr-card {
-            width: 90%; /* Adjust width for better fit */
-            height: auto; /* Added padding for spacing */
+            width: 90%;
+            height: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin-bottom: 10mm; /* Space between cards */
-            margin-top: 5mm; /* Reduce space from the top of the page */
+            margin: 5mm 0 10mm 0; /* Space around cards */
+            page-break-after: always; /* Page break after each card */
+        }
+
+        /* Exclude page break after the last card */
+        .qr-card:last-child {
+            page-break-after: auto;
         }
 
         /* Title styling */
@@ -47,8 +52,8 @@
         /* Print-specific styling */
         @media print {
             @page {
-                size: A4; /* Set to A5 size */
-                margin: 0; /* Remove all margins */
+                size: A4;
+                margin: 0;
             }
 
             html, body {
@@ -56,48 +61,38 @@
                 height: 100%;
                 margin: 0;
                 padding: 0;
-                display:block;
+                display: block;
                 justify-content: center;
                 align-items: flex-start;
                 box-sizing: border-box;
             }
 
-            body {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-            }
-
             .card-container {
                 width: 100%;
                 height: 100%;
-                justify-content: flex-start; /* Align cards to the top */
+                justify-content: flex-start;
                 padding: 0;
             }
 
             .info {
                 font-size: 30px;
-                text-align: left; /* Align text to the left */
+                text-align: left;
                 margin-left: 100px;
-                justify-content: flex-start;
-                align-items:center;
-                width: 100%; /* Ensure the section takes up full width */
-                padding: 0; /* Optional: Remove padding if it's pushing the content */
+                width: 100%;
+                padding: 0;
             }
 
             .qr-card {
-                width: 90%; /* Adjust the width */
+                width: 90%;
                 box-sizing: border-box;
                 display: flex;
                 flex-direction: column;
                 text-align: center;
-                page-break-before: always; /* Force a page break before each QR card */
-              /* Adjust the top margin for a moderate space from the top of the page */
+                page-break-before: always;
             }
 
             .qr-card:first-child {
-                page-break-before: auto; /* Don't break before the first card */
-                Add space for the first card */
+                page-break-before: auto;
             }
         }
     </style>
