@@ -70,7 +70,7 @@
             .card-container {
                 width: 100%;
                 height: 100%;
-                justify-content: flex-start;
+                justify-content: flex;
                 padding: 0;
             }
 
@@ -84,7 +84,7 @@
             .qr-card {
                 width: 90%;
                 box-sizing: border-box;
-                display: block;
+                display: flex;
                 flex-direction: column;
                 text-align: center;
                 page-break-before: always;
