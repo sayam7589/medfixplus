@@ -3,72 +3,66 @@
 <head>
     <style>
         /* Individual QR card styling */
+        <style>
+    /* Center the content */
+    .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .card-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .qr-card {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ddd;
+        padding: 1rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Header styling */
+    .card-title h4 {
+        font-size: 1.8em; /* Adjust for H3 equivalent */
+        margin: 0.2em 0;
+    }
+
+    /* QR code size */
+    .qr-code {
+        width: 70%;
+        margin: 1em auto;
+    }
+
+    /* Info section styling */
+    .info {
+        font-size: 26px;
+        line-height: 1.4;
+    }
+
+    /* Additional print-specific settings */
+    @media print {
+        body {
+            margin: 0;
+            padding: 0;
+        }
         .qr-card {
-            width: 90%;
-            height: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            page-break-before: always; /* Page break after each card */
-            page-break-after: always; /* Page break after each card */
+            border: none;
+            box-shadow: none;
         }
+    }
+</style>
 
-        /* Title styling */
-        .card-title h4 {
-            font-size: 1.5em;
-        }
-
-        /* QR code section styling */
-        .qr-code {
-            width: 80%;
-            height: auto;
-            margin: 20px 0;
-        }
-
-        /* Information section styling */
-        .info {
-            font-size: 28px;
-            text-align: left; 
-        }
-
-        /* Print-specific styling */
-        @media print {
-            @page {
-                size: A4;
-                margin: 0;
-            }
-
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-                display: block;
-                justify-content: center;
-                align-items: flex-start;
-                box-sizing: border-box;
-            }
-
-            .info {
-                font-size: 28px;
-                text-align: left;
-                margin-left: 80px;
-                width: 100%;
-                padding: 0;
-            }
-
-            .qr-card {
-                width: 90%;
-                box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-                text-align: center;
-                page-break-before: always; /* Page break after each card */
-                page-break-after: always; /* Page break after each card */
-            }
-
-        }
     </style>
 </head>
 <body>
