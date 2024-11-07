@@ -34,7 +34,7 @@
 
     /* Header styling */
     .card-title h4 {
-        font-size: 1.8em; /* Adjust for H3 equivalent */
+        font-size: 2.5em; /* Adjust for H3 equivalent */
         margin: 0.2em 0;
     }
 
@@ -46,7 +46,7 @@
 
     /* Info section styling */
     .info {
-        font-size: 26px;
+        font-size: 32px;
         line-height: 1.4;
     }
 
