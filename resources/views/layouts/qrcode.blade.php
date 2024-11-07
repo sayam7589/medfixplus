@@ -47,7 +47,7 @@
     /* Info section styling */
     .info {
         font-size: 30px;
-        line-height: 1.4;
+        line-height: 1;
     }
 
     /* Additional print-specific settings */
