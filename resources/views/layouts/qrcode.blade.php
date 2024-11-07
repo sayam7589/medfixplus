@@ -46,7 +46,7 @@
 
     /* Info section styling */
     .info {
-        font-size: 32px;
+        font-size: 30px;
         line-height: 1.4;
     }
 
