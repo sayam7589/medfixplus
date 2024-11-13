@@ -442,9 +442,9 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <label for="department2" class="form-label">หน่วย/สังกัด</label>
-                                                            <input type="text" class="form-control" id="department2" name="rec_address"  placeholder="พิมพ์ชื่อหน่วยของท่าน" autocomplete="off">
+                                                            <input type="text" class="form-control" id="department2" name="rec_address" value=" " placeholder="พิมพ์ชื่อหน่วยของท่าน" autocomplete="off">
                                                             <div id="departmentList2"></div>
-                                                            <input type="hidden" id="department_id2" name="rec_organize"  required>
+                                                            <input type="hidden" id="department_id2" value="1" name="rec_organize"  required>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -80,6 +80,7 @@ class DepartmentController extends Controller
 
         $department = Department::findOrFail($id);
         $department->update([
+            'grom' => 'พอ.',
             'gong' => $request->gong,
             'panag' => $request->panag,
         ]);
