@@ -50,7 +50,7 @@
                                         
                                                 <!-- Select dropdown for predefined gong options -->
                                                 <select id="gong_select" name="gong" class="form-control" onchange="checkInputType()">
-                                                    <option value="" disabled selected>เลือกจากรายการ</option>
+                                                    <option disabled>เลือกจากรายการ</option>
                                                     @foreach($gongs as $gong)
                                                         <option value="{{ $gong->gong }}">{{ $gong->gong }}</option>
                                                     @endforeach
@@ -58,7 +58,7 @@
                                                 </select>
                                         
                                                 <!-- Input field for custom value -->
-                                                <input type="text" id="gong_input" name="gong" class="form-control" placeholder="โปรดระบุชื่อกอง" oninput="checkInputType()" style="display:none;">
+                                                <input type="text" id="gong_input" class="form-control" name='gong' placeholder="โปรดระบุชื่อกอง" oninput="checkInputType()" style="display:none;">
                                         
                                             </div>
                                         </div>
@@ -219,10 +219,12 @@
         // If user selects an option from the dropdown, show the input as hidden
         if (selectField.value) {
             inputField.style.display = 'none';
+            inputField.disabled = true;
             selectField.disabled = false;
         } 
         if (selectField.value == "0"){
             inputField.style.display = 'block'; // Show input if no selection
+            inputField.disabled = false;
         }
     }
 

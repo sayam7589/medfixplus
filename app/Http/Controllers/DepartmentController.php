@@ -47,12 +47,12 @@ class DepartmentController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->brand);
+        dd($request);
         $request->validate([
             'gong' => 'required|string',
             'panag' => 'nullable|string',
         ]);
-    
+        
         $department = Department::create([
             'grom' => 'พอ.',
             'gong' => $request->gong,

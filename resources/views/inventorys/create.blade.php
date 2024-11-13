@@ -597,9 +597,7 @@ function clearFields() {
                 var departmentText = $(this).text();
 
                 // ใส่ชื่อหน่วยงานที่เลือกในช่อง input
-                if(departmentId == 'null'){
-                    departmentId = 1;
-                }
+
                 
                 $(inputSelector).val(departmentText);
 
