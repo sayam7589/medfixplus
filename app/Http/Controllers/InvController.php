@@ -82,7 +82,7 @@ class InvController extends Controller
             'rec_organize' => 'nullable|string|max:255',
             'rec_address' => 'nullable|string|max:255',
         ]);
-        dd($validate);
+
         $request->session()->put('formData', $validate);
 
         $check = Inventory::create($request->all());
