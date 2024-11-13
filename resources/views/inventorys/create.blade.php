@@ -418,13 +418,15 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_personal_tel">เบอร์โทรติดต่อ</label>
-                                                                <input type="text" name="rec_personal_tel" class="form-control" id="rec_personal_tel" placeholder="เบอร์โทรติดต่อ">
+                                                                <input type="text" name="rec_personal_tel" class="form-control" id="rec_personal_tel" 
+                                                                       placeholder="เบอร์โทรติดต่อ" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="rec_org_tel">เบอ์โทรหน่วย</label>
-                                                                <input type="text" name="rec_org_tel" class="form-control" id="rec_org_tel" placeholder="เบอ์โทรหน่วย">
+                                                                <label for="rec_org_tel">เบอร์โทรหน่วย</label>
+                                                                <input type="text" name="rec_org_tel" class="form-control" id="rec_org_tel" 
+                                                                       placeholder="เบอร์โทรหน่วย" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -435,7 +437,7 @@
                                                             <label for="department2" class="form-label">หน่วย/สังกัด</label>
                                                             <input type="text" class="form-control" id="department2" name="rec_address"  placeholder="พิมพ์ชื่อหน่วยของท่าน" autocomplete="off">
                                                             <div id="departmentList2"></div>
-                                                            <input type="hidden" id="department_id2" name="rec_organize"  required>
+                                                            <input type="hidden" id="department_id2" name="rec_organize" value="1" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -549,6 +551,18 @@ function clearFields() {
 
 </script>
 
+<script>
+    function isNumberKey(evt) {
+        var charCode = evt.which ? evt.which : evt.keyCode;
+        // Allow only numbers (0-9)
+        if (charCode < 48 || charCode > 57) {
+            evt.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         function setupAutocomplete(inputSelector, listSelector, hiddenInputSelector) {
@@ -556,7 +570,7 @@ function clearFields() {
                 var query = $(this).val();
                 if (query != '') {
                     $.ajax({
-                        url: '//medfix.site/departments/search',
+                        url: '//127.0.0.1:8000/departments/search',
                         method: "GET",
                         data: { query: query },
                         success: function(data) {
@@ -579,10 +593,14 @@ function clearFields() {
             });
 
             $(document).on('click', listSelector + ' li', function() {
-                var departmentId = $(this).data('id');
+                var departmentId = $(this).data('id')|| 1;
                 var departmentText = $(this).text();
 
                 // ใส่ชื่อหน่วยงานที่เลือกในช่อง input
+                if(departmentId == 'null'){
+                    departmentId = 1;
+                }
+                
                 $(inputSelector).val(departmentText);
 
                 // เก็บค่า department_id ใน hidden input
@@ -593,7 +611,7 @@ function clearFields() {
         }
 
         // เรียกใช้ฟังก์ชันสำหรับ input แต่ละช่อง
-        setupAutocomplete('#department1', '#departmentList1', '#department_id1');
+        //setupAutocomplete('#department1', '#departmentList1', '#department_id1');
         setupAutocomplete('#department2', '#departmentList2', '#department_id2');
     });
 </script>

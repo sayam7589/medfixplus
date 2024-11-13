@@ -47,18 +47,22 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="gong">กอง</label>
-                        
-                                                <!-- Input field with Datalist -->
-                                                <input list="gong_options" id="gong" name="gong" class="form-control" placeholder="ระบุชื่อกอง">
-                                                
-                                                <!-- Datalist for predefined gong options -->
-                                                <datalist id="gong_options">
+                                        
+                                                <!-- Select dropdown for predefined gong options -->
+                                                <select id="gong_select" name="gong" class="form-control" onchange="checkInputType()">
+                                                    <option value="" disabled selected>เลือกจากรายการ</option>
                                                     @foreach($gongs as $gong)
-                                                        <option value="{{ $gong->gong }}">
+                                                        <option value="{{ $gong->gong }}">{{ $gong->gong }}</option>
                                                     @endforeach
-                                                </datalist>
+                                                    <option value="0">อื่นๆ</option>
+                                                </select>
+                                        
+                                                <!-- Input field for custom value -->
+                                                <input type="text" id="gong_input" name="gong" class="form-control" placeholder="หรือระบุชื่อกอง" oninput="checkInputType()" style="display:none;">
+                                        
                                             </div>
-                                        </div>                        
+                                        </div>
+                                                           
                         
                                         <!-- Panag Input and Submit Button -->
                                         <div class="col-md-6">
@@ -204,8 +208,26 @@
                 "responsive": true,
             });
         });
-    </script>
+</script>
 
+
+<script>
+    function checkInputType() {
+        var selectField = document.getElementById('gong_select');
+        var inputField = document.getElementById('gong_input');
+
+        // If user selects an option from the dropdown, show the input as hidden
+        if (selectField.value) {
+            inputField.style.display = 'none';
+            selectField.disabled = false;
+        } 
+        if (selectField.value == "0"){
+            inputField.style.display = 'block'; // Show input if no selection
+        }
+    }
+
+    // Initialize the form with input visible and select disabled
+    window.onload = checkInputType;
 </script>
 
 

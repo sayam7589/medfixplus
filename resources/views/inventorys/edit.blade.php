@@ -425,13 +425,15 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_personal_tel">เบอร์โทรติดต่อ</label>
-                                                                <input type="text" name="rec_personal_tel" class="form-control" id="rec_personal_tel"   value="{{ $inventory->rec_personal_tel }}"  placeholder="เบอร์โทรติดต่อ">
+                                                                <input type="text" name="rec_personal_tel" class="form-control" id="rec_personal_tel" 
+                                                                       placeholder="เบอร์โทรติดต่อ" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="rec_org_tel">เบอ์โทรหน่วย</label>
-                                                                <input type="text" name="rec_org_tel" class="form-control" id="rec_org_tel"  value="{{ $inventory->rec_org_tel }}"   placeholder="เบอ์โทรหน่วย">
+                                                                <label for="rec_org_tel">เบอร์โทรหน่วย</label>
+                                                                <input type="text" name="rec_org_tel" class="form-control" id="rec_org_tel" 
+                                                                       placeholder="เบอร์โทรหน่วย" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -519,7 +521,17 @@
         setupAutocomplete('#department2', '#departmentList2', '#department_id2');
     });
 </script>
-
+<script>
+    function isNumberKey(evt) {
+        var charCode = evt.which ? evt.which : evt.keyCode;
+        // Allow only numbers (0-9)
+        if (charCode < 48 || charCode > 57) {
+            evt.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>
 
 @endsection
 

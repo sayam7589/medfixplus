@@ -48,7 +48,6 @@ class InvController extends Controller
     public function store(Request $request)
     {
 
-
         $validate = $request->validate([
             'project_id' => 'required|integer',
             'inv_type' => 'required|integer',
@@ -83,7 +82,7 @@ class InvController extends Controller
             'rec_organize' => 'nullable|string|max:255',
             'rec_address' => 'nullable|string|max:255',
         ]);
-
+        dd($validate);
         $request->session()->put('formData', $validate);
 
         $check = Inventory::create($request->all());
@@ -229,7 +228,7 @@ class InvController extends Controller
             'rec_organize' => 'nullable|string|max:255',
             'rec_address' => 'nullable|string|max:255',
         ]);
-
+        
         $check = $inventory->update($request->all());
 
         if($check){

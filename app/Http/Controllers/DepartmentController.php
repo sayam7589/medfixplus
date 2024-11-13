@@ -52,12 +52,13 @@ class DepartmentController extends Controller
             'gong' => 'required|string',
             'panag' => 'nullable|string',
         ]);
-
+    
         $department = Department::create([
+            'grom' => 'พอ.',
             'gong' => $request->gong,
             'panag' => $request->panag,
         ]);
-        
+
         toast('บันทึกข้อมูล เสร็จสิ้น!','success');
         return redirect()->route('department.create');
     }

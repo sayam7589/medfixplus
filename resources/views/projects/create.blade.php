@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="project_company_contact">เบอร์โทรติดต่อ</label>
-                                            <input type="text" name="project_company_contact" class="form-control" id="project_company_contact" placeholder="" required>
+                                            <input type="text" name="project_company_contact" class="form-control" id="project_company_contact"  placeholder="เบอร์โทรหน่วย" onkeypress="return isNumberKey(event)" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="project_file">อัปโหลดไฟล์</label>
@@ -93,4 +93,16 @@
 @endsection
 
 @section('scripts')
+<script>
+    function isNumberKey(evt) {
+        var charCode = evt.which ? evt.which : evt.keyCode;
+        // Allow only numbers (0-9)
+        if (charCode < 48 || charCode > 57) {
+            evt.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>
+
 @endsection
