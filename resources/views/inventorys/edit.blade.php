@@ -425,14 +425,14 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_personal_tel">เบอร์โทรติดต่อ</label>
-                                                                <input type="text" name="rec_personal_tel" class="form-control" id="rec_personal_tel" 
+                                                                <input type="text" name="rec_personal_tel" value="{{ $inventory->rec_personal_tel }}" class="form-control" id="rec_personal_tel" 
                                                                        placeholder="เบอร์โทรติดต่อ" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_org_tel">เบอร์โทรหน่วย</label>
-                                                                <input type="text" name="rec_org_tel" class="form-control" id="rec_org_tel" 
+                                                                <input type="text" name="rec_org_tel" class="form-control"  value="{{ $inventory->rec_org_tel }}" id="rec_org_tel" 
                                                                        placeholder="เบอร์โทรหน่วย" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
@@ -442,7 +442,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <label for="department2" class="form-label">หน่วย/สังกัด</label>
-                                                            <input type="text" class="form-control" id="department2" name="rec_address" value=" " placeholder="พิมพ์ชื่อหน่วยของท่าน" autocomplete="off">
+                                                            <input type="text" class="form-control" id="department2" name="rec_address" value="{{ $inventory->rec_address }}" placeholder="พิมพ์ชื่อหน่วยของท่าน" autocomplete="off">
                                                             <div id="departmentList2"></div>
                                                             <input type="hidden" id="department_id2" value="1" name="rec_organize"  required>
                                                         </div>
