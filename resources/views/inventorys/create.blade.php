@@ -556,7 +556,7 @@ function clearFields() {
                 var query = $(this).val();
                 if (query != '') {
                     $.ajax({
-                        url: 'https://medfix.site/departments/search',
+                        url: '//medfix.site/departments/search',
                         method: "GET",
                         data: { query: query },
                         success: function(data) {

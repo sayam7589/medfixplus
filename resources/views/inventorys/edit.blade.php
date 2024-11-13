@@ -439,16 +439,10 @@
 
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="rec_organize">หน่วยงาน</label>
-                                                                <input type="text" name="rec_organize" class="form-control" id="rec_organize"   value="{{ $inventory->department->gong }}"  placeholder="หน่วยงาน">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="rec_address">สังกัด</label>
-                                                                <input type="text" name="rec_address" class="form-control" id="rec_address"   value="{{ $inventory->rec_address }}"  placeholder="สังกัด">
-                                                            </div>
+                                                            <label for="department2" class="form-label">หน่วย/สังกัด</label>
+                                                            <input type="text" class="form-control" id="department2" name="rec_address"  placeholder="พิมพ์ชื่อหน่วยของท่าน" autocomplete="off">
+                                                            <div id="departmentList2"></div>
+                                                            <input type="hidden" id="department_id2" name="rec_organize"  required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -477,6 +471,55 @@
 @endsection
 
 @section('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+        function setupAutocomplete(inputSelector, listSelector, hiddenInputSelector) {
+            $(inputSelector).on('keyup', function() {
+                var query = $(this).val();
+                if (query != '') {
+                    $.ajax({
+                        url: '//medfix.site/departments/search',
+                        method: "GET",
+                        data: { query: query },
+                        success: function(data) {
+                            $(listSelector).fadeIn();
+                            var html = '<ul class="dropdown-menu" style="display:block; position:relative">';
+                            $.each(data, function(index, department) {
+                                var displayText = department.gong ? department.gong : '';
+                                displayText += department.panag ? ' -> ' + department.panag : '';
+                                displayText += department.fay ? ' -> ' + department.fay : '';
+
+                                html += '<li data-id="' + department.id + '">' + displayText + '</li>';
+                            });
+                            html += '</ul>';
+                            $(listSelector).html(html);
+                        }
+                    });
+                } else {
+                    $(listSelector).fadeOut();
+                }
+            });
+
+            $(document).on('click', listSelector + ' li', function() {
+                var departmentId = $(this).data('id');
+                var departmentText = $(this).text();
+
+                // ใส่ชื่อหน่วยงานที่เลือกในช่อง input
+                $(inputSelector).val(departmentText);
+
+                // เก็บค่า department_id ใน hidden input
+                $(hiddenInputSelector).val(departmentId);
+
+                $(listSelector).fadeOut();
+            });
+        }
+
+        // เรียกใช้ฟังก์ชันสำหรับ input แต่ละช่อง
+        setupAutocomplete('#department1', '#departmentList1', '#department_id1');
+        setupAutocomplete('#department2', '#departmentList2', '#department_id2');
+    });
+</script>
+
 
 @endsection
 
