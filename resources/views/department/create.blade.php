@@ -58,7 +58,7 @@
                                                 </select>
                                         
                                                 <!-- Input field for custom value -->
-                                                <input type="text" id="gong_input" name="gong" class="form-control" placeholder="หรือระบุชื่อกอง" oninput="checkInputType()" style="display:none;">
+                                                <input type="text" id="gong_input" name="gong" class="form-control" placeholder="โปรดระบุชื่อกอง" oninput="checkInputType()" style="display:none;">
                                         
                                             </div>
                                         </div>
