@@ -228,6 +228,7 @@ class InvController extends Controller
             'rec_organize' => 'nullable|string|max:255',
             'rec_address' => 'nullable|string|max:255',
         ]);
+        dd( $request);
         
         $check = $inventory->update($request->all());
 
