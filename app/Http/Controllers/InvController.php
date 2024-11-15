@@ -106,7 +106,10 @@ class InvController extends Controller
     public function edit(Inventory $inventory)
     {
         $project = Project::all();
-        return view('inventorys.edit', compact('inventory','project'));
+        $types = Inventory_type::all();
+        $brands = Inventory_brand::all();
+
+        return view('inventorys.edit', compact('inventory','project','types', 'brands'));
 
 
     }
@@ -228,8 +231,6 @@ class InvController extends Controller
             'rec_organize' => 'nullable|string|max:255',
             'rec_address' => 'nullable|string|max:255',
         ]);
-   
-        
         $check = $inventory->update($request->all());
 
         if($check){

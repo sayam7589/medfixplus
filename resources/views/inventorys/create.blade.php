@@ -509,7 +509,7 @@ function clearFields() {
             // Get the selected value of the inv_type field
             var selectedValue = $('#inv_type').val();
             // Check if the selected value is '2' or '3'
-            if (selectedValue === "2" || selectedValue === "3") {
+            if (selectedValue > 2) {
                 $('#inv_ram').prop('disabled', true);
                 $('#inv_mac_address').prop('disabled', true);
                 $('#inv_ram_speed').prop('disabled', true);

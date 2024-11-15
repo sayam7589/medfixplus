@@ -70,9 +70,11 @@
                                                 <label for="inv_type">ประเภท</label>
                                                 <select name="inv_type" class="form-control" id="inv_type" required>
                                                     <option value="">เลือกประเภท</option>
-                                                    <option value="1" {{ $inventory->inv_type == '1' ? 'selected' : '' }}>PC</option>
-                                                    <option value="2" {{ $inventory->inv_type == '2' ? 'selected' : '' }}>Monitor</option>
-                                                    <option value="3" {{ $inventory->inv_type == '3' ? 'selected' : '' }}>Printer</option>
+                                                    @foreach($types as $type)
+                                                    <option value="{{ $type->id }}" {{ $inventory->inv_type == $type->id ? 'selected' : '' }}>
+                                                        {{ $type->type_name }}
+                                                    </option>
+                                                    @endforeach
                                                  </select>
                                             </div>
                                         </div>
@@ -84,13 +86,11 @@
                                                 <label for="inv_brand">ยี่ห้อ</label>
                                                 <select name="inv_brand" class="form-control" id="inv_brand" required>
                                                     <option value="">เลือกยี่ห้อ</option>
-                                                    <option value="1" {{ $inventory->inv_brand == '1' ? 'selected' : '' }}>ACER</option>
-                                                    <option value="2" {{ $inventory->inv_brand == '2' ? 'selected' : '' }}>HP</option>
-                                                    <option value="3" {{ $inventory->inv_brand == '3' ? 'selected' : '' }}>Lenovo</option>
-                                                    <option value="4" {{ $inventory->inv_brand == '4' ? 'selected' : '' }}>DELL</option>
-                                                    <option value="1" {{ $inventory->inv_brand == '5' ? 'selected' : '' }}>ASUS</option>
-                                                    <option value="2" {{ $inventory->inv_brand == '6' ? 'selected' : '' }}>EXPERT</option>
-                                                    <option value="3" {{ $inventory->inv_brand == '7' ? 'selected' : '' }}>อื่นๆ</option>
+                                                    @foreach($brands as $brand)
+                                                    <option value="{{ $brand->id }}" {{ $inventory->inv_brand == $brand->id ? 'selected' : '' }}>
+                                                        {{ $brand->brand_name }}
+                                                    </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -532,6 +532,53 @@
         }
         return true;
     }
+</script>
+<script>
+$(document).ready(function() {
+    // Function to update the disabled state of the inv_author field
+    function updateAuthorField() {
+        // Get the selected value of the inv_type field
+        var selectedValue = $('#inv_type').val();
+        // Check if the selected value is '2' or '3'
+        if (selectedValue > 2) {
+            $('#inv_ram').prop('disabled', true);
+            $('#inv_mac_address').prop('disabled', true);
+            $('#inv_ram_speed').prop('disabled', true);
+            $('#inv_storage_type').prop('disabled', true);
+            $('#inv_storage_size').prop('disabled', true);
+            $('#inv_cpu').prop('disabled', true);
+            $('#inv_cpu_clock').prop('disabled', true);
+            $('#inv_os_type').prop('disabled', true);
+            $('#inv_os_version').prop('disabled', true);
+            $('#inv_os_copyright').prop('disabled', true);
+            $('#inv_msoffice_version').prop('disabled', true);
+            $('#inv_msoffice_copyright').prop('disabled', true);
+            $('#inv_antivirus').prop('disabled', true);
+            $('#inv_antivirus_copyright').prop('disabled', true);
+        } else {
+            $('#inv_ram').prop('disabled', false);
+            $('#inv_mac_address').prop('disabled', false);
+            $('#inv_ram_speed').prop('disabled', false);
+            $('#inv_storage_type').prop('disabled', false);
+            $('#inv_storage_size').prop('disabled', false);
+            $('#inv_cpu').prop('disabled', false);
+            $('#inv_cpu_clock').prop('disabled', false);
+            $('#inv_os_type').prop('disabled', false);
+            $('#inv_os_version').prop('disabled', false);
+            $('#inv_os_copyright').prop('disabled', false);
+            $('#inv_msoffice_version').prop('disabled', false);
+            $('#inv_msoffice_copyright').prop('disabled', false);
+            $('#inv_antivirus').prop('disabled', false);
+            $('#inv_antivirus_copyright').prop('disabled', false);
+        }
+    }
+
+    // Add an event listener to the inv_type select field
+    $('#inv_type').change(updateAuthorField);
+
+    // Call the function initially to set the correct state based on the default value
+    updateAuthorField();
+});
 </script>
 
 @endsection
