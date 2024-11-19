@@ -102,7 +102,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="inv_detail">รายละเอียดเพิ่มเติม</label>
-                                                <textarea name="inv_detail" class="form-control" id="inv_detail" placeholder="รายละเอียด" required>{{ isset($formData['inv_detail']) ? $formData['inv_detail'] : '' }}</textarea>
+                                                <textarea name="inv_detail" class="form-control" id="inv_detail" placeholder="รายละเอียด" >{{ isset($formData['inv_detail']) ? $formData['inv_detail'] : '' }}</textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -322,7 +322,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="inv_setup_year">วันที่ติดตั้ง</label>
-                                                <input type="date" name="inv_setup_year" class="form-control" id="inv_setup_year" placeholder="ปีที่ติดตั้ง" value="{{ isset($formData['inv_setup_year']) ? $formData['inv_setup_year'] : '' }}" required>
+                                                <input type="date" name="inv_setup_year" class="form-control" id="inv_setup_year" placeholder="ปีที่ติดตั้ง" value="{{ isset($formData['inv_setup_year']) ? $formData['inv_setup_year'] : '' }}" >
                                         
                                             </div>
                                         </div>    
