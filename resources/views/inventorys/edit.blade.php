@@ -398,8 +398,8 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="rec_prefix">คำนำหน้า</label>
-                                                                <input type="text" name="rec_prefix" class="form-control" id="rec_prefix"  value="{{ $inventory->rec_prefix }}"  placeholder="คำนำหน้า">
+                                                                <label for="rec_prefix">คำนำหน้า(คำย่อ)</label>
+                                                                <input type="text" name="rec_prefix" class="form-control" id="rec_prefix"  value="{{ $inventory->prefix }}"  placeholder="คำนำหน้า">
                                                             </div>
                                                         </div>
                                                     </div>
