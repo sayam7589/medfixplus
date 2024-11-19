@@ -123,7 +123,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="inv_mac_address">MAC Address</label>
-                                                <input type="text" name="inv_mac_address" class="form-control" id="inv_mac_address" placeholder="MAC Address" required value="{{ isset($formData['inv_mac_address']) ? $formData['inv_mac_address'] : '' }}">
+                                                <input type="text" name="inv_mac_address" class="form-control" id="inv_mac_address" placeholder="MAC Address"  value="{{ isset($formData['inv_mac_address']) ? $formData['inv_mac_address'] : '' }}">
                                             </div>
                                         </div>
                                     </div>
