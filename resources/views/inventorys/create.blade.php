@@ -392,7 +392,13 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_prefix">คำนำหน้า</label>
-                                                                <input type="text" name="rec_prefix" class="form-control" id="rec_prefix" placeholder="คำนำหน้า">
+                                                                <select name="rec_prefix" class="form-control" id="rec_prefix">
+                                                                    <option value="" >-- เลือกคำนำหน้า --</option>
+                                                                    @foreach($prefixs as $prefix)
+                                                                    <option value="{{ $prefix->id }}" {{ isset($formData['rec_prefix']) && $formData['rec_prefix'] == $prefix->id ? 'selected' : '' }}>
+                                                                        {{ $prefix->prefix_short }}
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>

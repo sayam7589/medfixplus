@@ -39,9 +39,10 @@ class InvController extends Controller
         $inventory = Project::all();
         $types = Inventory_type::all();
         $brands = Inventory_brand::all();
+        $prefixs = Prefix::all();
         $formData = $request->session()->get('formData', []);
 
-        return view('inventorys.create', compact('inventory', 'types', 'brands', 'formData'));
+        return view('inventorys.create', compact('inventory', 'types', 'brands', 'formData','prefixs'));
 
     }
 
@@ -108,8 +109,9 @@ class InvController extends Controller
         $project = Project::all();
         $types = Inventory_type::all();
         $brands = Inventory_brand::all();
+        $prefixs = Prefix::all();
 
-        return view('inventorys.edit', compact('inventory','project','types', 'brands'));
+        return view('inventorys.edit', compact('inventory','project','types', 'brands','prefixs'));
 
 
     }

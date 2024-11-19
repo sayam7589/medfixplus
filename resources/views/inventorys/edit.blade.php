@@ -398,8 +398,15 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="rec_prefix">คำนำหน้า(คำย่อ)</label>
-                                                                <input type="text" name="rec_prefix" class="form-control" id="rec_prefix"  value="{{ $inventory->rec_prefix}}" placeholder="คำนำหน้า">
+                                                                <label for="rec_prefix">คำนำหน้า</label>
+                                                                <select name="inv_brand" class="form-control" id="inv_brand" required>
+                                                                    <option value="">เลือกคำนำหน้า</option>
+                                                                    @foreach($prefixs as $prefix)
+                                                                    <option value="{{ $prefix->id }}" {{ $inventory->rec_prefix == $prefix->id ? 'selected' : '' }}>
+                                                                    {{ $prefix->prefix_short }}
+                                                                    </option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
