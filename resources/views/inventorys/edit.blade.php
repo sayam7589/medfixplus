@@ -399,7 +399,7 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_prefix">คำนำหน้า</label>
-                                                                <select name="inv_brand" class="form-control" id="inv_brand" required>
+                                                                <select name="rec_prefix" class="form-control" id="rec_prefix" >
                                                                     <option value="">เลือกคำนำหน้า</option>
                                                                     @foreach($prefixs as $prefix)
                                                                     <option value="{{ $prefix->id }}" {{ $inventory->rec_prefix == $prefix->id ? 'selected' : '' }}>
