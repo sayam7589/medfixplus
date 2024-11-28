@@ -29,7 +29,7 @@ class InventoryBrandController extends Controller
             'brand_name' => $request->brand,
         ]);
         toast('บันทึกข้อมูล เสร็จสิ้น!','success');
-        return redirect()->route('inventory_brands.create/');
+        return redirect()->route('inventory_brands.create');
     }
 
     /**
