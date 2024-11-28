@@ -47,7 +47,7 @@ class DepartmentController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+        
         $request->validate([
             'gong' => 'required|string',
             'panag' => 'nullable|string',
