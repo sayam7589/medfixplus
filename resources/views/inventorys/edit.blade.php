@@ -277,6 +277,7 @@
                                                     <option value="MS-Office 2013-2019" {{ $inventory->inv_msoffice_version == 'MS-Office 2013-2019' ? 'selected' : '' }}>MS-Office 2013-2019</option>
                                                     <option value="MS-Office 2016" {{ $inventory->inv_msoffice_version == 'MS-Office 2016' ? 'selected' : '' }}>MS-Office 2016</option>
                                                     <option value="MS-Office 2019" {{ $inventory->inv_msoffice_version == 'MS-Office 2019' ? 'selected' : '' }}>MS-Office 2019</option>
+                                                    <option value="MS-Office 2021" {{ $inventory->inv_msoffice_version == 'MS-Office 2021' ? 'selected' : '' }}>MS-Office 2021</option>
                                                     <option value="MS-Office 365" {{ $inventory->inv_msoffice_version == 'MS-Office 365' ? 'selected' : '' }}>MS-Office 365</option>
                                                 </select>
                                             </div>
