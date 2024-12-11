@@ -7,15 +7,14 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-light d-flex justify-content-center align-items-center vh-100">
-    <div class="container text-center">
-        <!-- Responsive Image -->
-        <p class="mt-3 text-muted">คู่มือการใช้งานระบบเเจ้งซ่อม</p>
-        <img src="/img/p1_0.jpg" alt="Responsive Example" class="img-fluid rounded shadow">
-        <img src="/img/p2_0.jpg" alt="Responsive Example" class="img-fluid rounded shadow">
-        <img src="/img/p3_0.jpg" alt="Responsive Example" class="img-fluid rounded shadow">
-        <img src="/img/p4_0.jpg" alt="Responsive Example" class="img-fluid rounded shadow">
-        <img src="/img/p5_0.jpg" alt="Responsive Example" class="img-fluid rounded shadow">
+<body class="bg-light d-flex justify-content-center align-items-center">
+    <div class="container text-center ">
+        <!-- Responsive Images with Margin and Smaller Size -->
+        <img src="{{ asset('img/p1_0.jpg') }}" alt="Responsive Example" class="img-fluid w-75 rounded shadow mb-3"><br>
+        <img src="{{ asset('img/p2_0.jpg') }}" alt="Responsive Example" class="img-fluid w-75 rounded shadow mb-3"><br>
+        <img src="{{ asset('img/p3_0.jpg') }}" alt="Responsive Example" class="img-fluid w-75 rounded shadow mb-3"><br>
+        <img src="{{ asset('img/p4_0.jpg') }}" alt="Responsive Example" class="img-fluid w-75 rounded shadow mb-3"><br>
+        <img src="{{ asset('img/p5_0.jpg') }}" alt="Responsive Example" class="img-fluid w-75 rounded shadow mb-3"><br>
     </div>
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
