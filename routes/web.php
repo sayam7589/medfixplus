@@ -16,6 +16,7 @@ Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/departments/search', [DepartmentController::class, 'search'])->name('departments.search');
+Route::get('/tutorial', function () { return view('tutorial');});
 ///////////////////// login
 //Route::get('/register', [ViewController::class, 'showRegister'])->name('register');
 //Route::post('/register', [AuthController::class, 'register']);
