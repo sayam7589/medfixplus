@@ -86,17 +86,23 @@ class InvController extends Controller
 
         $request->session()->put('formData', $validate);
 
-        $check = Inventory::create($request->all());
+          // Database operation
+        try {
+            $check = Inventory::create($validate);
 
-        if($check){
-            toast('เพิ่มโครงการสำเร็จเเล้วนะจ๊ะ', 'success');
-            return redirect()->route('inventorys.create');
-        } else {
-            toast('เกิดข้อผิดพลาด', 'error');
-            return redirect()->route('inventorys.create');
+            if ($check) {
+                toast('เพิ่มโครงการสำเร็จเเล้วนะจ๊ะ', 'success');
+                return redirect()->route('inventorys.create');
+            }
+        } catch (\Exception $e) {
+        // Log error for debugging
+        \Log::error('Inventory creation failed: ' . $e->getMessage());
+
+        // Show error message
+        toast('เกิดข้อผิดพลาด: ' . $e->getMessage(), 'error');
+        return redirect()->route('inventorys.create')->withInput();
         }
     }
-
     /**
      * Show the form for editing the specified project.
      *
