@@ -63,7 +63,7 @@
                                 <th>เลข macaddress</th>
                                 <th>เลขครุภัณฑ์</th>
                                 <th>หน่วยผู้ใช้</th>
-                                <th>เเผนกผู้ใช้</th>
+                                <th>สถานะการใช้งาน</th>
                                 <th>รหัสโครงการ</th>
                                 <th>ประเภท</th>
                                 <th>ยี่ห้อ</th>
@@ -82,7 +82,7 @@
                                 <th>ลิขสิทธิ์ MS Office</th>
                                 <th>โปรแกรมป้องกันไวรัส</th>
                                 <th>ลิขสิทธิ์โปรแกรมป้องกันไวรัส</th>
-                                <th>สถานะการใช้งาน</th>
+                                <th>เเผนกผู้ใช้</th>
                                 <th>ความเร็ว CPU(GHz)</th>
                                 <th>คำนำหน้า</th>
                                 <th>ชื่อ</th>
@@ -102,7 +102,7 @@
                                     <td>{{ $invs->inv_mac_address }}</td>
                                     <td>{{ $invs->inv_rtaf_serial }}</td>
                                     <td>{{ $invs->department->gong }}</td>
-                                    <td>{{ $invs->department->panag }}</td>
+                                    <td>{{ $invs->inv_status == 1 ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</td>       
                                     <td>{{ $invs->inv_setup_year == '0000-00-00' ? 'ไม่ระบุข้อมูล' : $invs->inv_setup_year}}</td>
                                     <td>{{ $invs->project->project_name }}</td>
                                     <td>{{ $invs->brand->brand_name }}</td>
@@ -121,7 +121,7 @@
                                     <td>{{ $invs->inv_msoffice_copyright == 1 ? 'มี' : 'ไม่มี'}}</td>
                                     <td>{{ $invs->inv_antivirus }}</td>
                                     <td>{{ $invs->inv_antivirus_copyright == 1 ? 'มี' : 'ไม่มี'}}</td>
-                                    <td>{{ $invs->inv_status == 1 ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</td>
+                                    <td>{{ $invs->department->panag }}</td>
                                     <td>{{ $invs->inv_cpu_clock }}</td>
                                     <td>{{ optional($invs->prefix)->prefix_short ?? 'ไม่พบข้อมูล' }}</td>
                                     <td>{{ $invs->rec_fname }}</td>
