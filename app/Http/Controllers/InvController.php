@@ -160,7 +160,7 @@ class InvController extends Controller
         // Return a JSON response with the redirect URL
         return response()->json([
             'status' => 'success',
-            'redirect_url' => route('inventorys.mulqr') . '?ids=' . $ids,
+            'redirect_url' => ('https://medfix.site/inventory/') . '?ids=' . $ids,
         ]);
     }
 
