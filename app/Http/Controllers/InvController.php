@@ -181,7 +181,7 @@ class InvController extends Controller
         }
 
         $qrcodes = $inventories->mapWithKeys(function ($inventory) {
-            $id = route('inventorys.qr', ['id' => $inventory->id]); // No need for manual URL modification
+            $id = ['id' => $inventory->id]; // No need for manual URL modification
             return [$inventory->id => QrCode::size(350)->generate('https://medfix.site/inventory/'.$id)];
         });
 
