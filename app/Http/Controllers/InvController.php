@@ -94,13 +94,12 @@ class InvController extends Controller
                 toast('เพิ่มโครงการสำเร็จเเล้วนะจ๊ะ', 'success');
                 return redirect()->route('inventorys.create');
             }
+            
         } catch (\Exception $e) {
         // Log error for debugging
-        \Log::error('Inventory creation failed: ' . $e->getMessage());
-
         // Show error message
-        toast('เกิดข้อผิดพลาด: ' . $e->getMessage(), 'error');
-        return redirect()->route('inventorys.create')->withInput();
+        toast('เกิดข้อผิดพลาดนะจ๊ะ','error');
+        return redirect()->route('inventorys.create');
         }
     }
     /**
