@@ -160,7 +160,7 @@ class InvController extends Controller
         // Return a JSON response with the redirect URL
         return response()->json([
             'status' => 'success',
-            'redirect_url' => ('https://medfix.site/inventory/') . '?ids=' . $ids,
+            'redirect_url' => route('inventorys.mulqr') . '?ids=' . $ids,
         ]);
     }
 
@@ -181,8 +181,8 @@ class InvController extends Controller
         }
 
         $qrcodes = $inventories->mapWithKeys(function ($inventory) {
-            $url = route('inventorys.qr', ['id' => $inventory->id]); // No need for manual URL modification
-            return [$inventory->id => QrCode::size(350)->generate($url)];
+            $id = route('inventorys.qr', ['id' => $inventory->id]); // No need for manual URL modification
+            return [$inventory->id => QrCode::size(350)->generate('https://medfix.site/inventory/'.$id)];
         });
 
         return view('inventorys.mulqr', compact('inventories', 'qrcodes'));
