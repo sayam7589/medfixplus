@@ -424,14 +424,14 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="rec_personal_tel">เบอร์โทรติดต่อ</label>
+                                                                <label for="rec_personal_tel">เบอร์โทรติดต่อ(ตัวเลขเท่านั้น)</label>
                                                                 <input type="text" name="rec_personal_tel" class="form-control" id="rec_personal_tel" 
                                                                        placeholder="เบอร์โทรติดต่อ" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="rec_org_tel">เบอร์โทรหน่วย</label>
+                                                                <label for="rec_org_tel">เบอร์โทรหน่วย(ตัวเลขเท่านั้น)</label>
                                                                 <input type="text" name="rec_org_tel" class="form-control" id="rec_org_tel" 
                                                                        placeholder="เบอร์โทรหน่วย" onkeypress="return isNumberKey(event)">
                                                             </div>
