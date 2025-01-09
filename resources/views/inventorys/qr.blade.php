@@ -18,7 +18,7 @@
                     <p><strong>MAC-Address:</strong> {{ $inventory->inv_mac_address ?? 'ไม่พบข้อมูล' }}</p>
                     <p><strong>RTAF-Number:</strong> {{ $inventory->inv_rtaf_serial  ?? 'ไม่พบข้อมูล'}}</p>
                     <p><strong>โครงการ:</strong> {{ $inventory->project->project_name  ?? 'ไม่พบข้อมูล'}}</p>
-                    <p><strong>วันที่เริ่มใช้:</strong> {{ $inventory->inv_setup_year  ?? 'ไม่พบข้อมูล'}}</p>
+                    <p><strong>วันที่เริ่มใช้(ป/ด/ว):</strong> {{ $inventory->inv_setup_year  ?? 'ไม่พบข้อมูล'}}</p>
                     <p><strong>นททสส.พอ.(โทร 20008)</strong></p>
                 </div>
             </div>
