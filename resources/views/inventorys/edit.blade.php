@@ -541,7 +541,8 @@
         return true;
     }
 </script>
-<script>
+<script>   
+/* 
 $(document).ready(function() {
     // Function to update the disabled state of the inv_author field
     function updateAuthorField() {
@@ -587,6 +588,7 @@ $(document).ready(function() {
     // Call the function initially to set the correct state based on the default value
     updateAuthorField();
 });
+*/
 </script>
 
 @endsection

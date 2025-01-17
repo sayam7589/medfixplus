@@ -509,7 +509,7 @@ function clearFields() {
         $('#inv_antivirus').prop('disabled', false);
         $('#inv_antivirus_copyright').prop('disabled', false);
 }    
-
+/*
     $(document).ready(function() {
         // Function to update the disabled state of the inv_author field
         function updateAuthorField() {
@@ -555,7 +555,7 @@ function clearFields() {
         // Call the function initially to set the correct state based on the default value
         updateAuthorField();
     });
-
+*/
 </script>
 
 <script>
