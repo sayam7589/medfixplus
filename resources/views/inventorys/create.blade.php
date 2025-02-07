@@ -150,6 +150,7 @@
                                                     <option value="AMD E2" {{ isset($formData['inv_cpu']) && $formData['inv_cpu'] == 'AMD E2' ? 'selected' : '' }}>AMD E2</option>
                                                     <option value="AMD Ryzen 3" {{ isset($formData['inv_cpu']) && $formData['inv_cpu'] == 'AMD Ryzen 3' ? 'selected' : '' }}>AMD Ryzen 3</option>
                                                     <option value="AMD Ryzen 5" {{ isset($formData['inv_cpu']) && $formData['inv_cpu'] == 'AMD Ryzen 5' ? 'selected' : '' }}>AMD Ryzen 5</option>
+                                                    <option value="AMD Ryzen 7" {{ isset($formData['inv_cpu']) && $formData['inv_cpu'] == 'AMD Ryzen 7' ? 'selected' : '' }}>AMD Ryzen 7</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -212,6 +213,7 @@
                                                 <option value="128" {{ isset($formData['inv_storage_size']) && $formData['inv_storage_size'] == '128' ? 'selected' : '' }}>128 GB</option>
                                                 <option value="256" {{ isset($formData['inv_storage_size']) && $formData['inv_storage_size'] == '256' ? 'selected' : '' }}>256 GB</option>
                                                 <option value="300" {{ isset($formData['inv_storage_size']) && $formData['inv_storage_size'] == '300' ? 'selected' : '' }}>300 GB</option>
+                                                <option value="500" {{ isset($formData['inv_storage_size']) && $formData['inv_storage_size'] == '500' ? 'selected' : '' }}>500 GB</option>
                                                 <option value="512" {{ isset($formData['inv_storage_size']) && $formData['inv_storage_size'] == '512' ? 'selected' : '' }}>512 GB</option>
                                                 <option value="1024" {{ isset($formData['inv_storage_size']) && $formData['inv_storage_size'] == '1024' ? 'selected' : '' }}>1024 GB</option>
                                                     <option value="2048" {{ isset($formData['inv_storage_size']) && $formData['inv_storage_size'] == '2048' ? 'selected' : '' }}>2048 GB</option>
