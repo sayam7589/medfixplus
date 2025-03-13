@@ -232,7 +232,7 @@
                             <form name="signout" id="signout" method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                <a href="#" class="nav-link"
+                                <a href="" class="nav-link"
                                     onclick="document.getElementById('signout').submit()">
                                     <i class="nav-icon fas fa-sign-out-alt"></i>
                                     <p>
