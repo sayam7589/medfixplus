@@ -177,7 +177,7 @@ function generateTestPDF() {
             { text: 'สวัสดีครับ PDF ทดสอบภาษาไทย!', fontSize: 18 }
         ],
         defaultStyle: {
-            font: 'THSarabunNew'
+            font: 'THSarabun'
         }
     };
 
