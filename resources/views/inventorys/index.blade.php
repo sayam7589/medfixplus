@@ -218,7 +218,7 @@
             // Add more as needed
             { "visible": true }   // Action buttons
         ],
-     "buttons": [
+    "buttons": [
     {
         extend: 'excel',
         text: 'Export to Excel',
@@ -231,15 +231,23 @@
         text: 'Export to PDF',
         orientation: 'landscape',
         pageSize: 'A4',
-        font: 'THSarabun',
         exportOptions: {
             columns: ':not(:last-child)' // Exclude the last column (actions)
         },
         customize: function (doc) {
-            doc.defaultStyle.fontSize = 12;
+            doc.defaultStyle = {
+                font: 'THSarabun',   // Use Thai font
+                fontSize: 14         // Adjust for readability
+            };
+            doc.styles.tableHeader = {
+                font: 'THSarabun',
+                bold: true,
+                fontSize: 10,
+                color: 'black'
+            };
         }
     }
-    ],
+]
 
 
         "initComplete": function() {    
