@@ -218,7 +218,7 @@
             // Add more as needed
             { "visible": true }   // Action buttons
         ],
-"buttons": [
+        "buttons": [
     {
         extend: 'excel',
         text: 'Export to Excel',
@@ -235,7 +235,7 @@
             columns: ':not(:last-child)' // Exclude the last column (actions)
         },
         customize: function (doc) {
-            doc.defaultStyle.fontSize = 10;
+            doc.defaultStyle.fontSize = 12;
         }
     }
     ],
