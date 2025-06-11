@@ -167,9 +167,9 @@
 
 
 @section('scripts')
-<script>
 <script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/pdfmake.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/vfs_fonts_thsarabun.js"></script>
+<script>
    $(function () {
     var selectedRows = {};
 
