@@ -247,7 +247,7 @@
             };
         }
     }
-]
+],
 
 
         "initComplete": function() {    
