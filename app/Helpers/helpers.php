@@ -100,6 +100,7 @@ function getThaiMonthAbbreviation($monthNumber){
     return $thaiMonths[$monthNumber] ?? null;
 }
 
+/*
 if (!function_exists('sendLineNotify')) {
     function sendLineNotify(string $message): bool
     {
@@ -139,6 +140,8 @@ if (!function_exists('sendLineNotify')) {
         }
     }
 }
+
+*/
 
 if (!function_exists('getPrefixShortById')) {
     /**
@@ -187,3 +190,4 @@ function getInvDetailsById($id)
 
     return null; // คืนค่า null หากไม่พบ
 }
+ 

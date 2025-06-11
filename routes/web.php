@@ -11,12 +11,18 @@ use App\Http\Controllers\MedfixController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\SolvingController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\LineController;
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/departments/search', [DepartmentController::class, 'search'])->name('departments.search');
 Route::get('/tutorial', function () { return view('tutorial');});
+
+///////////////////// Line_OA
+Route::post('/line/webhook', [LineController::class, 'webhook']);
+
+
 ///////////////////// login
 //Route::get('/register', [ViewController::class, 'showRegister'])->name('register');
 //Route::post('/register', [AuthController::class, 'register']);
@@ -58,12 +64,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/inventorys_show', [InvController::class, 'show'])->name('inventorys.show')->middleware(['role:admin']);
     Route::get('/inventorys_edit', [InvController::class, 'edit'])->name('inventorys.edit')->middleware(['role:admin']);
     Route::get('/inventorys/{id}/qr', [InvController::class, 'showqr'])->name('inventorys.qr')->middleware(['role:admin']);
+    Route::get('/inventorys/{id}/qr2', [InvController::class, 'showqr2'])->name('inventorys.qr2')->middleware(['role:admin']);
     Route::match(['get', 'post'], '/inventorys/mulqr', [InvController::class, 'showmulqr'])->name('inventorys.mulqr')->middleware(['role:admin']);
     Route::put('/inventorys_update', [InvController::class, 'update'])->name('inventorys.update')->middleware(['role:admin']);
     Route::delete('/inventorys_destroy', [InvController::class, 'destroy'])->name('inventorys.destroy')->middleware(['role:admin']);
     Route::resource('inventorys', InvController::class);
-
-
 
 
     ///////////////////// User Permission

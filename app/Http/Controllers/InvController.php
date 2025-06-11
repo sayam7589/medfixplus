@@ -94,7 +94,7 @@ class InvController extends Controller
                 toast('เพิ่มโครงการสำเร็จเเล้วนะจ๊ะ', 'success');
                 return redirect()->route('inventorys.create');
             }
-            
+
         } catch (\Exception $e) {
         // Log error for debugging
         // Show error message
@@ -137,6 +137,14 @@ class InvController extends Controller
                         ->generate('https://medfix.site/inventory/'.$id);  //edit qrcode here
 
         return view('inventorys.qr', compact('inventory', 'qrcode'));
+    }
+    public function showqr2($id)
+    {
+        $inventory = Inventory::findOrFail($id);
+        $qrcode = QrCode::size(400)
+                        ->generate('https://medfix.site/inventory/'.$id);  //edit qrcode here
+
+        return view('inventorys.qr2', compact('inventory', 'qrcode'));
     }
 
 

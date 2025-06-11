@@ -74,7 +74,9 @@
             <a href="#" class="brand-link">
                 <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">MEDFIX</span>
+
+                <span class="brand-text font-weight-light">{{env('APP_NAME')}}</span>
+
             </a>
 
             <!-- Sidebar -->
@@ -232,7 +234,7 @@
                             <form name="signout" id="signout" method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                <a href="" class="nav-link"
+                                <a href="#" class="nav-link"
                                     onclick="document.getElementById('signout').submit()">
                                     <i class="nav-icon fas fa-sign-out-alt"></i>
                                     <p>
@@ -263,11 +265,7 @@
 
 
         <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 3.2.0
-            </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
-            reserved.
+            <strong>Develop By Medical Rtaf.</strong>
         </footer>
 
         <!-- Control Sidebar -->

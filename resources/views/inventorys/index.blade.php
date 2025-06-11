@@ -64,7 +64,10 @@
                                 <th>เลขครุภัณฑ์</th>
                                 <th>หน่วยผู้ใช้</th>
                                 <th>สถานะการใช้งาน</th>
-                                <th>รหัสโครงการ</th>
+                                <th>คำนำหน้า</th>
+                                <th>ชื่อ</th>
+                                <th>นามสกุล</th>
+                                <!--<th>วันที่ติดตั้ง</th> 
                                 <th>ประเภท</th>
                                 <th>ยี่ห้อ</th>
                                 <th>รุ่น</th>
@@ -82,13 +85,10 @@
                                 <th>ลิขสิทธิ์ MS Office</th>
                                 <th>โปรแกรมป้องกันไวรัส</th>
                                 <th>ลิขสิทธิ์โปรแกรมป้องกันไวรัส</th>
-                                <th>เเผนกผู้ใช้</th>
-                                <th>ความเร็ว CPU(GHz)</th>
-                                <th>คำนำหน้า</th>
-                                <th>ชื่อ</th>
-                                <th>นามสกุล</th>
                                 <th>เบอร์โทรติดต่อ</th>
-                                <th>เบอ์โทรหน่วย</th>
+                                <th>เบอร์โทรหน่วย</th>
+                                <th>เเผนกผู้ใช้</th>
+                                <th>ความเร็ว CPU(GHz)</th>-->
                                 <th>เพิ่มเติม</th>
                             </tr>
                         </thead>
@@ -102,8 +102,11 @@
                                     <td>{{ $invs->inv_mac_address }}</td>
                                     <td>{{ $invs->inv_rtaf_serial }}</td>
                                     <td>{{ $invs->department->gong }}</td>
-                                    <td>{{ $invs->inv_status == 1 ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</td>       
-                                    <td>{{ $invs->inv_setup_year == '0000-00-00' ? 'ไม่ระบุข้อมูล' : $invs->inv_setup_year}}</td>
+                                    <td>{{ $invs->inv_status == 1 ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</td>   
+                                    <td>{{ optional($invs->prefix)->prefix_short ?? 'ไม่พบข้อมูล' }}</td>
+                                    <td>{{ $invs->rec_fname }}</td>
+                                    <td>{{ $invs->rec_lname }}</td>    
+                                    <!--<td>{{ $invs->inv_setup_year == '0000-00-00' ? 'ไม่ระบุข้อมูล' : $invs->inv_setup_year}}</td>
                                     <td>{{ $invs->project->project_name }}</td>
                                     <td>{{ $invs->brand->brand_name }}</td>
                                     <td>{{ $invs->inv_model }}</td>
@@ -122,12 +125,9 @@
                                     <td>{{ $invs->inv_antivirus }}</td>
                                     <td>{{ $invs->inv_antivirus_copyright == 1 ? 'มี' : 'ไม่มี'}}</td>
                                     <td>{{ $invs->department->panag }}</td>
-                                    <td>{{ $invs->inv_cpu_clock }}</td>
-                                    <td>{{ optional($invs->prefix)->prefix_short ?? 'ไม่พบข้อมูล' }}</td>
-                                    <td>{{ $invs->rec_fname }}</td>
-                                    <td>{{ $invs->rec_lname }}</td>
                                     <td>{{ $invs->rec_personal_tel }}</td>
                                     <td>{{ $invs->rec_org_tel }}</td>
+                                    <td>{{ $invs->inv_cpu_clock }}</td>-->
                                     <td>
                                         <a href="{{ route('inventorys.edit', $invs->id) }}" class="btn btn-warning btn-sm">ตรวจสอบ/เเก้ไข</a>
                                         <a href="{{ route('inventorys.qr', $invs->id) }}" class="btn btn-primary btn-sm" target="_blank">QR</a>
@@ -163,6 +163,8 @@
     </aside>
     <!-- /.control-sidebar -->
 @endsection
+
+
 
 @section('scripts')
 <script>
@@ -200,51 +202,44 @@
         "columns": [
             { "visible": true },  // Checkbox column
             { "visible": true },  // ID
+            { "visible": true },  // Type
             { "visible": true },  // Asset Name
-            { "visible": true },  // MAC Address
-            { "visible": true },  // Serial Number
-            { "visible": true },  // Setup Date
-            { "visible": true },  // User Unit
+            { "visible": true },  // Mac address
+            { "visible": true },  // Rtaf serial
             { "visible": true },  // User Department
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
-            { "visible": false }, // Hidden columns in web page
+            { "visible": true },  // Status
+            { "visible": false },  // User User_prefix
+            { "visible": false },  // User User_name
+            { "visible": false },  // User User_lastname
+            // add what u want to hide
+            // { "visible": false }, // Hidden columns in web page
+
             
             // Add more as needed
             { "visible": true }   // Action buttons
         ],
 
-        "buttons": [
-            {
-                extend: 'excel',
-                text: 'Export to Excel',
-                exportOptions: {
-                columns: ':not(:last-child)' // Exclude the last column
-                }
-            }
-        ],
+     "buttons": [
+    {
+        extend: 'excel',
+        text: 'Export to Excel',
+        exportOptions: {
+            columns: ':not(:last-child)' // Exclude the last column (action)
+        }
+    },
+    {
+        extend: 'pdfHtml5',
+        text: 'Export to PDF',
+        orientation: 'landscape',
+        pageSize: 'A4',
+        exportOptions: {
+            columns: ':not(:last-child)' // Exclude the last column (action)
+        },
+        customize: function (doc) {
+            doc.defaultStyle.fontSize = 14;
+        }
+    }
+    ],
 
         "initComplete": function() {    
             $('.content').show();      // Show the content after DataTable is fully loaded
