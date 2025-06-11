@@ -226,16 +226,21 @@
             columns: ':not(:last-child)' // Exclude the last column (actions)
         }
     },
-    {
-        extend: 'pdfHtml5',
-        text: 'Export to PDF',
-        orientation: 'landscape',
-        pageSize: 'A4',
-        font: 'THSarabun',
-        exportOptions: {
-        columns: ':not(:last-child)'
-        }
+{
+    extend: 'pdfHtml5',
+    text: 'Export to PDF',
+    orientation: 'landscape',
+    pageSize: 'A4',
+    exportOptions: {
+        columns: ':not(:last-child)' // Exclude the last column (actions)
+    },
+    customize: function (doc) {
+        doc.defaultStyle = {
+            font: 'THSarabun',
+            fontSize: 10
+        };
     }
+}
     ],
 
 
