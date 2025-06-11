@@ -168,154 +168,146 @@
 
 @section('scripts')
 <script>
-        pdfMake.fonts = {
-        THSarabun: {
-            normal: 'THSarabun.ttf',
-            bold: 'THSarabun.ttf.ttf',
-            italics: 'THSarabun.ttf.ttf',
-            bolditalics: 'THSarabun.ttf.ttf'
-        }
-    };
-   $(function () {
-    var selectedRows = {};
+  $(function () {
+        var selectedRows = {};
 
-    // Select/Deselect all checkboxes
-    $('#select-all').on('click', function() {
-        var isChecked = this.checked;
-        $('.row-select').each(function() {
-            this.checked = isChecked;
-            selectedRows[$(this).val()] = isChecked;
+        // Select/Deselect all checkboxes
+        $('#select-all').on('click', function() {
+            var isChecked = this.checked;
+            $('.row-select').each(function() {
+                this.checked = isChecked;
+                selectedRows[$(this).val()] = isChecked;
+            });
         });
-    });
 
-    // Handle checkbox state change
-    $('#example1').on('change', '.row-select', function() {
-        selectedRows[$(this).val()] = this.checked;
-    });
-
-    var table = $('#example1').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "pageLength": 10,
-        "ordering": false,
-        "info": false,
-        "autoWidth": false,
-        "responsive": true,
-        "processing": true,
-        "stateSave": true,
-        "deferRender":true,
-        "deferLoading": 0, 
-    
-        "columns": [
-            { "visible": true },  // Checkbox column
-            { "visible": true },  // ID
-            { "visible": true },  // Type
-            { "visible": true },  // Asset Name
-            { "visible": true },  // Mac address
-            { "visible": true },  // Rtaf serial
-            { "visible": true },  // User Department
-            { "visible": true },  // Status
-            { "visible": false },  // User User_prefix
-            { "visible": false },  // User User_name
-            { "visible": false },  // User User_lastname
-            // add what u want to hide
-            // { "visible": false }, // Hidden columns in web page
-
-            
-            // Add more as needed
-            { "visible": true }   // Action buttons
-        ],
-        "buttons": [
-    {
-        extend: 'excel',
-        text: 'Export to Excel',
-        exportOptions: {
-            columns: ':not(:last-child)' // Exclude the last column (actions)
-        }
-    },
-    {
-        extend: 'pdfHtml5',
-        text: 'Export to PDF',
-        orientation: 'landscape',
-        pageSize: 'A4',
-        exportOptions: {
-            columns: ':not(:last-child)' // Exclude the last column (actions)
-        },
-        customize: function (doc) {
-            doc.defaultStyle = {
-                font: 'THSarabun',   // 👈 Add this line
-                fontSize: 12
-            };
-            doc.styles.tableHeader.font = 'THSarabun'; // 👈 Optional but recommended
-        }
-    }
-],
-
-
-        "initComplete": function() {    
-            $('.content').show();      // Show the content after DataTable is fully loaded
-        }
-    });
-
-    table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-    $('#sendSelected').on('click', function() {
-        var selected = [];
-        $('.row-select:checked').each(function() {
-            selected.push($(this).val());
+        // Handle checkbox state change
+        $('#example1').on('change', '.row-select', function() {
+            selectedRows[$(this).val()] = this.checked;
         });
-    
-        if (selected.length > 0) {
-            // Send selected IDs to a route via AJAX
-            $.ajax({
-                url: '//medfix.site/inventorys/mulqr',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    ids: selected
-                },
-                success: function(response) {
-                    if (response.redirect_url) {
-                        window.location.href = response.redirect_url;
-                    } else {
-                        alert('An unexpected error occurred.');
+
+        var table = $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "pageLength": 10,
+            "ordering": false,
+            "info": false,
+            "autoWidth": false,
+            "responsive": true,
+            "processing": true,
+            "stateSave": true,
+            "deferRender":true,
+            "deferLoading": 0, 
+        
+            "columns": [
+                { "visible": true },    // Checkbox column
+                { "visible": true },    // ID
+                { "visible": true },    // Type
+                { "visible": true },    // Asset Name
+                { "visible": true },    // Mac address
+                { "visible": true },    // Rtaf serial
+                { "visible": true },    // User Department
+                { "visible": true },    // Status
+                { "visible": false },   // User User_prefix
+                { "visible": false },   // User User_name
+                { "visible": false },   // User User_lastname
+                // add what u want to hide
+                // { "visible": false }, // Hidden columns in web page
+                { "visible": true }     // Action buttons
+            ],
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: 'Export to Excel',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Exclude the last column (actions)
                     }
                 },
-                error: function(xhr) {
-                    alert('Error occurred: ' + xhr.status + ' ' + xhr.statusText + '\nResponse: ' + xhr.responseText + selected);
+                {
+                    extend: 'pdfHtml5',
+                    text: 'Export to PDF',
+                    orientation: 'landscape',
+                    pageSize: 'A4',
+                    exportOptions: {
+                        columns: ':not(:last-child)' // Exclude the last column (actions)
+                    },
+                    customize: function (doc) {
+                        // Set the default font to one that supports Thai characters
+                        doc.defaultStyle.font = 'THSarabunNew'; // Replace with the actual font name
+                        doc.defaultStyle.fontSize = 12; // Adjust font size as needed
+
+                        // If you have specific headers or footers, you might need to apply the font there too
+                        if (doc.content[0].table) {
+                            doc.content[0].table.body.forEach(function(row) {
+                                row.forEach(function(cell) {
+                                    if (cell.text) {
+                                        cell.font = 'THSarabunNew';
+                                    }
+                                });
+                            });
+                        }
+                    }
                 }
+            ],
+            "initComplete": function() {     
+                $('.content').show();       // Show the content after DataTable is fully loaded
+            }
+        });
+
+        table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        $('#sendSelected').on('click', function() {
+            var selected = [];
+            $('.row-select:checked').each(function() {
+                selected.push($(this).val());
             });
-        } else {
-            alert('กรุณาเลือกข้อมูลที่ต้องการ'); // "Please select data" in Thai
-        }
-    });
+        
+            if (selected.length > 0) {
+                // Send selected IDs to a route via AJAX
+                $.ajax({
+                    url: '//medfix.site/inventorys/mulqr',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        ids: selected
+                    },
+                    success: function(response) {
+                        if (response.redirect_url) {
+                            window.location.href = response.redirect_url;
+                        } else {
+                            alert('An unexpected error occurred.');
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Error occurred: ' + xhr.status + ' ' + xhr.statusText + '\nResponse: ' + xhr.responseText + selected);
+                    }
+                });
+            } else {
+                alert('กรุณาเลือกข้อมูลที่ต้องการ'); // "Please select data" in Thai
+            }
+        });
 
-    table.on('draw', function () {
-    // Clear checkboxes when the table is redrawn
-    $('input[type="checkbox"]').prop('checked', false);
-    });
+        table.on('draw', function () {
+            // Clear checkboxes when the table is redrawn
+            $('input[type="checkbox"]').prop('checked', false);
+        });
 
-    table.on('page.dt', function () {
-    // Clear checkboxes when the page is changed
-    $('input[type="checkbox"]').prop('checked', false);
-    });
+        table.on('page.dt', function () {
+            // Clear checkboxes when the page is changed
+            $('input[type="checkbox"]').prop('checked', false);
+        });
 
-    table.on('order.dt', function () {
-    // Clear checkboxes when the table is sorted
-    $('input[type="checkbox"]').prop('checked', false);
-    });
+        table.on('order.dt', function () {
+            // Clear checkboxes when the table is sorted
+            $('input[type="checkbox"]').prop('checked', false);
+        });
 
-    table.on('search.dt', function () {
-    // Clear checkboxes when a search/filter is applied
-    $('input[type="checkbox"]').prop('checked', false);
+        table.on('search.dt', function () {
+            // Clear checkboxes when a search/filter is applied
+            $('input[type="checkbox"]').prop('checked', false);
+        });
     });
-    
-
-    // Handle send selected button click
-});
 
 </script>
-
 
 @endsection
