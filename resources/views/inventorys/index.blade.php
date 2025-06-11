@@ -141,13 +141,12 @@
                 <!-- /.card-body -->
             </div>
         <button id="sendSelected" class="btn btn-success  mb-3 btn-lg-print"><i class="fas fa-print" target="_blank"></i> print QR</button>
+        <button onclick="generateTestPDF()">Generate Test PDF</button>
             <!-- /.card -->
         </div>
     </section>
 </div>
 
-
-<button onclick="generateTestPDF()">Generate Test PDF</button>
 
 
 <!-- Delete Confirmation Modal -->
