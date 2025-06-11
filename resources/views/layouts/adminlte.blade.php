@@ -297,20 +297,6 @@
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
-
-    
-    <script>
-         pdfMake.fonts = {
-            THSarabun: {
-                normal: 'THSarabun.ttf',
-                bold: 'THSarabun Bold.ttf',
-                italics: 'THSarabun Italic.ttf',
-                bolditalics: 'THSarabun Bold Italic.ttf'
-            }
-        };
-    </script>
-
-
     <script>
         $(function () {
           bsCustomFileInput.init();
