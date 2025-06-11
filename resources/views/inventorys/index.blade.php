@@ -240,7 +240,7 @@
         customize: function (doc) {
             doc.defaultStyle = {
                 font: 'THSarabun',
-                fontSize: 16
+                fontSize: 12
             };
             doc.styles.tableHeader.font = 'THSarabun';
         }
