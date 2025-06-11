@@ -224,7 +224,7 @@
         extend: 'excel',
         text: 'Export to Excel',
         exportOptions: {
-            columns: ':not(:last-child)' // Exclude the last column (action)
+            columns: ':not(:last-child)'
         }
     },
     {
@@ -233,10 +233,14 @@
         orientation: 'landscape',
         pageSize: 'A4',
         exportOptions: {
-            columns: ':not(:last-child)' // Exclude the last column (action)
+            columns: ':not(:last-child)'
         },
         customize: function (doc) {
-            doc.defaultStyle.fontSize = 14;
+            doc.defaultStyle = {
+                font: 'THSarabun',
+                fontSize: 16
+            };
+            doc.styles.tableHeader.font = 'THSarabun';
         }
     }
     ],
