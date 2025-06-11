@@ -232,10 +232,22 @@
         orientation: 'landscape',
         pageSize: 'A4',
         exportOptions: {
-        columns: ':not(:last-child)'
+            columns: ':not(:last-child)' // Exclude the last column (actions)
+        },
+        customize: function (doc) {
+            doc.defaultStyle = {
+                font: 'THSarabun',   // Use Thai font
+                fontSize: 10         // Adjust for readability
+            };
+            doc.styles.tableHeader = {
+                font: 'THSarabun',
+                bold: true,
+                fontSize: 12,
+                color: 'black'
+            };
         }
     }
-    ],
+],
 
 
         "initComplete": function() {    
