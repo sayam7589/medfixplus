@@ -221,12 +221,12 @@
             { "visible": true }   // Action buttons
         ],
 
-     "buttons": [
+    "buttons": [
     {
         extend: 'excel',
         text: 'Export to Excel',
         exportOptions: {
-            columns: ':not(:last-child)'
+            columns: ':not(:last-child)' // Exclude the last column
         }
     },
     {
@@ -235,7 +235,7 @@
         orientation: 'landscape',
         pageSize: 'A4',
         exportOptions: {
-            columns: ':not(:last-child)'
+            columns: ':not(:last-child)' // Exclude the last column
         },
         customize: function (doc) {
             doc.defaultStyle = {
@@ -246,6 +246,7 @@
         }
     }
     ],
+
 
         "initComplete": function() {    
             $('.content').show();      // Show the content after DataTable is fully loaded
