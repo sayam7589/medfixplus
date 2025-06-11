@@ -168,7 +168,7 @@
 
 @section('scripts')
 <script>
-  $(function () {
+    $(function () {
         var selectedRows = {};
 
         // Select/Deselect all checkboxes
@@ -233,7 +233,7 @@
                     },
                     customize: function (doc) {
                         // Set the default font to one that supports Thai characters
-                        doc.defaultStyle.font = 'THSarabunNew'; // Replace with the actual font name
+                        doc.defaultStyle.font = 'THSarabun'; // Replace with the actual font name
                         doc.defaultStyle.fontSize = 12; // Adjust font size as needed
 
                         // If you have specific headers or footers, you might need to apply the font there too
@@ -241,7 +241,7 @@
                             doc.content[0].table.body.forEach(function(row) {
                                 row.forEach(function(cell) {
                                     if (cell.text) {
-                                        cell.font = 'THSarabunNew';
+                                        cell.font = 'THSarabun';
                                     }
                                 });
                             });
@@ -309,5 +309,4 @@
     });
 
 </script>
-
 @endsection
