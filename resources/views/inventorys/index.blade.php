@@ -243,21 +243,21 @@ function generateTestPDF() {
             columns: ':not(:last-child)' // Exclude the last column (actions)
         }
     },
-{
-    extend: 'pdfHtml5',
-    text: 'Export to PDF',
-    orientation: 'landscape',
-    pageSize: 'A4',
-    exportOptions: {
-        columns: ':not(:last-child)'
-    },
-    customize: function (doc) {
-        doc.defaultStyle = {
-            font: 'THSarabun',
-            fontSize: 10
-        };
+    {
+        extend: 'pdfHtml5',
+        text: 'Export to PDF',
+        orientation: 'landscape',
+        pageSize: 'A4',
+        exportOptions: {
+            columns: ':not(:last-child)'
+        },
+        customize: function (doc) {
+            doc.defaultStyle = {
+                font: 'THSarabunNew',  // ✅ ต้องตรงกับชื่อฟอนต์ใน pdfMake.fonts
+                fontSize: 10           // ✅ ปรับขนาดให้อ่านง่าย
+            };
+        }
     }
-}
     ],
 
 
