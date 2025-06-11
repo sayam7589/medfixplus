@@ -167,8 +167,6 @@
 
 
 @section('scripts')
-<script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
 <script>
    $(function () {
     var selectedRows = {};
