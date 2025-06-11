@@ -167,6 +167,8 @@
 
 
 @section('scripts')
+<script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
 <script>
    $(function () {
     var selectedRows = {};
@@ -232,7 +234,7 @@
     orientation: 'landscape',
     pageSize: 'A4',
     exportOptions: {
-        columns: ':not(:last-child)' // Exclude the last column (actions)
+        columns: ':not(:last-child)'
     },
     customize: function (doc) {
         doc.defaultStyle = {
