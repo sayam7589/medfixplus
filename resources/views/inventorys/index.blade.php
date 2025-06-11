@@ -167,8 +167,6 @@
 
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/pdfmake.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/vfs_fonts_thsarabun.js"></script>
 <script>
    $(function () {
     var selectedRows = {};
@@ -220,13 +218,12 @@
             // Add more as needed
             { "visible": true }   // Action buttons
         ],
-
-    "buttons": [
+"buttons": [
     {
         extend: 'excel',
         text: 'Export to Excel',
         exportOptions: {
-            columns: ':not(:last-child)' // Exclude the last column
+            columns: ':not(:last-child)' // Exclude the last column (actions)
         }
     },
     {
@@ -235,14 +232,10 @@
         orientation: 'landscape',
         pageSize: 'A4',
         exportOptions: {
-            columns: ':not(:last-child)' // Exclude the last column
+            columns: ':not(:last-child)' // Exclude the last column (actions)
         },
         customize: function (doc) {
-            doc.defaultStyle = {
-                font: 'THSarabun',
-                fontSize: 12
-            };
-            doc.styles.tableHeader.font = 'THSarabun';
+            doc.defaultStyle.fontSize = 10;
         }
     }
     ],
