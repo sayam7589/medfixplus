@@ -231,7 +231,7 @@
         text: 'Export to PDF',
         orientation: 'landscape',
         pageSize: 'A4',
-        font: 'THSarabun'
+        font: 'THSarabun',
         exportOptions: {
             columns: ':not(:last-child)' // Exclude the last column (actions)
         },
