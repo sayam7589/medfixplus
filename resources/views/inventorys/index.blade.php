@@ -168,6 +168,14 @@
 
 @section('scripts')
 <script>
+        pdfMake.fonts = {
+        THSarabun: {
+            normal: 'THSarabun.ttf',
+            bold: 'THSarabun.ttf.ttf',
+            italics: 'THSarabun.ttf.ttf',
+            bolditalics: 'THSarabun.ttf.ttf'
+        }
+    };
    $(function () {
     var selectedRows = {};
 
@@ -235,10 +243,14 @@
             columns: ':not(:last-child)' // Exclude the last column (actions)
         },
         customize: function (doc) {
-            doc.defaultStyle.fontSize = 12;
+            doc.defaultStyle = {
+                font: 'THSarabun',   // 👈 Add this line
+                fontSize: 12
+            };
+            doc.styles.tableHeader.font = 'THSarabun'; // 👈 Optional but recommended
         }
     }
-    ],
+],
 
 
         "initComplete": function() {    
