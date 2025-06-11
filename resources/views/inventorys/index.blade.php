@@ -146,6 +146,10 @@
     </section>
 </div>
 
+
+<button onclick="generateTestPDF()">Generate Test PDF</button>
+
+
 <!-- Delete Confirmation Modal -->
 @endsection
 
@@ -167,6 +171,20 @@
 
 
 @section('scripts')
+<script>
+function generateTestPDF() {
+    var docDefinition = {
+        content: [
+            { text: 'สวัสดีครับ PDF ทดสอบภาษาไทย!', fontSize: 18 }
+        ],
+        defaultStyle: {
+            font: 'THSarabunNew'
+        }
+    };
+
+    pdfMake.createPdf(docDefinition).open();
+}
+</script>
 <script>
    $(function () {
     var selectedRows = {};
