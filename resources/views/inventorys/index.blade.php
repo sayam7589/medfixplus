@@ -254,9 +254,6 @@ function generateTestPDF() {
             columns: ':not(:last-child)'
         },
         customize: function (doc) {
-            for (let i = 1; i < body.length; i++) { // เริ่มที่ index 1 เพราะ index 0 คือ header
-                body[i][1].text = i.toString(); // ถ้าคอลัมน์ลำดับอยู่ช่องที่ 1 (index เริ่มจาก 0)
-            }
             doc.defaultStyle = {
                 font: 'THSarabunNew',  // ✅ ต้องตรงกับชื่อฟอนต์ใน pdfMake.fonts
                 fontSize: 12,           // ✅ ปรับขนาดให้อ่านง่าย
