@@ -264,9 +264,12 @@
             vLineColor: function (i, node) {
                 return '#aaa';
             },
+            paddingLeft: function(i, node) { return 4; },
+            paddingRight: function(i, node) { return 4; },
+            paddingTop: function(i, node) { return 2; },
+            paddingBottom: function(i, node) { return 2; },
         };
             doc.content[1].layout = 'lightHorizontalLines'; // เส้นบางๆ
-            doc.content[1].alignment = 'center';
         }
     }
     ],
