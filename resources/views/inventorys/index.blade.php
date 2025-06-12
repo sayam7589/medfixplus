@@ -259,13 +259,6 @@ function generateTestPDF() {
                 fontSize: 14,           // ✅ ปรับขนาดให้อ่านง่าย
                 alignment: 'center'
             };
-            // ✅ เพิ่มระยะห่างใน cell
-            doc.content[1].layout = {
-                paddingLeft: function(i) { return 6; },  // เพิ่มระยะด้านซ้าย
-                paddingRight: function(i) { return 6; }, // เพิ่มระยะด้านขวา
-                paddingTop: function(i) { return 4; },   // เพิ่มระยะด้านบน
-                paddingBottom: function(i) { return 4; } // เพิ่มระยะด้านล่าง
-            };
         }
     }
     ],
