@@ -260,7 +260,7 @@ function generateTestPDF() {
                 alignment: 'center'
             }; 
             doc.styles.tableHeader = {
-                fontSize: 18,
+                fontSize: 14,
                 bold: true,
                 alignment: 'center'
     };
