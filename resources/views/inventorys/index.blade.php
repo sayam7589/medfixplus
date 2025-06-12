@@ -248,6 +248,8 @@ function generateTestPDF() {
         text: 'Export to PDF',
         orientation: 'landscape',
         pageSize: 'A4',
+        filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
+        title: 'รายการบัญชีสินทรัพย์',
         exportOptions: {
             columns: ':not(:last-child)'
         },
