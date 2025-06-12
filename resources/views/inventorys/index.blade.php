@@ -250,6 +250,7 @@ function generateTestPDF() {
         pageSize: 'A4',
         filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
         title: 'รายการบัญชีสินทรัพย์',
+        fontSize: 18,
         exportOptions: {
             columns: ':not(:last-child)'
         },
