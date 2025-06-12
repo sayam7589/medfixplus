@@ -141,7 +141,7 @@
                 <!-- /.card-body -->
             </div>
         <button id="sendSelected" class="btn btn-success  mb-3 btn-lg-print"><i class="fas fa-print" target="_blank"></i> print QR</button>
-        <!-- /.card -->
+            <!-- /.card -->
         </div>
     </section>
 </div>
@@ -169,20 +169,6 @@
 
 
 @section('scripts')
-<script>
-function generateTestPDF() {
-    var docDefinition = {
-        content: [
-            { text: 'สวัสดีครับ PDF ทดสอบภาษาไทย!', fontSize: 18 }
-        ],
-        defaultStyle: {
-            font: 'THSarabunNew'
-        }
-    };
-
-    pdfMake.createPdf(docDefinition).open();
-}
-</script>
 <script>
    $(function () {
     var selectedRows = {};
