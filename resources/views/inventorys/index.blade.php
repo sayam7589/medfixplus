@@ -250,7 +250,6 @@ function generateTestPDF() {
         pageSize: 'A4',
         filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
         title: 'รายการบัญชีสินทรัพย์',
-        fontSize: 24,
         exportOptions: {
             columns: ':not(:last-child)'
         },
@@ -260,6 +259,12 @@ function generateTestPDF() {
                 fontSize: 14,           // ✅ ปรับขนาดให้อ่านง่าย
                 alignment: 'center'
             };
+            doc.content.splice(0, 0, {
+                text: 'บัญชีรายการครุภัณฑ์ประจำหน่วยงาน',
+                fontSize: 18,
+                alignment: 'center',
+                margin: [0, 0, 0, 12]
+            });
         }
     }
     ],
