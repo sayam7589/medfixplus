@@ -266,8 +266,6 @@ function generateTestPDF() {
                 alignment: 'center',
                 margin: [0, 0, 0, 20]
             });
-            doc.content[1].layout = 'lightHorizontalLines'; // เส้นบางๆ
-            doc.content[1].alignment = 'center';
             doc.content[1].layout = {
             hLineWidth: function (i, node) {
                 return (i === 1) ? 0.5 : 0.2; // เส้นใต้หัวตารางหนา 0.5, เส้นอื่น 0.2
@@ -286,6 +284,8 @@ function generateTestPDF() {
             paddingTop: function(i, node) { return 2; },
             paddingBottom: function(i, node) { return 2; },
         };
+            doc.content[1].layout = 'lightHorizontalLines'; // เส้นบางๆ
+            doc.content[1].alignment = 'center';
         }
     }
     ],
