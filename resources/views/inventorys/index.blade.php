@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title fontsize="24">รายงานบัญชีสินทรัพย์</title>
+    <h1 style="font-size: 24px; font-weight: bold;">รายงานบัญชีสินทรัพย์</h1>
     <style>
     .content {
         display: none;
