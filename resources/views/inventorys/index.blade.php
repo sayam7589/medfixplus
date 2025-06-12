@@ -253,7 +253,7 @@
             });
             doc.content[1].layout = {
             hLineWidth: function (i, node) {
-                return (i === 1) ? 0.5 : 0.2; // เส้นใต้หัวตารางหนา 0.5, เส้นอื่น 0.2
+                return (i === 1) ? 0.2 : 0.2; // เส้นใต้หัวตารางหนา 0.5, เส้นอื่น 0.2
             },
             vLineWidth: function (i, node) {
                 return 0.2;
