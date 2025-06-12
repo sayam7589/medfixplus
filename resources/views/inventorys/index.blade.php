@@ -259,6 +259,7 @@ function generateTestPDF() {
                 fontSize: 14,           // ✅ ปรับขนาดให้อ่านง่าย
                 alignment: 'center'
             };
+            doc.content[1].table.widths = ['5%', '15%', '15%', '15%', '15%', '10%', '10%', '15%'];
             doc.content.unshift({
                 text: 'รายงานบัญชีสินทรัพย์',
                 fontSize: 24,
