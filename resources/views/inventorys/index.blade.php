@@ -251,25 +251,8 @@
                 alignment: 'center',
                 margin: [0, 0, 0, 20]
             });
-            doc.content[1].layout = {
-            hLineWidth: function (i, node) {
-                return (i === 1) ? 0.2 : 0.2; // เส้นใต้หัวตารางหนา 0.5, เส้นอื่น 0.2
-            },
-            vLineWidth: function (i, node) {
-                return 0.2;
-            },
-            hLineColor: function (i, node) {
-                return '#aaa'; // สีเทาอ่อน
-            },
-            vLineColor: function (i, node) {
-                return '#aaa';
-            },
-            paddingLeft: function(i, node) { return 4; },
-            paddingRight: function(i, node) { return 4; },
-            paddingTop: function(i, node) { return 2; },
-            paddingBottom: function(i, node) { return 2; },
-        };
             doc.content[1].layout = 'lightHorizontalLines'; // เส้นบางๆ
+            doc.content[1].alignment = 'center';
         }
     }
     ],
