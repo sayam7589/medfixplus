@@ -258,13 +258,6 @@ function generateTestPDF() {
                 fontSize: 14,           // ✅ ปรับขนาดให้อ่านง่าย
                 alignment: 'center'
             };
-              doc.content.splice(0, 0, {
-                text: 'รายงานบัญชีสินทรัพย์',
-                fontSize: 18,
-                alignment: 'center',
-                margin: [0, 0, 0, 12]
-        });
-            
         }
     }
     ],
