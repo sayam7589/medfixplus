@@ -243,7 +243,6 @@ function generateTestPDF() {
             columns: ':not(:last-child)' // Exclude the last column (actions)
         }
     },
-    {
         
         extend: 'pdfHtml5',
         text: 'Export to PDF',
