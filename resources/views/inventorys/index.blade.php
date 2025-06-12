@@ -266,6 +266,8 @@ function generateTestPDF() {
                 alignment: 'center',
                 margin: [0, 0, 0, 20]
             });
+            doc.content[1].layout = 'lightHorizontalLines'; // เส้นบางๆ
+            doc.content[1].alignment = 'center';
         }
     }
     ],
