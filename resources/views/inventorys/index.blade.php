@@ -256,7 +256,7 @@ function generateTestPDF() {
         customize: function (doc) {
             doc.defaultStyle = {
                 font: 'THSarabunNew',  // ✅ ต้องตรงกับชื่อฟอนต์ใน pdfMake.fonts
-                fontSize: 15,           // ✅ ปรับขนาดให้อ่านง่าย
+                fontSize: 16,           // ✅ ปรับขนาดให้อ่านง่าย
                 alignment: 'center'
             };
             doc.content.unshift({
