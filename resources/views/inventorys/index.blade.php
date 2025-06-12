@@ -256,10 +256,9 @@ function generateTestPDF() {
         customize: function (doc) {
             doc.defaultStyle = {
                 font: 'THSarabunNew',  // ✅ ต้องตรงกับชื่อฟอนต์ใน pdfMake.fonts
-                fontSize: 14,           // ✅ ปรับขนาดให้อ่านง่าย
+                fontSize: 15,           // ✅ ปรับขนาดให้อ่านง่าย
                 alignment: 'center'
             };
-            doc.content[1].table.widths = ['5%', '15%', '15%', '15%', '15%', '10%', '10%', '15%'];
             doc.content.unshift({
                 text: 'รายงานบัญชีสินทรัพย์',
                 fontSize: 24,
