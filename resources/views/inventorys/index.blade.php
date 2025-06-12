@@ -258,12 +258,9 @@ function generateTestPDF() {
                 font: 'THSarabunNew',  // ✅ ต้องตรงกับชื่อฟอนต์ใน pdfMake.fonts
                 fontSize: 12,           // ✅ ปรับขนาดให้อ่านง่าย
                 alignment: 'center'
-            }; 
-            doc.styles.tableHeader = {
-                fontSize: 14,
-                bold: true,
-                alignment: 'center'
-    };
+            };
+            var colCount = doc.content[1].table.body[0].length;
+            doc.content[1].table.widths = Array(colCount).fill('*');
         }
     }
     ],
