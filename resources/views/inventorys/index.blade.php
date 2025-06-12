@@ -244,25 +244,29 @@ function generateTestPDF() {
         }
     },
     {
+        
         extend: 'pdfHtml5',
         text: 'Export to PDF',
         orientation: 'landscape',
         pageSize: 'A4',
         filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
-        title: 'รายการบัญชีสินทรัพย์',
         exportOptions: {
-            columns: ':not(:last-child)'
+        columns: ':not(:last-child)' // ✅ ไม่รวมปุ่มแก้ไข/ลบ
         },
-        customize: function (doc) {
-            doc.defaultStyle = {
-                font: 'THSarabunNew',  // ✅ ต้องตรงกับชื่อฟอนต์ใน pdfMake.fonts
-                fontSize: 14,           // ✅ ปรับขนาดให้อ่านง่าย
-                alignment: 'center'
-            };
-            
-        }
-    }
-    ],
+            customize: function (doc) {
+                doc.defaultStyle = {
+                    font: 'THSarabunNew',
+                    fontSize: 14,
+                    alignment: 'center'
+                };
+
+        // ✅ เพิ่มหัวเอง (ลบ title เดิมออกไปแล้ว)
+                doc.content.splice(0, 0, {
+                    text: 'รายงานบัญชีสินทรัพย์',
+                    fontSize: 18,
+                    alignment: 'center',
+                    margin: [0, 0, 0, 12]
+                });
 
 
         "initComplete": function() {    
