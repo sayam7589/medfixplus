@@ -96,7 +96,7 @@
                             @foreach($inventory as $invs)
                                 <tr>
                                     <td><input type="checkbox" class="row-select" value="{{ $invs->id }}"></td> <!-- Row Checkbox -->
-                                    <td>{{ $invs->id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $invs->type->type_name }}</td>
                                     <td>{{ $invs->inv_name }}</td>
                                     <td>{{ $invs->inv_mac_address }}</td>
