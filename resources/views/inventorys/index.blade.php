@@ -241,7 +241,7 @@
         customize: function (doc) {
             doc.defaultStyle = {
                 font: 'THSarabunNew',  // ✅ ต้องตรงกับชื่อฟอนต์ใน pdfMake.fonts
-                fontSize: 12,           // ✅ ปรับขนาดให้อ่านง่าย
+                fontSize: 12.5,           // ✅ ปรับขนาดให้อ่านง่าย
                 alignment: 'center'
             };
             doc.content.unshift({
@@ -266,7 +266,7 @@
                         alignment: 'center',
                         fontSize: 14,
                         lineHeight: 1.3,
-                        margin: [500, 0, 50, 50],
+                        margin: [600, 0, 50, 50],
                         border: [false, false, false, false]
                     }]]
                 },
