@@ -254,7 +254,7 @@
 
             // เเทรกข้อความท้ายเอกสาร
             doc.content.push({
-                alignment: 'right',
+                alignment: 'left',
                 margin: [0, 50, 0, 0], // ดันลงล่าง
                 fontSize: 14,
                 font: 'THSarabunNew',
@@ -263,7 +263,7 @@
                         text: `(ลงชื่อ) .......................................... (เจ้าหน้าที่ตรวจสอบ)\n` +
                     `ตำแหน่ง ........................................\n` +
                     `.......... / .......... / ..........`,
-                        alignment: 'left',
+                        alignment: 'center',
                         fontSize: 14,
                         lineHeight: 1.3,
                         margin: [0, 0, 0, 0],
