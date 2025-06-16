@@ -266,7 +266,7 @@
                         alignment: 'center',
                         fontSize: 14,
                         lineHeight: 1.3,
-                        margin: [80, 80, 80, 80],
+                        margin: [200, 0, 50, 50],
                         border: [false, false, false, false]
                     }]]
                 },
