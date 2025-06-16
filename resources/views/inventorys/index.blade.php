@@ -234,6 +234,7 @@
         orientation: 'landscape',
         pageSize: 'A4',
         title: '',
+        margin: [100, 0, 0, 0],
         filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
         exportOptions: {
             columns: ':not(:last-child)'
