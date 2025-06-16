@@ -251,23 +251,7 @@
                 alignment: 'center',
                 margin: [0, 0, 0, 20]
             });
-                doc.content[1].alignment = 'center';
-
-    // ✅ เพิ่ม layout เพื่อให้ดูดีขึ้น
-    doc.content[1].layout = {
-        hLineWidth: function (i, node) {
-            return (i === 1) ? 0.5 : 0.2;
-        },
-        vLineWidth: function () {
-            return 0.2;
-        },
-        hLineColor: function () { return '#aaa'; },
-        vLineColor: function () { return '#aaa'; },
-        paddingLeft: function () { return 4; },
-        paddingRight: function () { return 4; },
-        paddingTop: function () { return 2; },
-        paddingBottom: function () { return 2; }
-    };
+            doc.content[0].alignment = 'center';
             // เเทรกข้อความท้ายเอกสาร
             doc.content.push({
                 alignment: 'right',
