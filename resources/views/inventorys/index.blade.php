@@ -260,13 +260,13 @@
                 font: 'THSarabunNew',
                 table: {
                     body: [[{
+                        absolutePosition: { x: 400, y: doc.pageSize.height - 120 },
                         text: `(ลงชื่อ) .......................................... (เจ้าหน้าที่ตรวจสอบ)\n` +
                 `ตำแหน่ง ........................................\n` +
                 `.......... / .......... / ..........`,
                         alignment: 'center',
                         fontSize: 14,
                         lineHeight: 1.3,
-                        margin: [0, 80, 20, 0],
                         border: [false, false, false, false]
                     }]]
                 },
