@@ -234,7 +234,6 @@
         orientation: 'landscape',
         pageSize: 'A4',
         title: '',
-        margin: [100, 0, 0, 0],
         filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
         exportOptions: {
             columns: ':not(:last-child)'
@@ -242,7 +241,8 @@
         customize: function (doc) {
             doc.defaultStyle = {
                 font: 'THSarabunNew',  // ✅ ต้องตรงกับชื่อฟอนต์ใน pdfMake.fonts
-                fontSize: 12,           // ✅ ปรับขนาดให้อ่านง่าย
+                fontSize: 12,
+                margin: [100, 0, 0, 0], // ดันลงล่าง         // ✅ ปรับขนาดให้อ่านง่าย
                 alignment: 'center'
             };
             doc.content.unshift({
