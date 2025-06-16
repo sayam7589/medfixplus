@@ -251,11 +251,31 @@
                 alignment: 'center',
                 margin: [0, 0, 0, 20]
             });
+
+            // เเทรกข้อความท้ายเอกสาร
+            doc.content.push({
+                alignment: 'right',
+                margin: [0, 50, 0, 0], // ดันลงล่าง
+                fontSize: 14,
+                font: 'THSarabunNew',
+                table: {
+                    body: [[{
+                        text: `(ลงชื่อ) .......................................... (เจ้าหน้าที่ตรวจสอบ)\n` +
+                            `ตำแหน่ง ........................................\n` +
+                            `.......... / .......... / ..........`,
+                        alignment: 'right',
+                        fontSize: 14,
+                        lineHeight: 1.3,
+                        margin: [0, 0, 0, 0],
+                        border: [false, false, false, false]
+                    }]]
+                },
+                layout: 'noBorders'
+            });
         }
     }
     ],
-
-
+    
         "initComplete": function() {    
             $('.content').show();      // Show the content after DataTable is fully loaded
         }
