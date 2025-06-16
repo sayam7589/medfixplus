@@ -225,7 +225,7 @@
         extend: 'excel',
         text: 'Export to Excel',
         exportOptions: {
-            columns: ':not(:last-child)' // Exclude the last column (actions)
+            columns: ':not(:first-child):not(:last-child)' // Exclude the last column (actions)
         }
     },
     {
@@ -236,12 +236,12 @@
         title: '',
         filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
         exportOptions: {
-            columns: ':not(:last-child)'
+            columns: ':not(:first-child):not(:last-child)'
         },
         customize: function (doc) {
             doc.defaultStyle = {
                 font: 'THSarabunNew',  // ✅ ต้องตรงกับชื่อฟอนต์ใน pdfMake.fonts
-                fontSize: 12,         // ✅ ปรับขนาดให้อ่านง่าย
+                fontSize: 12,           // ✅ ปรับขนาดให้อ่านง่าย
                 alignment: 'center'
             };
             doc.content.unshift({
@@ -251,7 +251,20 @@
                 alignment: 'center',
                 margin: [0, 0, 0, 20]
             });
-            doc.content[0].alignment = 'center';
+             doc.content[1].layout = {
+                hLineWidth: function (i, node) {
+                    return (i === 1) ? 0.5 : 0.2;
+                },
+                vLineWidth: function () {
+                    return 0.2;
+                },
+                hLineColor: function () { return '#aaa'; },
+                vLineColor: function () { return '#aaa'; },
+                paddingLeft: function () { return 4; },
+                paddingRight: function () { return 4; },
+                paddingTop: function () { return 2; },
+                paddingBottom: function () { return 2; }
+            };
             // เเทรกข้อความท้ายเอกสาร
             doc.content.push({
                 alignment: 'right',
