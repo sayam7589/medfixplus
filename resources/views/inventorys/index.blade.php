@@ -233,6 +233,7 @@
         text: 'Export to PDF',
         orientation: 'landscape',
         pageSize: 'A4',
+        alignment: 'center',
         title: '',
         filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
         exportOptions: {
