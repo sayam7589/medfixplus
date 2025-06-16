@@ -233,7 +233,6 @@
         text: 'Export to PDF',
         orientation: 'landscape',
         pageSize: 'A4',
-        alignment: 'center',
         title: '',
         filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
         exportOptions: {
@@ -267,7 +266,7 @@
                         alignment: 'center',
                         fontSize: 14,
                         lineHeight: 1.3,
-                        margin: [550, 0, 50, 50],
+                        margin: [500, 0, 50, 50],
                         border: [false, false, false, false]
                     }]]
                 },
