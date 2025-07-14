@@ -55,7 +55,7 @@
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/dashboard"" class="nav-link">หน้าหลัก</a>
+                    <a href="/dashboard" class="nav-link">หน้าหลัก</a>
                 </li>
             </ul>
 
@@ -76,7 +76,7 @@
                 <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
 
-                <span class="brand-text font-weight-light">{{ env('APP_NAME') }}</span>
+                <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
 
             </a>
 
