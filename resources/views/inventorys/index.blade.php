@@ -241,7 +241,7 @@
         customize: function (doc) {
     doc.defaultStyle = {
         font: 'THSarabunNew',
-        fontSize: 11,
+        fontSize: 11.5,
         alignment: 'center'
     };
 
