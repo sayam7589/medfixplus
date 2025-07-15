@@ -188,10 +188,10 @@
     });
 
     var table = $('#example1').DataTable({
+        "pageLength": 9,   
         "paging": true,
         "lengthChange": false,
         "searching": true,
-        "pageLength": 9,           // ← จำนวนแถวต่อหน้า
         "ordering": false,
         "info": false,
         "autoWidth": false,
