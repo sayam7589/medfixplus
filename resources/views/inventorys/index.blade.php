@@ -267,15 +267,6 @@
     var header = tableBody[0]; // row header
     var newBody = [header]; // เริ่มด้วย header
 
-    for (var i = 1; i < tableBody.length; i++) {
-        newBody.push(tableBody[i]);
-
-        if (i % 10 === 0) {
-            // ใส่ pageBreak หลังจากทุกๆ 10 แถว
-            newBody.push([{ text: '', pageBreak: 'after', colSpan: header.length }].concat(Array(header.length - 1).fill({})));
-        }
-    }
-
     doc.content[1].table.body = newBody;
 
     // ✅ เพิ่มลายเซ็นท้ายเอกสาร
