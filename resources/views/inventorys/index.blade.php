@@ -239,53 +239,70 @@
             columns: ':not(:first-child):not(:last-child)'
         },
         customize: function (doc) {
-            doc.defaultStyle = {
-                font: 'THSarabunNew',  // ✅ ต้องตรงกับชื่อฟอนต์ใน pdfMake.fonts
-                fontSize: 11,           // ✅ ปรับขนาดให้อ่านง่าย
-                alignment: 'center'
-            };
-            doc.content.unshift({
-                text: 'รายงานบัญชีสินทรัพย์',
-                fontSize: 24,
-                bold: true,
-                alignment: 'center',
-                margin: [0, 0, 0, 20]
-            });
-             doc.content[1].layout = {
-                hLineWidth: function (i, node) {
-                    return (i === 1) ? 0.5 : 0.2;
-                },
-                vLineWidth: function () {
-                    return 0.2;
-                },
-                hLineColor: function () { return '#aaa'; },
-                vLineColor: function () { return '#aaa'; },
-                paddingLeft: function () { return 4; },
-                paddingRight: function () { return 4; },
-                paddingTop: function () { return 2; },
-                paddingBottom: function () { return 2; }
-            };
-            // เเทรกข้อความท้ายเอกสาร
-            doc.content.push({
-                alignment: 'right',
-                margin: [0, 50, 0, 0], // ดันลงล่าง
-                fontSize: 13,
-                font: 'THSarabunNew',
-                table: {
-                    body: [[{
-                        text: `(ลงชื่อ) .......................................... (เจ้าหน้าที่ตรวจสอบ)\n` +
-                `ตำแหน่ง ........................................\n` +
-                `.......... / .......... / ..........`,
-                        alignment: 'center',
-                        fontSize: 14,
-                        lineHeight: 1.3,
-                        margin: [500, 0, 50, 50],
-                        border: [false, false, false, false]
-                    }]]
-                },
-                layout: 'noBorders'
-            });
+    doc.defaultStyle = {
+        font: 'THSarabunNew',
+        fontSize: 12,
+        alignment: 'center'
+    };
+
+    doc.content.unshift({
+        text: 'รายงานบัญชีสินทรัพย์',
+        fontSize: 24,
+        bold: true,
+        alignment: 'center',
+        margin: [0, 0, 0, 20]
+    });
+
+    doc.content[1].layout = {
+        hLineWidth: function (i, node) {
+            return (i === 1) ? 0.5 : 0.2;
+        },
+        vLineWidth: function () { return 0.2; },
+        hLineColor: function () { return '#aaa'; },
+        vLineColor: function () { return '#aaa'; },
+        paddingLeft: function () { return 4; },
+        paddingRight: function () { return 4; },
+        paddingTop: function () { return 2; },
+        paddingBottom: function () { return 2; }
+    };
+
+    // ✅ แบ่ง page break ทุก 10 แถว
+    var tableBody = doc.content[1].table.body;
+    var header = tableBody[0]; // row header
+    var newBody = [header]; // เริ่มด้วย header
+
+    for (var i = 1; i < tableBody.length; i++) {
+        newBody.push(tableBody[i]);
+
+        if (i % 10 === 0) {
+            // ใส่ pageBreak หลังจากทุกๆ 10 แถว
+            newBody.push([{ text: '', pageBreak: 'after', colSpan: header.length }].concat(Array(header.length - 1).fill({})));
         }
+    }
+
+    doc.content[1].table.body = newBody;
+
+    // ✅ เพิ่มลายเซ็นท้ายเอกสาร
+    doc.content.push({
+        margin: [0, 50, 0, 0],
+        fontSize: 13,
+        font: 'THSarabunNew',
+        alignment: 'center',
+        table: {
+            widths: ['*'],
+            body: [[{
+                text: `(ลงชื่อ) .......................................... (เจ้าหน้าที่ตรวจสอบ)\n` +
+                      `ตำแหน่ง ........................................\n` +
+                      `.......... / .......... / ..........`,
+                alignment: 'center',
+                fontSize: 14,
+                lineHeight: 1.3,
+                border: [false, false, false, false]
+            }]]
+        },
+        layout: 'noBorders'
+    });
+}
     }
     ],
     
