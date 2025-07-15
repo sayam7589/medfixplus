@@ -274,7 +274,7 @@
     for (var i = 1; i < tableBody.length; i++) {
         newBody.push(tableBody[i]);
 
-        if (i % 9 === 0) {
+        if (i % 12 === 0) {
             // ใส่ pageBreak หลังจากทุกๆ 10 แถว
             newBody.push([{ text: '', pageBreak: 'after', colSpan: header.length }].concat(Array(header.length - 1).fill({})));
         }
@@ -285,7 +285,7 @@
     // ✅ เพิ่มลายเซ็นท้ายเอกสาร
     doc.content.push({
         margin: [0, 50, 0, 0],
-        fontSize: 16,
+        fontSize: 10,
         font: 'THSarabunNew',
         alignment: 'center',
         table: {
