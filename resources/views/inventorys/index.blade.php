@@ -241,7 +241,7 @@
         customize: function (doc) {
     doc.defaultStyle = {
         font: 'THSarabunNew',
-        fontSize: 10,
+        fontSize: 12,
         alignment: 'center'
     };
 
@@ -274,7 +274,7 @@
     for (var i = 1; i < tableBody.length; i++) {
         newBody.push(tableBody[i]);
 
-        if (i % 12 === 0) {
+        if (i % 10 === 0) {
             // ใส่ pageBreak หลังจากทุกๆ 10 แถว
             newBody.push([{ text: '', pageBreak: 'after', colSpan: header.length }].concat(Array(header.length - 1).fill({})));
         }
