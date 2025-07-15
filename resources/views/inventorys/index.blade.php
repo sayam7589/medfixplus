@@ -253,18 +253,7 @@
         margin: [0, 0, 0, 20]
     });
 
-    doc.content[1].layout = {
-        hLineWidth: function (i, node) {
-            return (i === 1) ? 0.5 : 0.2;
-        },
-        vLineWidth: function () { return 0.2; },
-        hLineColor: function () { return '#aaa'; },
-        vLineColor: function () { return '#aaa'; },
-        paddingLeft: function () { return 4; },
-        paddingRight: function () { return 4; },
-        paddingTop: function () { return 2; },
-        paddingBottom: function () { return 2; }
-    };
+
 
     // ✅ แบ่ง page break ทุก 10 แถว
     var tableBody = doc.content[1].table.body;
