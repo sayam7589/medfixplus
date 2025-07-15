@@ -191,7 +191,7 @@
         "paging": true,
         "lengthChange": false,
         "searching": true,
-        "pageLength": 10,
+        "pageLength": 9,
         "ordering": false,
         "info": false,
         "autoWidth": false,
