@@ -267,6 +267,10 @@
     var header = tableBody[0]; // row header
     var newBody = [header]; // เริ่มด้วย header
 
+    for (var i = 1; i < tableBody.length; i++) {
+        newBody.push(tableBody[i]);
+    }
+
     doc.content[1].table.body = newBody;
 
     // ✅ เพิ่มลายเซ็นท้ายเอกสาร
