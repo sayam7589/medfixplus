@@ -191,16 +191,15 @@
         "paging": true,
         "lengthChange": false,
         "searching": true,
-        "pageLength": 9,           // ← จำนวนแถวต่อหน้า
+        "pageLength": 10,
         "ordering": false,
         "info": false,
         "autoWidth": false,
         "responsive": true,
         "processing": true,
-        "stateSave": false,
-        "deferRender": true,
-        "deferLoading": 0,
-    
+        "stateSave": true,
+        "deferRender":true,
+        "deferLoading": 0, 
     
         "columns": [
             { "visible": true },  // Checkbox column
