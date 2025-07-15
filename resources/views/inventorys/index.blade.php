@@ -189,17 +189,17 @@
 
     var table = $('#example1').DataTable({
         "paging": true,
-        "lengthChange": true,
+        "lengthChange": false,
         "searching": true,
-        "pageLength": 9,
+        "pageLength": 9,           // ← จำนวนแถวต่อหน้า
         "ordering": false,
         "info": false,
         "autoWidth": false,
         "responsive": true,
         "processing": true,
         "stateSave": true,
-        "deferRender":true,
-        "deferLoading": 0, 
+        "deferRender": true,
+        "deferLoading": 0
     
         "columns": [
             { "visible": true },  // Checkbox column
