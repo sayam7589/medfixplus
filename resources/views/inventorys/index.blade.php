@@ -241,7 +241,7 @@
         customize: function (doc) {
     doc.defaultStyle = {
         font: 'THSarabunNew',
-        fontSize: 14,
+        fontSize: 10,
         alignment: 'center'
     };
 
@@ -285,7 +285,7 @@
     // ✅ เพิ่มลายเซ็นท้ายเอกสาร
     doc.content.push({
         margin: [0, 50, 0, 0],
-        fontSize: 10,
+        fontSize: 13,
         font: 'THSarabunNew',
         alignment: 'center',
         table: {
