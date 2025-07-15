@@ -189,9 +189,9 @@
 
     var table = $('#example1').DataTable({
         "paging": true,
-        "lengthChange": false,
+        "lengthChange": true,
         "searching": true,
-        "pageLength": 5,
+        "pageLength": 9,
         "ordering": false,
         "info": false,
         "autoWidth": false,
