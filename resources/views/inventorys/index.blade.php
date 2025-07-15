@@ -199,7 +199,8 @@
         "processing": true,
         "stateSave": true,
         "deferRender": true,
-        "deferLoading": 0
+        "deferLoading": 0,
+    
     
         "columns": [
             { "visible": true },  // Checkbox column
