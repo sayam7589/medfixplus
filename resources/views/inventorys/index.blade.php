@@ -274,7 +274,7 @@
     doc.content[1].table.body = newBody;
 
     // ✅ เพิ่มลายเซ็นท้ายเอกสาร
-         doc.content.push({
+            doc.content.push({
                 alignment: 'right',
                 margin: [0, 50, 0, 0], // ดันลงล่าง
                 fontSize: 13,
@@ -293,7 +293,7 @@
                 },
                 layout: 'noBorders'
             });
-}
+        }
     }
     ],
     
