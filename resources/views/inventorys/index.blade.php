@@ -231,7 +231,7 @@
     {
         extend: 'pdfHtml5',
         text: 'Export to PDF',
-        alignment: 'center'
+        alignment: 'center',
         orientation: 'landscape',
         pageSize: 'A4',
         title: '',
