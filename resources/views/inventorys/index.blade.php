@@ -274,26 +274,26 @@
     doc.content[1].table.body = newBody;
 
     // ✅ เพิ่มลายเซ็นท้ายเอกสาร
-            doc.content.push({
-                alignment: 'right',
-                margin: [0, 50, 0, 0], // ดันลงล่าง
-                fontSize: 13,
-                font: 'THSarabunNew',
-                table: {
-                    body: [[{
-                       'text: (ลงชื่อ) .......................................... (เจ้าหน้าที่ตรวจสอบ)\n' +
-                'ตำแหน่ง ........................................\n' +
-                '.......... / .......... / ..........(ว/ด/ป)',
-                        alignment: 'center',
-                        fontSize: 14,
-                        lineHeight: 1.3,
-                        margin: [500, 0, 50, 50],
-                        border: [false, false, false, false]
-                    }]]
-                },
-                layout: 'noBorders'
-            });
-        }
+    doc.content.push({
+        margin: [0, 0, 0, 0],
+        fontSize: 13,
+        font: 'THSarabunNew',
+        alignment: 'right',
+        table: {
+            widths: ['*'],
+            body: [[{
+                text: `(ลงชื่อ) .................................................... (เจ้าหน้าที่ตรวจสอบ)\n` +
+                `ตำแหน่ง ..................................................................... \n` +
+                `............. / .............. / ..............(ว/ด/ป)`,
+                alignment: 'center',
+                fontSize: 14,
+                lineHeight: 1.3,
+                border: [false, false, false, false]
+            }]]
+        },
+        layout: 'noBorders'
+    });
+}
     }
     ],
     
