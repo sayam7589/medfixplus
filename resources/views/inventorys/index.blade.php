@@ -264,7 +264,7 @@
     };
 
     doc.content[1].alignment = 'center';
-
+    
     // ✅ แบ่ง page break ทุก 10 แถว
     var tableBody = doc.content[1].table.body;
     var header = tableBody[0]; // row header
@@ -274,7 +274,7 @@
         newBody.push(tableBody[i]);
     }
 
-    //doc.content[1].table.body = newBody;
+    doc.content[1].table.body = newBody;
 
     // ✅ เพิ่มลายเซ็นท้ายเอกสาร
     doc.content.push({
