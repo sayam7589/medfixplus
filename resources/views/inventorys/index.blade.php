@@ -275,7 +275,7 @@
 
     // ✅ เพิ่มลายเซ็นท้ายเอกสาร
     doc.content.push({
-        margin: [0, 50, 0, 0],
+        margin: [0,30, 0, 0],
         fontSize: 13,
         font: 'THSarabunNew',
         alignment: 'center',
