@@ -79,7 +79,7 @@ class MedfixController extends Controller
             $tel = "📞: ".$request->medfix_tel;
             $link = "🚀: http://medfix.dyndns.tv:8080/inventory/".$invid;
             $message = $title."\n".$detail."\n".$invname."\n".$person."\n".$from."\n".$tel."\n".$link;
-            sendLineNotify($message);
+            //sendLineNotify($message);
             return redirect()->route('inventory', $invid);
         }else{
             Alert::warning('พบข้อผิดพลาด', 'กรุณาตรวจสอบว่ากรอกข้อมูลครับถ้วนแล้ว');
