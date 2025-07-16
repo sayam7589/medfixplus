@@ -231,6 +231,7 @@
     {
         extend: 'pdfHtml5',
         text: 'Export to PDF',
+        alignment: 'center'
         orientation: 'landscape',
         pageSize: 'A4',
         title: '',
@@ -238,7 +239,7 @@
         exportOptions: {
             columns: ':not(:first-child):not(:last-child)'
         },
-        customize: function (doc) {
+    customize: function (doc) {
     doc.defaultStyle = {
         font: 'THSarabunNew',
         fontSize: 12,
@@ -282,7 +283,7 @@
         table: {
             body: [[{
                 text: `(ลงชื่อ) ................................................................  (เจ้าหน้าที่ตรวจสอบ)\n` +
-                `ตำแหน่ง ................................................. \n` +
+                `ตำแหน่ง ........................................................... \n` +
                 `............/............./.............(ว/ด/ป)`,
                 alignment: 'center',
                 fontSize: 14,
