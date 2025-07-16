@@ -276,7 +276,7 @@
     // ✅ เพิ่มลายเซ็นท้ายเอกสาร
     doc.content.push({
         margin: [0, 50, 0, 0],
-        fontSize: 13,
+        fontSize: 16,
         font: 'THSarabunNew',
         alignment: 'center',
         table: {
@@ -285,7 +285,7 @@
                 text: `(ลงชื่อ) .......................................... (เจ้าหน้าที่ตรวจสอบ)\n` +
                       `ตำแหน่ง ........................................\n` +
                       `.......... / .......... / ..........`,
-                alignment: 'center',
+                alignment: 'left',
                 fontSize: 14,
                 lineHeight: 1.3,
                 border: [false, false, false, false]
