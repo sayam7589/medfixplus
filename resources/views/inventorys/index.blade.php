@@ -286,7 +286,7 @@
                       `ตำแหน่ง ........................................\n` +
                       `.......... / .......... / ..........`,
                 alignment: 'right',
-                fontSize: 16,
+                fontSize: 14,
                 lineHeight: 1.3,
                 border: [false, false, false, false]
             }]]
