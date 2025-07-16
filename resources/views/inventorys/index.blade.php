@@ -231,7 +231,6 @@
     {
         extend: 'pdfHtml5',
         text: 'Export to PDF',
-        alignment: 'center',
         orientation: 'landscape',
         pageSize: 'A4',
         title: '',
@@ -253,6 +252,8 @@
         alignment: 'center',
         margin: [0, 0, 0, 20]
     });
+    
+    doc.content[1].alignment = 'center';
 
     doc.content[1].layout = {
         hLineWidth: function (i, node) {
