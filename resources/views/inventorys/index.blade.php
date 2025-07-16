@@ -253,7 +253,6 @@
         margin: [0, 0, 0, 20]
     });
     
-    doc.content[1].alignment = 'center';
 
     doc.content[1].layout = {
         hLineWidth: function (i, node) {
@@ -264,6 +263,8 @@
         vLineColor: function () { return '#aaa'; },
     };
 
+    doc.content[1].alignment = 'center';
+    
     // ✅ แบ่ง page break ทุก 10 แถว
     var tableBody = doc.content[1].table.body;
     var header = tableBody[0]; // row header
