@@ -12,6 +12,8 @@ use App\Http\Controllers\IssueController;
 use App\Http\Controllers\SolvingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LineController;
+use App\Http\Controllers\ChartController;
+
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -109,4 +111,9 @@ Route::group(['middleware' => ['auth']], function () {
       Route::post('department.store', [DepartmentController::class, 'store'])->name('department.store')->middleware(['role:admin']);
       Route::put('/department_update/{id}', [DepartmentController::class, 'update'])->name('department.update')->middleware(['role:admin']);
       Route::delete('/department_destroy/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy')->middleware(['role:admin']);
+
+      
+    Route::get('/charts/inventory-by-org-type', [DashboardController::class, 'inventoryByOrgType'])
+        ->name('charts.inventory.byOrgType');
+
 });

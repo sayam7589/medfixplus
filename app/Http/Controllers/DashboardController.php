@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/DashboardController.php
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -59,51 +58,80 @@ class DashboardController extends Controller
         $user_count      = User::count();
         $user            = Auth::user();
 
+        // ✅ รายการหน่วยงานสำหรับ Dropdown
+        $departments = DB::table('department')
+            ->select('id', 'gong') // 👈 ถ้าชื่อคอลัมน์ต่างไป แก้ตรงนี้
+            ->orderBy('gong')
+            ->get();
+
         return view('dashboard', compact(
             'user', 'medfix_count', 'inventory_count', 'project_count',
-            'user_count', 'repairs', 'repairs_2', 'repairsByIssue'
+            'user_count', 'repairs', 'repairs_2', 'repairsByIssue', 'departments'
         ));
     }
 
-    // ✅ เมธอดสำหรับกราฟ AJAX
+    // ✅ API สำหรับกราฟ (All orgs = stacked, Selected org = single)
     public function inventoryByOrgType(Request $request)
     {
-        $year  = $request->integer('year');   // optional
-        $month = $request->integer('month');  // optional
+        $orgId = $request->integer('org_id'); // optional
 
-        // JOIN ตารางสำหรับชื่อแสดงผล
-        $query = DB::table('inventory')
+        // ฐาน JOIN เพื่อดึงชื่อแสดงผล
+        $base = DB::table('inventory')
             ->leftJoin('department', 'department.id', '=', 'inventory.rec_organize')
-            ->leftJoin('inventory_type', 'inventory_type.id', '=', 'inventory.inv_type')
+            ->leftJoin('inventory_type', 'inventory_type.id', '=', 'inventory.inv_type');
+
+        if ($orgId) {
+            // โหมด: เลือกหน่วยงานเดียว → กราฟแท่งเดียว (แกน X = ประเภท)
+            $query = (clone $base)
+                ->where('inventory.rec_organize', $orgId)
+                ->select([
+                    DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) as type_name'), // 👈 แก้ชื่อคอลัมน์ตามจริง
+                    DB::raw('COUNT(*) as total')
+                ])
+                ->groupBy('type_name');
+
+            $rows = Cache::remember("chart:inv_by_type:org:$orgId", 300, fn () => $query->get());
+
+            $labels = collect($rows)->pluck('type_name')->values();
+            $data   = collect($rows)->pluck('total')->map(fn($v)=>(int)$v)->values();
+
+            // ชื่อหน่วยงานไว้เป็น label dataset
+            $deptName = DB::table('department')->where('id', $orgId)->value('gong'); // 👈 แก้คอลัมน์ถ้าจำเป็น
+
+            return response()->json([
+                'mode'     => 'single',
+                'labels'   => $labels,    // inv_type
+                'datasets' => [[
+                    'label' => $deptName ?: 'หน่วยงานที่เลือก',
+                    'data'  => $data,
+                ]],
+            ]);
+        }
+
+        // โหมด: ทุกหน่วยงาน → Stacked Bar (แกน X = หน่วยงาน, dataset = ประเภท)
+        $query = (clone $base)
             ->select([
-                DB::raw('COALESCE(department.gong, inventory.rec_organize) AS dept_name'),   // 👈 เปลี่ยนเป็นชื่อคอลัมน์จริงได้
-                DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) AS type_name'), // 👈 เปลี่ยนเป็นชื่อคอลัมน์จริงได้
-                DB::raw('COUNT(*) AS total')
+                DB::raw('COALESCE(department.gong, inventory.rec_organize) as dept_name'),     // 👈 แก้ชื่อคอลัมน์ตามจริง
+                DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) as type_name'), // 👈 แก้ชื่อคอลัมน์ตามจริง
+                DB::raw('COUNT(*) as total')
             ])
             ->groupBy('dept_name', 'type_name');
 
-        // ถ้ามีคอลัมน์วันที่ (เช่น created_at) ให้ปลดคอมเมนต์และปรับชื่อ
-        // if ($year)  $query->whereYear('inventory.created_at', $year);
-        // if ($month) $query->whereMonth('inventory.created_at', $month);
+        $rows = Cache::remember('chart:inv_by_org_type:all', 300, fn () => $query->get());
 
-        // แคช 5 นาที (ตามพารามิเตอร์กรอง)
-        $cacheKey = 'chart:inv_by_org_type:' . md5(json_encode([$year, $month]));
-        $rows = Cache::remember($cacheKey, 300, fn () => $query->get());
-
-        // เตรียมข้อมูลสำหรับ Chart.js
         $orgs  = collect($rows)->pluck('dept_name')->unique()->values();
         $types = collect($rows)->pluck('type_name')->unique()->values();
 
         $matrix = [];
         foreach ($types as $t) $matrix[$t] = array_fill(0, $orgs->count(), 0);
-
         foreach ($rows as $r) {
-            $orgIndex = $orgs->search($r->dept_name);
-            $matrix[$r->type_name][$orgIndex] = (int) $r->total;
+            $i = $orgs->search($r->dept_name);
+            $matrix[$r->type_name][$i] = (int) $r->total;
         }
 
         return response()->json([
-            'labels'   => $orgs,
+            'mode'     => 'stacked',
+            'labels'   => $orgs,  // หน่วยงาน
             'datasets' => $types->map(fn ($t) => [
                 'label' => $t,
                 'data'  => $matrix[$t],
