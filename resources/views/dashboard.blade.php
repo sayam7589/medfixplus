@@ -107,7 +107,6 @@
 
                     <!-- RIGHT -->
                     <div class="col-md-6">
-                        <!-- Frequent Issues Table -->
                         <div class="card">
                             <div class="card-header"><h3 class="card-title">ปัญหาที่พบบ่อย</h3></div>
                             <div class="card-body p-0">
@@ -139,8 +138,6 @@
                                 </table>
                             </div>
                         </div>
-
-                        {{-- ถ้าจะใช้ Donut ภายหลัง ค่อยปลดคอมเมนต์การ์ด + JS --}}
                     </div>
                 </div>
 
@@ -150,7 +147,7 @@
 @endsection
 
 @section('scripts')
-    <!-- Chart.js v2 from AdminLTE -->
+    <!-- Chart.js v2 จาก AdminLTE -->
     <script src="{{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
     <script>
         $(function () {
@@ -176,11 +173,14 @@
                 maintainAspectRatio: false,
                 responsive: true,
                 legend: { display: false },
-                scales: { xAxes: [{ gridLines: { display: false }}], yAxes: [{ gridLines: { display: false }}]}
+                scales: {
+                    xAxes: [{ gridLines: { display: false }}],
+                    yAxes: [{ gridLines: { display: false }}]
+                }
             };
             new Chart(areaChartCanvas, { type: 'line', data: areaChartData, options: areaChartOptions });
 
-            // ===== INVENTORY CHART (Stacked / Single) =====
+            // ===== INVENTORY CHART (Stacked / Single by org) =====
             var invOrgTypeChart;
             var $dept = $('#deptSelect');
 
@@ -196,13 +196,12 @@
                     const ctx = document.getElementById('invOrgTypeBar').getContext('2d');
                     if (invOrgTypeChart) invOrgTypeChart.destroy();
 
-                    // โหมด stacked vs single
                     var isStacked = (json.mode === 'stacked');
 
                     invOrgTypeChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: json.labels,
+                            labels: json.labels, // stacked=หน่วยงาน | single=ประเภท
                             datasets: json.datasets.map(function (ds, i) {
                                 return $.extend({}, ds, {
                                     backgroundColor: getColor(i),
@@ -236,7 +235,6 @@
                 return base[i % base.length];
             }
 
-            // โหลดครั้งแรก + เมื่อเปลี่ยน Dropdown
             loadInvChart();
             $dept.on('change', loadInvChart);
         });

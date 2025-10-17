@@ -9,7 +9,6 @@ use App\Models\Inventory;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
@@ -58,9 +57,9 @@ class DashboardController extends Controller
         $user_count      = User::count();
         $user            = Auth::user();
 
-        // ✅ รายการหน่วยงานสำหรับ Dropdown
+        // รายการหน่วยงานสำหรับ Dropdown
         $departments = DB::table('department')
-            ->select('id', 'gong') // 👈 ถ้าชื่อคอลัมน์ต่างไป แก้ตรงนี้
+            ->select('id', 'gong')
             ->orderBy('gong')
             ->get();
 
@@ -70,54 +69,50 @@ class DashboardController extends Controller
         ));
     }
 
-    // ✅ API สำหรับกราฟ (All orgs = stacked, Selected org = single)
+    /**
+     * API สำหรับกราฟ: 
+     * - ไม่ส่ง org_id -> โหมด stacked (X = หน่วยงาน, dataset = ประเภท)
+     * - ส่ง org_id -> โหมด single (X = ประเภทของหน่วยงานนั้น)
+     */
     public function inventoryByOrgType(Request $request)
     {
         $orgId = $request->integer('org_id'); // optional
 
-        // ฐาน JOIN เพื่อดึงชื่อแสดงผล
         $base = DB::table('inventory')
             ->leftJoin('department', 'department.id', '=', 'inventory.rec_organize')
             ->leftJoin('inventory_type', 'inventory_type.id', '=', 'inventory.inv_type');
 
         if ($orgId) {
-            // โหมด: เลือกหน่วยงานเดียว → กราฟแท่งเดียว (แกน X = ประเภท)
-            $query = (clone $base)
+            // โหมด: หน่วยงานเดียว -> X = inv_type
+            $rows = (clone $base)
                 ->where('inventory.rec_organize', $orgId)
                 ->select([
-                    DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) as type_name'), // 👈 แก้ชื่อคอลัมน์ตามจริง
+                    DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) as type_name'),
                     DB::raw('COUNT(*) as total')
                 ])
-                ->groupBy('type_name');
+                ->groupBy('type_name')
+                ->get();
 
-            $rows = Cache::remember("chart:inv_by_type:org:$orgId", 300, fn () => $query->get());
-
-            $labels = collect($rows)->pluck('type_name')->values();
-            $data   = collect($rows)->pluck('total')->map(fn($v)=>(int)$v)->values();
-
-            // ชื่อหน่วยงานไว้เป็น label dataset
-            $deptName = DB::table('department')->where('id', $orgId)->value('gong'); // 👈 แก้คอลัมน์ถ้าจำเป็น
+            $labels   = collect($rows)->pluck('type_name')->values();
+            $data     = collect($rows)->pluck('total')->map(fn($v)=>(int)$v)->values();
+            $deptName = DB::table('department')->where('id', $orgId)->value('gong');
 
             return response()->json([
                 'mode'     => 'single',
-                'labels'   => $labels,    // inv_type
-                'datasets' => [[
-                    'label' => $deptName ?: 'หน่วยงานที่เลือก',
-                    'data'  => $data,
-                ]],
+                'labels'   => $labels,
+                'datasets' => [[ 'label' => $deptName ?: 'หน่วยงานที่เลือก', 'data' => $data ]],
             ]);
         }
 
-        // โหมด: ทุกหน่วยงาน → Stacked Bar (แกน X = หน่วยงาน, dataset = ประเภท)
-        $query = (clone $base)
+        // โหมด: ทุกหน่วยงาน -> X = หน่วยงาน, dataset = ประเภท (stacked)
+        $rows = (clone $base)
             ->select([
-                DB::raw('COALESCE(department.gong, inventory.rec_organize) as dept_name'),     // 👈 แก้ชื่อคอลัมน์ตามจริง
-                DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) as type_name'), // 👈 แก้ชื่อคอลัมน์ตามจริง
+                DB::raw('COALESCE(department.gong, inventory.rec_organize) as dept_name'),
+                DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) as type_name'),
                 DB::raw('COUNT(*) as total')
             ])
-            ->groupBy('dept_name', 'type_name');
-
-        $rows = Cache::remember('chart:inv_by_org_type:all', 300, fn () => $query->get());
+            ->groupBy('dept_name', 'type_name')
+            ->get();
 
         $orgs  = collect($rows)->pluck('dept_name')->unique()->values();
         $types = collect($rows)->pluck('type_name')->unique()->values();
@@ -131,7 +126,7 @@ class DashboardController extends Controller
 
         return response()->json([
             'mode'     => 'stacked',
-            'labels'   => $orgs,  // หน่วยงาน
+            'labels'   => $orgs,
             'datasets' => $types->map(fn ($t) => [
                 'label' => $t,
                 'data'  => $matrix[$t],
