@@ -112,8 +112,8 @@ Route::group(['middleware' => ['auth']], function () {
       Route::put('/department_update/{id}', [DepartmentController::class, 'update'])->name('department.update')->middleware(['role:admin']);
       Route::delete('/department_destroy/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy')->middleware(['role:admin']);
 
-      
-    Route::get('/charts/inventory-by-org-type', [DashboardController::class, 'inventoryByOrgType'])
-        ->name('charts.inventory.byOrgType');
+
+    Route::get('/charts/inventory/by-dept', [DashboardController::class, 'inventoryByDeptType'])
+    ->name('charts.inventory.byDeptType');
 
 });
