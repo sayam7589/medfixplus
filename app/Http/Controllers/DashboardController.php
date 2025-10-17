@@ -63,7 +63,51 @@ class DashboardController extends Controller
         $user = Auth::user();
 
 
-        return view('dashboard', compact('user', 'medfix_count', 'inventory_count', 'project_count', 'user_count', 'user', 'repairs', 'repairs_2', 'repairsByIssue'));
+         $gongs = Department::query()
+            ->whereNotNull('gong')
+            ->where('gong', '<>', '')
+            ->select('gong')
+            ->groupBy('gong')
+            ->orderBy('gong')
+            ->pluck('gong');
+
+
+        return view('dashboard', compact('user', 'medfix_count', 'gongs', 'inventory_count', 'project_count', 'user_count', 'user', 'repairs', 'repairs_2', 'repairsByIssue'));
     }
+
+     // เมธอดใหม่: คืนค่าจำนวน inv_type รวมทุกหน่วยภายใต้ gong ที่เลือก
+    public function invTypeCounts(Request $request)
+    {
+        $gong = $request->query('gong');
+
+        // ป้องกันเคสไม่ได้ส่ง gong มา
+        if (!$gong) {
+            return response()->json([
+                'labels' => [],
+                'data'   => [],
+            ]);
+        }
+
+        // นับจำนวนแยกตาม inv_type ของ inventory ทั้งหมดที่อยู่ภายใต้ "gong" ที่เลือก
+        // โครงสร้าง: inventory.rec_organize -> department.id (หลายหน่วย/แผนกใช้ gong ซ้ำกันได้)
+        // พยายามดึงชื่อประเภทจากตาราง inventory_type ถ้ามีคอลัมน์ชื่อไม่แน่—รองรับหลายชื่อ
+        $rows = DB::table('inventory as i')
+            ->join('department as d', 'i.rec_organize', '=', 'd.id')
+            ->leftJoin('inventory_type as it', 'i.inv_type', '=', 'it.id')
+            ->where('d.gong', $gong)
+            ->groupBy('i.inv_type', 'it.type_name', 'it.name', 'it.inv_type_name')
+            ->selectRaw('
+                COALESCE(it.type_name, it.name, it.inv_type_name, CONCAT("ประเภท ", i.inv_type)) as label,
+                COUNT(*) as total
+            ')
+            ->orderByDesc('total')
+            ->get();
+
+        return response()->json([
+            'labels' => $rows->pluck('label'),
+            'data'   => $rows->pluck('total'),
+        ]);
+    }
+   
 
 }
