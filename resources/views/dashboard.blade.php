@@ -51,7 +51,7 @@
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
                             </div>
-                            <a href="{{ route('inventorys_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="/inventorys_index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
 
@@ -64,7 +64,7 @@
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="{{ route('projects_index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="/projects_index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
 
