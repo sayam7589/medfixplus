@@ -8,7 +8,7 @@ use App\Http\Controllers\InvController;
 use App\Http\Controllers\UserPermissionController;
 use App\Http\Controllers\InventoryBrandController;
 use App\Http\Controllers\MedfixController;
-use App\Http\Controllers\IssueController;
+use App\Http\Controllers\IssueController;h
 use App\Http\Controllers\SolvingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LineController;

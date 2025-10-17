@@ -1,38 +1,33 @@
 <?php
 
+// app/Http/Controllers/DashboardController.php
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cache;
-
 use App\Models\Medfix;
 use App\Models\Inventory;
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // ===== สถิติการซ่อม (ของเดิม) =====
+        // --- ของเดิม (คงไว้) ---
         $repairs = DB::table('medfix')
             ->selectRaw('MONTH(medfix_date) AS month, YEAR(medfix_date) AS year, COUNT(*) AS total_repairs')
             ->selectRaw('SUM(CASE WHEN medfix_status = 1 THEN 1 ELSE 0 END) AS successful_repairs')
             ->where('medfix_date', '>=', \Carbon\Carbon::now()->subMonths(7))
             ->groupBy(DB::raw('YEAR(medfix_date), MONTH(medfix_date)'))
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
+            ->orderBy('year')->orderBy('month')
             ->get();
 
-        // เพิ่มชื่อเดือนย่อไทย (สมมติว่ามี helper getThaiMonthAbbreviation)
         $repairs->transform(function ($item) {
-            if (function_exists('getThaiMonthAbbreviation')) {
-                $item->month_thai = getThaiMonthAbbreviation($item->month);
-            } else {
-                $item->month_thai = $item->month; // fallback
-            }
+            $item->month_thai = function_exists('getThaiMonthAbbreviation')
+                ? getThaiMonthAbbreviation($item->month) : $item->month;
             return $item;
         });
 
@@ -47,7 +42,7 @@ class DashboardController extends Controller
 
         $totalRepairs = DB::table('medfix')
             ->whereYear('medfix_date', \Carbon\Carbon::now()->year)
-            ->where('medfix_status', '=', 1)
+            ->where('medfix_status', 1)
             ->count();
 
         $repairsByIssue = DB::table('medfix')
@@ -65,9 +60,10 @@ class DashboardController extends Controller
         $user_count      = User::count();
         $user            = Auth::user();
 
-        // ===== Dropdown หน่วยงาน (ใช้ตาราง department; คอลัมน์ 'gong' คือชื่อหน่วยงาน) =====
+        // --- ดึงรายชื่อหน่วยงานแบบไม่ซ้ำ (กัน dropdown ซ้ำ) ---
         $departments = DB::table('department')
-            ->select('id', 'gong')
+            ->selectRaw('MIN(id) AS id, gong')
+            ->groupBy('gong')
             ->orderBy('gong')
             ->get();
 
@@ -78,27 +74,32 @@ class DashboardController extends Controller
     }
 
     /**
-     * AJAX: จำนวนอุปกรณ์แยกตาม "ประเภท" ภายใน "หน่วยงานที่เลือก"
-     * GET /charts/inventory/by-dept?dept_id={id}
-     * Response: { labels: [...], data: [...], total: N, rows: [{type_name, total}] }
+     * AJAX: จำนวนอุปกรณ์แยกตามประเภทภายในหน่วยงานที่เลือก
+     * รองรับทั้งกรองด้วย department.id หรือด้วยชื่อหน่วยงาน (กรณี inventory.rec_organize เก็บชื่อ)
      */
     public function inventoryByDeptType(Request $request)
     {
         $deptId = $request->integer('dept_id');
-        if (!$deptId) {
-            return response()->json([
-                'labels' => [], 'data' => [], 'total' => 0, 'rows' => []
-            ]);
+        $deptName = $deptId ? DB::table('department')->where('id', $deptId)->value('gong') : null;
+
+        if (!$deptId && !$deptName) {
+            return response()->json(['labels' => [], 'data' => [], 'total' => 0, 'rows' => []]);
         }
 
-        $cacheKey = 'chart:inv_by_dept_type:' . $deptId;
-        $rows = Cache::remember($cacheKey, 300, function () use ($deptId) {
+        $cacheKey = 'chart:inv_by_dept_type:' . md5(json_encode([$deptId, $deptName]));
+        $rows = Cache::remember($cacheKey, 300, function () use ($deptId, $deptName) {
             return DB::table('inventory')
                 ->leftJoin('inventory_type', 'inventory_type.id', '=', 'inventory.inv_type')
-                ->where('inventory.rec_organize', $deptId) // FK ไป department.id
+                ->when($deptId || $deptName, function ($q) use ($deptId, $deptName) {
+                    $q->where(function ($qq) use ($deptId, $deptName) {
+                        // เงื่อนไข 2 ทาง: rec_organize = id หรือ = ชื่อ (gong)
+                        if ($deptId)   $qq->orWhere('inventory.rec_organize', $deptId);
+                        if ($deptName) $qq->orWhere('inventory.rec_organize', $deptName);
+                    });
+                })
                 ->select([
                     DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) AS type_name'),
-                    DB::raw('COUNT(*) AS total'),
+                    DB::raw('COUNT(*) AS total')
                 ])
                 ->groupBy('type_name')
                 ->orderBy('total', 'desc')
