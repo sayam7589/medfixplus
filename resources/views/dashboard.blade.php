@@ -27,82 +27,69 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                <!-- Top stats -->
                 <div class="row">
                     <div class="col-lg-3 col-6">
-                        <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
                                 <h3>{{ $medfix_count }}</h3>
-
                                 <p>รายการแจ้งซ่อม</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <!-- ./col -->
+
                     <div class="col-lg-3 col-6">
-                        <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
                                 <h3>{{ $inventory_count }}</h3>
-
                                 <p>รายการสินทรัพย์</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <!-- ./col -->
+
                     <div class="col-lg-3 col-6">
-                        <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
                                 <h3>{{ $project_count }}</h3>
-
                                 <p>โครงการจัดซื้อ</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <!-- ./col -->
+
                     <div class="col-lg-3 col-6">
-                        <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
                                 <h3>{{ $user_count }}</h3>
-
                                 <p>ผู้ใช้งาน</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
+                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <!-- ./col -->
                 </div>
                 <!-- /.row -->
+
                 <div class="row">
+                    <!-- LEFT -->
                     <div class="col-md-6">
                         <!-- AREA CHART -->
-
-
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">สถิติการซ่อม</h3>
-
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>
@@ -118,15 +105,69 @@
                                         style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                                 </div>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
-                        <!-- DONUT CHART -->
-                        <!--
+
+                        <!-- STACKED BAR: Inventory by Org x Type -->
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">สินทรัพย์ตามประเภท × หน่วยงาน</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart" style="min-height: 320px; height: 320px; max-height: 320px; max-width: 100%;">
+                                    <canvas id="invOrgTypeBar"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col (LEFT) -->
+
+                    <!-- RIGHT -->
+                    <div class="col-md-6">
+                        <!-- Frequent Issues Table -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">ปัญหาที่พบบ่อย</h3>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th>ปัญหาการซ่อม</th>
+                                            <th style="width: 40%"></th>
+                                            <th>จำนวนครั้ง</th>
+                                            <th style="width: 40px">ร้อยละ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($repairsByIssue as $idx => $repair)
+                                        <tr>
+                                            <td>{{ $idx + 1 }}</td>
+                                            <td>{{ $repair->issue_name }}</td>
+                                            <td>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-danger" style="width: {{ $repair->percentage }}%"></div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-info">{{ $repair->successful_repairs }}</span></td>
+                                            <td><span class="badge bg-danger">{{ $repair->percentage }}%</span></td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        {{-- ถ้าจะใช้ Donut ให้ปลดคอมเมนต์การ์ด + JS เพิ่มภายหลัง --}}
+                        {{-- 
                         <div class="card card-danger">
                             <div class="card-header">
                                 <h3 class="card-title">การส่งซ่อมในระดับแผนก (จำนวนครั้ง)</h3>
-
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>
@@ -140,60 +181,8 @@
                                 <canvas id="donutChart"
                                     style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                             </div>
-                        </div>-->
-                        <!-- /.card -->
-
-
-
-                    </div>
-                    <!-- /.col (LEFT) -->
-                    <div class="col-md-6">
-                        <!-- LINE CHART -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">ปัญหาที่พบบ่อย</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body p-0">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 10px">#</th>
-                                            <th>ปัญหาการซ่อม</th>
-                                            <th style="width: 40%"></th>
-                                            <th>จำนวนครั้ง</th>
-                                            <th style="width: 40px">ร้อยละ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($repairsByIssue as $repair)
-                                        @php
-
-                                        @endphp
-                                        <tr>
-                                            <td>1</td>
-                                            <td>{{ $repair->issue_name }}</td>
-                                            <td>
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar progress-bar-danger" style="width: {{ $repair->percentage }}%"></div>
-                                                </div>
-
-                                            </td>
-                                            <td><span class="badge bg-info">{{ $repair->successful_repairs }}</span></td>
-                                            <td><span class="badge bg-danger">{{ $repair->percentage }}%</span></td>
-                                        </tr>
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
-
-
-
-
+                        --}}
                     </div>
                     <!-- /.col (RIGHT) -->
                 </div>
@@ -205,30 +194,20 @@
     <!-- /.content-wrapper -->
 @endsection
 
-
 @section('scripts')
-    <!-- Script(Page) -->
+    <!-- Chart.js v2 from AdminLTE -->
     <script src="{{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
+
     <script>
-        $(function() {
-            /* ChartJS
-             * -------
-             * Here we will create a few charts using ChartJS
-             */
-
-            // Get context with jQuery - using jQuery's .get() method.
-                // เตรียมข้อมูล labels และ datasets จาก PHP
+        $(function () {
+            // ===== AREA CHART: Repairs over months =====
             var labels = {!! json_encode($repairs->pluck('month_thai')) !!};
-            var data = {!! json_encode($repairs->pluck('total_repairs')) !!};
+            var data   = {!! json_encode($repairs->pluck('total_repairs')) !!};
 
-            //--------------
-            //- AREA CHART -
-            //--------------
-
-            var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
+            var areaChartCanvas = $('#areaChart').get(0).getContext('2d');
 
             var areaChartData = {
-                labels: labels,  // นำ labels จากฐานข้อมูลมาใช้
+                labels: labels,
                 datasets: [{
                     label: 'จำนวนการแจ้งซ่อม',
                     backgroundColor: 'rgba(60,141,188,0.9)',
@@ -238,82 +217,96 @@
                     pointStrokeColor: 'rgba(60,141,188,1)',
                     pointHighlightFill: '#fff',
                     pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data: data  // นำข้อมูล data จากฐานข้อมูลมาใช้
+                    data: data
                 }]
-            }
+            };
 
             var areaChartOptions = {
                 maintainAspectRatio: false,
                 responsive: true,
-                legend: {
-                    display: false
-                },
+                legend: { display: false },
                 scales: {
-                    xAxes: [{
-                        gridLines: {
-                            display: false,
-                        }
-                    }],
-                    yAxes: [{
-                        gridLines: {
-                            display: false,
-                        }
-                    }]
+                    xAxes: [{ gridLines: { display: false } }],
+                    yAxes: [{ gridLines: { display: false } }]
                 }
-            }
+            };
 
-            // แสดงผล chart
             new Chart(areaChartCanvas, {
                 type: 'line',
                 data: areaChartData,
                 options: areaChartOptions
-            })
-
-             //-------------
-            //- DONUT CHART -
-            //-------------
-            // Get context with jQuery - using jQuery's .get() method.
-            var labels2 = {!! json_encode($repairs->pluck('gong')) !!};
-            var data2 = {!! json_encode($repairs->pluck('successful_repairs')) !!};
-            console.log('Labels:', {!! json_encode($repairs->pluck('gong')) !!});
-            console.log('Data:', {!! json_encode($repairs->pluck('successful_repairs')) !!});
-            var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-            var donutData = {
-            labels: [
-                'Chrome',
-                'IE',
-                'FireFox',
-                'Safari',
-                'Opera',
-                'Navigator',
-            ],
-            datasets: [
-                {
-                data: [700,500,400,600,300,100],
-                backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-                }
-            ]
-            }
-            var donutOptions     = {
-            maintainAspectRatio : false,
-            responsive : true,
-            }
-            //Create pie or douhnut chart
-            // You can switch between pie and douhnut using the method below.
-            new Chart(donutChartCanvas, {
-            type: 'doughnut',
-            data: donutData,
-            options: donutOptions
-            })
-
-            // สร้างกราฟ Donut
-            new Chart(donutChartCanvas, {
-                type: 'doughnut',
-                data: donutData,
-                options: donutOptions
             });
 
+            // ===== STACKED BAR: Inventory by Org x Type (AJAX) =====
+            var invOrgTypeChart;
 
-        })
+            async function loadInvOrgTypeChart() {
+                try {
+                    const url = `{{ route('charts.inventory.byOrgType') }}`;
+                    const res = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+                    const json = await res.json();
+
+                    const ctx = document.getElementById('invOrgTypeBar').getContext('2d');
+                    if (invOrgTypeChart) invOrgTypeChart.destroy();
+
+                    invOrgTypeChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: json.labels, // หน่วยงาน
+                            datasets: json.datasets.map(function (ds, i) {
+                                return $.extend({}, ds, {
+                                    backgroundColor: getColor(i),
+                                    borderColor: getColor(i),
+                                    borderWidth: 1
+                                });
+                            })
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            legend: { display: true, position: 'top' },
+                            tooltips: { mode: 'index', intersect: false },
+                            scales: {
+                                xAxes: [{ stacked: true, gridLines: { display: false } }],
+                                yAxes: [{ stacked: true, ticks: { beginAtZero: true, precision: 0 } }]
+                            }
+                        }
+                    });
+                } catch (e) {
+                    console.error('Load invOrgTypeChart error:', e);
+                }
+            }
+
+            function getColor(i) {
+                var base = [
+                    'rgba(60,141,188,0.8)','rgba(0,166,90,0.8)','rgba(243,156,18,0.8)',
+                    'rgba(221,75,57,0.8)','rgba(0,192,239,0.8)','rgba(96,92,168,0.8)',
+                    'rgba(210,214,222,0.8)','rgba(57,204,204,0.8)','rgba(255,133,27,0.8)'
+                ];
+                return base[i % base.length];
+            }
+
+            loadInvOrgTypeChart();
+
+            // ===== (Optional) DONUT: ถ้าต้องการเปิดใช้งานภายหลัง =====
+            // ปลดคอมเมนต์การ์ด donut + โค้ดด้านล่าง แล้วเปลี่ยน id canvas ให้ตรง
+            /*
+            var donutCanvasEl = document.getElementById('donutChart');
+            if (donutCanvasEl) {
+                var donutLabels  = {!! json_encode($repairs_2->pluck('gong')) !!};
+                var donutDataVal = {!! json_encode($repairs_2->pluck('successful_repairs')) !!};
+                var donutChartCanvas = donutCanvasEl.getContext('2d');
+                var donutData = {
+                    labels: donutLabels,
+                    datasets: [{
+                        data: donutDataVal,
+                        backgroundColor: ['#f56954','#00a65a','#f39c12','#00c0ef','#3c8dbc','#d2d6de','#605ca8','#39CCCC','#FF851B']
+                    }]
+                };
+                var donutOptions = { maintainAspectRatio: false, responsive: true };
+                new Chart(donutChartCanvas, { type: 'doughnut', data: donutData, options: donutOptions });
+            }
+            */
+        });
     </script>
 @endsection

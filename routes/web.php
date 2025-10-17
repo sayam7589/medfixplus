@@ -45,6 +45,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     ///////////////////// Dashbaord
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['role:admin']);
+    Route::get('/charts/inventory-by-org-type', [DashboardController::class, 'inventoryByOrgType'])
+        ->name('charts.inventory.byOrgType');
+
 
     ///////////////////// project
     Route::get('/projects_index', [ProjectController::class, 'index'])->name('project.index')->middleware(['role:admin']);
