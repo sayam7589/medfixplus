@@ -50,6 +50,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/charts/inventory-by-org-type', [DashboardController::class, 'inventoryByOrgType'])
         ->name('charts.inventory.byOrgType');
 
+        // AJAX: จำนวนอุปกรณ์แยกตาม "ประเภท" ของหน่วยงานที่เลือก
+    Route::get('/charts/inventory/bydept', [DashboardController::class, 'inventoryByDeptType'])
+        ->name('charts.inventory.bydept');
 
     ///////////////////// project
     Route::get('/projects_index', [ProjectController::class, 'index'])->name('project.index')->middleware(['role:admin']);
@@ -112,8 +115,5 @@ Route::group(['middleware' => ['auth']], function () {
       Route::put('/department_update/{id}', [DepartmentController::class, 'update'])->name('department.update')->middleware(['role:admin']);
       Route::delete('/department_destroy/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy')->middleware(['role:admin']);
 
-
-    Route::get('/charts/inventory/by-dept', [DashboardController::class, 'inventoryByDeptType'])
-    ->name('charts.inventory.byDeptType');
 
 });

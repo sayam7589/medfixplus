@@ -77,43 +77,35 @@ class DashboardController extends Controller
      * AJAX: จำนวนอุปกรณ์แยกตามประเภทภายในหน่วยงานที่เลือก
      * รองรับทั้งกรองด้วย department.id หรือด้วยชื่อหน่วยงาน (กรณี inventory.rec_organize เก็บชื่อ)
      */
-    public function inventoryByDeptType(Request $request)
+     public function inventoryByDeptType(Request $request)
     {
         $deptId = $request->integer('dept_id');
-        $deptName = $deptId ? DB::table('department')->where('id', $deptId)->value('gong') : null;
-
-        if (!$deptId && !$deptName) {
-            return response()->json(['labels' => [], 'data' => [], 'total' => 0, 'rows' => []]);
+        if (!$deptId) {
+            return response()->json(['labels'=>[], 'data'=>[], 'total'=>0, 'rows'=>[]]);
         }
 
-        $cacheKey = 'chart:inv_by_dept_type:' . md5(json_encode([$deptId, $deptName]));
-        $rows = Cache::remember($cacheKey, 300, function () use ($deptId, $deptName) {
-            return DB::table('inventory')
-                ->leftJoin('inventory_type', 'inventory_type.id', '=', 'inventory.inv_type')
-                ->when($deptId || $deptName, function ($q) use ($deptId, $deptName) {
-                    $q->where(function ($qq) use ($deptId, $deptName) {
-                        // เงื่อนไข 2 ทาง: rec_organize = id หรือ = ชื่อ (gong)
-                        if ($deptId)   $qq->orWhere('inventory.rec_organize', $deptId);
-                        if ($deptName) $qq->orWhere('inventory.rec_organize', $deptName);
-                    });
-                })
-                ->select([
-                    DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) AS type_name'),
-                    DB::raw('COUNT(*) AS total')
-                ])
-                ->groupBy('type_name')
-                ->orderBy('total', 'desc')
-                ->get();
-        });
+        $rows = DB::table('inventory')
+            ->join('department', function ($j) {
+                $j->on('inventory.rec_organize', '=', 'department.id')
+                  ->orOn('inventory.rec_organize', '=', 'department.gong');
+            })
+            ->leftJoin('inventory_type','inventory_type.id','=','inventory.inv_type')
+            ->where('department.id', $deptId)
+            ->select([
+                DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) AS type_name'),
+                DB::raw('COUNT(*) AS total'),
+            ])
+            ->groupBy('type_name')
+            ->orderBy('total','desc')
+            ->get();
 
         $labels = collect($rows)->pluck('type_name')->values();
         $data   = collect($rows)->pluck('total')->map(fn($v)=>(int)$v)->values();
-        $total  = $data->sum();
 
         return response()->json([
             'labels' => $labels,
             'data'   => $data,
-            'total'  => $total,
+            'total'  => $data->sum(),
             'rows'   => $rows,
         ]);
     }
