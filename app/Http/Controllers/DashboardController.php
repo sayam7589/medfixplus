@@ -77,20 +77,27 @@ class DashboardController extends Controller
      * AJAX: จำนวนอุปกรณ์แยกตามประเภทภายในหน่วยงานที่เลือก
      * รองรับทั้งกรองด้วย department.id หรือด้วยชื่อหน่วยงาน (กรณี inventory.rec_organize เก็บชื่อ)
      */
-     public function inventoryByDeptType(Request $request)
+    public function inventoryByDeptType(Request $request)
     {
         $deptId = $request->integer('dept_id');
         if (!$deptId) {
             return response()->json(['labels'=>[], 'data'=>[], 'total'=>0, 'rows'=>[]]);
         }
 
+        // 1) แปลง id -> ชื่อหน่วยงาน (gong)
+        $deptName = DB::table('department')->where('id', $deptId)->value('gong');
+        if (!$deptName) {
+            return response()->json(['labels'=>[], 'data'=>[], 'total'=>0, 'rows'=>[]]);
+        }
+
+        // 2) JOIN รองรับทั้ง rec_organize = id หรือ = gong แล้ว "กรองด้วยชื่อหน่วยงาน"
         $rows = DB::table('inventory')
             ->join('department', function ($j) {
                 $j->on('inventory.rec_organize', '=', 'department.id')
-                  ->orOn('inventory.rec_organize', '=', 'department.gong');
+                ->orOn('inventory.rec_organize', '=', 'department.gong');
             })
             ->leftJoin('inventory_type','inventory_type.id','=','inventory.inv_type')
-            ->where('department.id', $deptId)
+            ->where('department.gong', $deptName)   // << เปลี่ยนจุดนี้จาก where id เป็น where gong
             ->select([
                 DB::raw('COALESCE(inventory_type.type_name, inventory.inv_type) AS type_name'),
                 DB::raw('COUNT(*) AS total'),
@@ -107,6 +114,7 @@ class DashboardController extends Controller
             'data'   => $data,
             'total'  => $data->sum(),
             'rows'   => $rows,
+            // 'debug' => ['dept_id'=>$deptId, 'dept_name'=>$deptName], // อยากดีบักค่อยปลดได้
         ]);
     }
 }
