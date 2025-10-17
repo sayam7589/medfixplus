@@ -51,8 +51,6 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('charts.inventory.byOrgType');
 
         // AJAX: จำนวนอุปกรณ์แยกตาม "ประเภท" ของหน่วยงานที่เลือก
-    Route::get('/charts/inventory/bydept', [DashboardController::class, 'inventoryByDeptType'])
-        ->name('charts.inventory.bydept');
 
     ///////////////////// project
     Route::get('/projects_index', [ProjectController::class, 'index'])->name('project.index')->middleware(['role:admin']);
