@@ -147,17 +147,26 @@
                                     <b>PC Name</b> <a class="float-right">{{ $inv->inv_name }}</a>
                                 </li>
                             </ul>
-                            @if ($medfix_status == 0)
-                            <button type="button" class="btn btn-warning btn-block" data-toggle="modal"
-                                data-target="#exampleModal">
-                                <b><i class='fas fa-tools'></i> แจ้งซ่อม</b>
-                            </button>
+                            @if ($countSixMonth == 0)
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                                    data-target="#exampleModal2">
+                                    <b><i class='fas fa-user-edit'></i> ลงทะเบียนผู้ใช้<br>(เจ้าของเครื่องนี้)</b>
+                                </button>
                             @else
-                            <button type="button" class="btn btn-warning btn-block" data-toggle="modal"
-                                data-target="#exampleModal" disabled>
-                                <b><i class='fas fa-tools'></i> แจ้งซ่อม</b>
-                            </button>
+                                @if ($medfix_status == 0)
+                                    <button type="button" class="btn btn-warning btn-block" data-toggle="modal"
+                                        data-target="#exampleModal">
+                                        <b><i class='fas fa-tools'></i> แจ้งซ่อม</b>
+                                    </button>
+                                @else
+                                    <button type="button" class="btn btn-warning btn-block" data-toggle="modal"
+                                        data-target="#exampleModal" disabled>
+                                        <b><i class='fas fa-tools'></i> แจ้งซ่อม</b>
+                                    </button>
+                                @endif
+
                             @endif
+
                             @role('admin')
                             @if ($medfix_status != 0)
                                 <button type="button" class="btn btn-danger btn-block" data-toggle="modal"
@@ -165,11 +174,11 @@
                                     <b><i class='fas fa-tools'></i> ตรวจสอบ / ปิดงาน</b>
                                 </button>
                             @endif
+
+                            <a href="{{ route('inventorys.edit', $inv->id) }}" target="_blank" class="btn btn-default btn-block">
+                                <b><i class='fas fa-edit'></i> แก้ไขข้อมูลเครื่อง</b>
+                            </a>
                             @endrole
-                            <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                                data-target="#exampleModal2">
-                                <b><i class='fas fa-user-edit'></i> ลงทะเบียนผู้ใช้<br>(เจ้าของเครื่องนี้)</b>
-                            </button>
 
 
                             <form name="medfix" id="medfix" action="{{ route('storemedfix', $inv->id) }}"

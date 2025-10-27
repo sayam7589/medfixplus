@@ -17,5 +17,7 @@ class PersonalHasInv extends Model
         'org',
         'tel',
         'inv_id',
+        'created_at',
+        'updated_at'
     ];
 }

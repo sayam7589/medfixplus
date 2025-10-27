@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 Use Alert;
 use App\Models\Issue;
 use App\Models\Solving;
+use Carbon\Carbon;
 
 class InvController extends Controller
 {
@@ -395,6 +396,27 @@ class InvController extends Controller
             ->orderBy('successful_repairs', 'desc')
             ->get();
 
-        return view('inventorys.profile', compact('inv', 'prefix', 'personal', 'medfix_status', 'medfix_status2', 'medfixs', 'repair', 'issues', 'solvings', 'historys', 'qu', 'repairsByIssue'));
+        $now = Carbon::now();
+        $sixMonthsAgo = $now->copy()->subMonths(6);
+
+        $countSixMonth = PersonalHasInv::where('inv_id', $id)
+            ->whereBetween('created_at', [$sixMonthsAgo, $now])
+            ->count();
+
+        return view('inventorys.profile', compact(
+            'inv',
+            'prefix',
+            'personal',
+            'medfix_status',
+            'medfix_status2',
+            'medfixs',
+            'repair',
+            'issues',
+            'solvings',
+            'historys',
+            'qu',
+            'repairsByIssue',
+            'countSixMonth'
+        ));
     }
 }
