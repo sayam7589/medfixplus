@@ -46,9 +46,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:sanctum');
 
     ///////////////////// Dashbaord
+     ///////////////////// Dashbaord
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['role:admin']);
     Route::get('/charts/inventory-by-org-type', [DashboardController::class, 'inventoryByOrgType'])
         ->name('charts.inventory.byOrgType');
+
+    Route::get('/dashboard/inv-type-counts', [\App\Http\Controllers\DashboardController::class, 'invTypeCounts'])
+    ->name('dashboard.invTypeCounts');
+        // AJAX: จำนวนอุปกรณ์แยกตาม "ประเภท" ของหน่วยงานที่เลือก
+
 
         // AJAX: จำนวนอุปกรณ์แยกตาม "ประเภท" ของหน่วยงานที่เลือก
 
