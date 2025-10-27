@@ -73,28 +73,28 @@
           <div class="small-box bg-warning">
             <div class="inner"><h3>{{ $medfix_count }}</h3><p>รายการแจ้งซ่อม</p></div>
             <div class="icon"><i class="ion ion-bag"></i></div>
-            <a href="{{ route('medfix') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-6">
           <div class="small-box bg-success">
             <div class="inner"><h3>{{ $inventory_count }}</h3><p>รายการสินทรัพย์</p></div>
             <div class="icon"><i class="ion ion-stats-bars"></i></div>
-            <a href="/inventorys_index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-6">
           <div class="small-box bg-danger">
             <div class="inner"><h3>{{ $project_count }}</h3><p>โครงการจัดซื้อ</p></div>
             <div class="icon"><i class="ion ion-person-add"></i></div>
-            <a href="/projects_index" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-6">
           <div class="small-box bg-info">
             <div class="inner"><h3>{{ $user_count }}</h3><p>ผู้ใช้งาน</p></div>
             <div class="icon"><i class="ion ion-pie-graph"></i></div>
-            <a href="#" class="small-box-footer"><i class="fa fa-address-book"></i></a>
+            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>
@@ -248,7 +248,7 @@ $(function () {
     });
   }
 
-  // กรองข้อมูลช่วงเดือน
+  // กรองข้อมูลช่วงเดือน (ใช้ relative URL ป้องกัน Mixed Content)
   $('#filterBtn').on('click', async () => {
     const params = new URLSearchParams({
       start_month: $('#startMonth').val(),
@@ -257,7 +257,8 @@ $(function () {
       end_year:    $('#endYear').val(),
     });
     try {
-      const res = await fetch(`{{ route('dashboard.repairs.filter') }}?${params}`, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+      const base = @json(route('dashboard.repairs.filter', [], false)); // << relative
+      const res  = await fetch(`${base}?${params}`, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
       const json = await res.json();
       if (lineChart) {
         lineChart.data.labels = json.labels || [];
@@ -309,7 +310,8 @@ $(function () {
 
   async function loadInvTypeCountsByGong(gong) {
     if (!gong) return;
-    const url = @json(route('dashboard.invTypeCounts')) + '?gong=' + encodeURIComponent(gong);
+    const base = @json(route('dashboard.invTypeCounts', [], false)); // << relative
+    const url  = `${base}?gong=${encodeURIComponent(gong)}`;
     try {
       const res  = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' }});
       const json = await res.json();
