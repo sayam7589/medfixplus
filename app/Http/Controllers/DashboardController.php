@@ -75,39 +75,65 @@ class DashboardController extends Controller
         return view('dashboard', compact('user', 'medfix_count', 'gongs', 'inventory_count', 'project_count', 'user_count', 'user', 'repairs', 'repairs_2', 'repairsByIssue'));
     }
 
+
+    public function filterRepairs(Request $request)
+{
+    $startMonth = $request->input('start_month');
+    $startYear  = $request->input('start_year');
+    $endMonth   = $request->input('end_month');
+    $endYear    = $request->input('end_year');
+
+    // แปลงเป็นวันที่เต็ม
+    $startDate = \Carbon\Carbon::createFromDate($startYear, $startMonth, 1)->startOfMonth();
+    $endDate   = \Carbon\Carbon::createFromDate($endYear, $endMonth, 1)->endOfMonth();
+
+    $repairs = DB::table('medfix')
+        ->selectRaw('MONTH(medfix_date) as month, YEAR(medfix_date) as year, COUNT(*) as total_repairs')
+        ->whereBetween('medfix_date', [$startDate, $endDate])
+        ->groupBy(DB::raw('YEAR(medfix_date), MONTH(medfix_date)'))
+        ->orderBy('year')->orderBy('month')
+        ->get()
+        ->map(function ($item) {
+            $item->month_thai = getThaiMonthAbbreviation($item->month);
+            return $item;
+        });
+
+    return response()->json([
+        'labels' => $repairs->pluck('month_thai'),
+        'data'   => $repairs->pluck('total_repairs'),
+    ]);
+}
+
+
      // เมธอดใหม่: คืนค่าจำนวน inv_type รวมทุกหน่วยภายใต้ gong ที่เลือก
-    public function invTypeCounts(Request $request)
-    {
-        $gong = $request->query('gong');
+ public function invTypeCounts(Request $request)
+{
+    $gong = $request->query('gong');
 
-        // ป้องกันเคสไม่ได้ส่ง gong มา
-        if (!$gong) {
-            return response()->json([
-                'labels' => [],
-                'data'   => [],
-            ]);
-        }
-
-        // นับจำนวนแยกตาม inv_type ของ inventory ทั้งหมดที่อยู่ภายใต้ "gong" ที่เลือก
-        // โครงสร้าง: inventory.rec_organize -> department.id (หลายหน่วย/แผนกใช้ gong ซ้ำกันได้)
-        // พยายามดึงชื่อประเภทจากตาราง inventory_type ถ้ามีคอลัมน์ชื่อไม่แน่—รองรับหลายชื่อ
-        $rows = DB::table('inventory as i')
-            ->join('department as d', 'i.rec_organize', '=', 'd.id')
-            ->leftJoin('inventory_type as it', 'i.inv_type', '=', 'it.id')
-            ->where('d.gong', $gong)
-            ->groupBy('i.inv_type', 'it.type_name', 'it.name', 'it.inv_type_name')
-            ->selectRaw('
-                COALESCE(it.type_name, it.name, it.inv_type_name, CONCAT("ประเภท ", i.inv_type)) as label,
-                COUNT(*) as total
-            ')
-            ->orderByDesc('total')
-            ->get();
-
+    if (!$gong) {
         return response()->json([
-            'labels' => $rows->pluck('label'),
-            'data'   => $rows->pluck('total'),
+            'labels' => [],
+            'data'   => [],
         ]);
     }
-   
+
+    // ถ้าตาราง inventory_type มีคอลัมน์ชื่อ "type_name" เท่านั้น
+    $rows = DB::table('inventory as i')
+        ->join('department as d', 'i.rec_organize', '=', 'd.id')
+        ->leftJoin('inventory_type as it', 'i.inv_type', '=', 'it.id')
+        ->where('d.gong', $gong)
+        ->groupBy('i.inv_type', 'it.type_name') // group ตามคอลัมน์ที่มีจริง
+        ->selectRaw('
+            COALESCE(it.type_name, CAST(i.inv_type AS CHAR)) AS label,
+            COUNT(*) AS total
+        ')
+        ->orderByDesc('total')
+        ->get();
+
+    return response()->json([
+        'labels' => $rows->pluck('label')->values(),
+        'data'   => $rows->pluck('total')->values(),
+    ]);
+}
 
 }
