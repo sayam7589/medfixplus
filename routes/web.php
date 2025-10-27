@@ -55,7 +55,8 @@ Route::group(['middleware' => ['auth']], function () {
     ->name('dashboard.invTypeCounts');
         // AJAX: จำนวนอุปกรณ์แยกตาม "ประเภท" ของหน่วยงานที่เลือก
 
-
+    Route::get('/dashboard/repairs/filter', [DashboardController::class, 'filterRepairs'])
+     ->name('dashboard.repairs.filter');
         // AJAX: จำนวนอุปกรณ์แยกตาม "ประเภท" ของหน่วยงานที่เลือก
 
     ///////////////////// project
