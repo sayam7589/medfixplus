@@ -104,7 +104,7 @@
         <div class="col-12">
           <div class="card card-outline card-info">
             <div class="card-header text-center">
-              <h2 class="card-title font-weight-bold">ภาพรวมประเภทครุภัณฑ์ (inv_type) ตามกอง (gong)</h2>
+              <h2 class="card-title font-weight-bold">กราฟเเท่งเเสดงประเภทครุภัณฑ์</h2>
             </div>
             <div class="card-body">
               <div class="gong-select-wrap mb-3">
@@ -119,9 +119,6 @@
               <div class="chart">
                 <canvas id="invTypeBar" style="min-height:380px;height:400px;max-height:460px;"></canvas>
               </div>
-              <small class="text-muted d-block mt-2 text-center">
-                * กราฟนี้รวมทุก “หน่วย/แผนก” ที่อยู่ใต้กอง (gong) ที่เลือก
-              </small>
             </div>
           </div>
         </div>
