@@ -67,7 +67,7 @@
                                 <th>คำนำหน้า</th>
                                 <th>ชื่อ</th>
                                 <th>นามสกุล</th>
-                                <!--<th>วันที่ติดตั้ง</th>
+                                <th>วันที่ติดตั้ง</th>
                                 <th>ประเภท</th>
                                 <th>ยี่ห้อ</th>
                                 <th>รุ่น</th>
@@ -88,7 +88,7 @@
                                 <th>เบอร์โทรติดต่อ</th>
                                 <th>เบอร์โทรหน่วย</th>
                                 <th>เเผนกผู้ใช้</th>
-                                <th>ความเร็ว CPU(GHz)</th>-->
+                                <th>ความเร็ว CPU(GHz)</th>
                                 <th>เพิ่มเติม</th>
                             </tr>
                         </thead>
@@ -106,7 +106,6 @@
                                     <td>{{ optional($invs->prefix)->prefix_short ?? 'ไม่พบข้อมูล' }}</td>
                                     <td>{{ $invs->rec_fname }}</td>
                                     <td>{{ $invs->rec_lname }}</td>
-
                                     <td>{{ $invs->inv_setup_year == '0000-00-00' ? 'ไม่ระบุข้อมูล' : $invs->inv_setup_year}}</td>
                                     <td>{{ $invs->project->project_name }}</td>
                                     <td>{{ $invs->brand->brand_name }}</td>
@@ -216,7 +215,28 @@
             { "visible": false },  // User User_lastname
             // add what u want to hide
             // { "visible": false }, // Hidden columns in web page
-
+            { "visible": false },
+            { "visible": false },
+            { "visible": false },
+            { "visible": false },
+            { "visible": false },
+            { "visible": false },  // Serial Number
+            { "visible": false },  // CPU
+            { "visible": false },  // RAM
+            { "visible": false },  // RAM Speed
+            { "visible": false },  // Storage Type
+            { "visible": false },  // Storage Size
+            { "visible": false },  // OS Type
+            { "visible": false },  // OS Version
+            { "visible": false },  // OS Copyright
+            { "visible": false },  // MS Office Version
+            { "visible": false },  // MS Office Copyright
+            { "visible": false },  // Antivirus
+            { "visible": false },  // Antivirus Copyright
+            { "visible": false },  // Personal Tel
+            { "visible": false },  // Org Tel
+            { "visible": false },  // CPU Clock
+            { "visible": false },
 
             // Add more as needed
             { "visible": true }   // Action buttons

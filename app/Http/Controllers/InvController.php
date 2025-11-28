@@ -27,6 +27,7 @@ class InvController extends Controller
         $text = "คุณต้องการลบข้อมูลสินทรัพย์นี้นี้ใช่หรือไม่";
         confirmDelete($title, $text);
 
+        //dd($inventory);
         return view('inventorys.index', compact('inventory'));
     }
 

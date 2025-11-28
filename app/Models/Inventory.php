@@ -49,32 +49,31 @@ class Inventory extends Model
     ];
 
     //innerjoin
- // ความสัมพันธ์กับตาราง project
- public function project()
- {
-     return $this->belongsTo(Project::class, 'project_id');
- }
+    // ความสัมพันธ์กับตาราง project
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id');
+    }
 
- // ความสัมพันธ์กับตาราง inventory_type
- public function type()
- {
-     return $this->belongsTo(Inventory_type::class, 'inv_type');
- }
+    // ความสัมพันธ์กับตาราง inventory_type
+    public function type()
+    {
+        return $this->belongsTo(Inventory_type::class, 'inv_type')->withDefault();
+    }
 
- // ความสัมพันธ์กับตาราง inventory_brand
- public function brand()
- {
-     return $this->belongsTo(Inventory_brand::class, 'inv_brand');
- }
+    public function brand()
+    {
+        return $this->belongsTo(Inventory_brand::class, 'inv_brand')->withDefault();
+    }
 
- // ความสัมพันธ์กับตาราง prefix
- public function prefix()
- {
-     return $this->belongsTo(Prefix::class, 'rec_prefix');
- }
- public function department()
- {
-     return $this->belongsTo(Department::class, 'rec_organize');
- }
+    public function prefix()
+    {
+        return $this->belongsTo(Prefix::class, 'rec_prefix')->withDefault();
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'rec_organize')->withDefault();
+    }
 
 }
