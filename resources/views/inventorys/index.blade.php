@@ -67,7 +67,7 @@
                                 <th>คำนำหน้า</th>
                                 <th>ชื่อ</th>
                                 <th>นามสกุล</th>
-                                <!--<th>วันที่ติดตั้ง</th> 
+                                <!--<th>วันที่ติดตั้ง</th>
                                 <th>ประเภท</th>
                                 <th>ยี่ห้อ</th>
                                 <th>รุ่น</th>
@@ -102,11 +102,12 @@
                                     <td>{{ $invs->inv_mac_address }}</td>
                                     <td>{{ $invs->inv_rtaf_serial }}</td>
                                     <td>{{ $invs->department->gong }}</td>
-                                    <td>{{ $invs->inv_status == 1 ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</td>   
+                                    <td>{{ $invs->inv_status == 1 ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</td>
                                     <td>{{ optional($invs->prefix)->prefix_short ?? 'ไม่พบข้อมูล' }}</td>
                                     <td>{{ $invs->rec_fname }}</td>
-                                    <td>{{ $invs->rec_lname }}</td>    
-                                    <!--<td>{{ $invs->inv_setup_year == '0000-00-00' ? 'ไม่ระบุข้อมูล' : $invs->inv_setup_year}}</td>
+                                    <td>{{ $invs->rec_lname }}</td>
+
+                                    <td>{{ $invs->inv_setup_year == '0000-00-00' ? 'ไม่ระบุข้อมูล' : $invs->inv_setup_year}}</td>
                                     <td>{{ $invs->project->project_name }}</td>
                                     <td>{{ $invs->brand->brand_name }}</td>
                                     <td>{{ $invs->inv_model }}</td>
@@ -127,7 +128,7 @@
                                     <td>{{ $invs->department->panag }}</td>
                                     <td>{{ $invs->rec_personal_tel }}</td>
                                     <td>{{ $invs->rec_org_tel }}</td>
-                                    <td>{{ $invs->inv_cpu_clock }}</td>-->
+                                    <td>{{ $invs->inv_cpu_clock }}</td>
                                     <td>
                                         <a href="{{ route('inventorys.edit', $invs->id) }}" class="btn btn-warning btn-sm">ตรวจสอบ/เเก้ไข</a>
                                         <a href="{{ route('inventorys.qr', $invs->id) }}" class="btn btn-primary btn-sm" target="_blank">QR</a>
@@ -199,8 +200,8 @@
         "processing": true,
         "stateSave": true,
         "deferRender":true,
-        "deferLoading": 0, 
-    
+        "deferLoading": 0,
+
         "columns": [
             { "visible": true },  // Checkbox column
             { "visible": true },  // ID
@@ -216,7 +217,7 @@
             // add what u want to hide
             // { "visible": false }, // Hidden columns in web page
 
-            
+
             // Add more as needed
             { "visible": true }   // Action buttons
         ],
@@ -252,7 +253,7 @@
         alignment: 'center',
         margin: [0, 0, 0, 20]
     });
-    
+
 
     doc.content[1].layout = {
         hLineWidth: function (i, node) {
@@ -264,7 +265,7 @@
     };
 
     doc.content[1].alignment = 'center';
-    
+
     // ✅ แบ่ง page break ทุก 10 แถว
     var tableBody = doc.content[1].table.body;
     var header = tableBody[0]; // row header
@@ -299,8 +300,8 @@
 }
     }
     ],
-    
-        "initComplete": function() {    
+
+        "initComplete": function() {
             $('.content').show();      // Show the content after DataTable is fully loaded
         }
     });
@@ -312,7 +313,7 @@
         $('.row-select:checked').each(function() {
             selected.push($(this).val());
         });
-    
+
         if (selected.length > 0) {
             // Send selected IDs to a route via AJAX
             $.ajax({
@@ -357,7 +358,7 @@
     // Clear checkboxes when a search/filter is applied
     $('input[type="checkbox"]').prop('checked', false);
     });
-    
+
 
     // Handle send selected button click
 });
