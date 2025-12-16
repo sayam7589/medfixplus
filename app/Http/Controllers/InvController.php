@@ -16,19 +16,29 @@ Use Alert;
 use App\Models\Issue;
 use App\Models\Solving;
 use Carbon\Carbon;
+use App\Models\InventoryDepartmentView;
+use Illuminate\Support\Facades\Auth;
 
 class InvController extends Controller
 {
     public function index()
     {
-        $inventory = Inventory::all();
 
-        $title = '! WARNING !';
-        $text = "คุณต้องการลบข้อมูลสินทรัพย์นี้นี้ใช่หรือไม่";
-        confirmDelete($title, $text);
-
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        //$inventory = InventoryDepartmentView::all();
+        $inventory = InventoryDepartmentView::whereIn('dep_short_name', $roles)->get();
         //dd($inventory);
+        //dd($roles);
         return view('inventorys.index', compact('inventory'));
+        // $inventory = Inventory::all();
+
+        // $title = '! WARNING !';
+        // $text = "คุณต้องการลบข้อมูลสินทรัพย์นี้นี้ใช่หรือไม่";
+        // confirmDelete($title, $text);
+
+        // //dd($inventory);
+        // return view('inventorys.index', compact('inventory'));
     }
 
     public function view(Inventory $inventory)
@@ -111,8 +121,16 @@ class InvController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function edit(Inventory $inventory)
+    public function edit($id)
     {
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        $invcheck = InventoryDepartmentView::whereIn('dep_short_name', $roles)->Where('id', $id)->first();
+        if (!$invcheck) {
+            toast('คุณไม่มีสิทธิ์ในการแก้ไขข้อมูลนี้นะจ๊ะ', 'error');
+            return redirect()->route('inventorys.index');
+        }
+        $inventory = Inventory::findOrFail($id);
         $project = Project::all();
         $types = Inventory_type::all();
         $brands = Inventory_brand::all();
@@ -158,61 +176,68 @@ class InvController extends Controller
      */
 
      public function showmulqr(Request $request)
-{
-    // Check if the request is a POST request (from AJAX)
-    if ($request->isMethod('post')) {
-        $find = $request->input('ids');
+    {
+        // Check if the request is a POST request (from AJAX)
+        if ($request->isMethod('post')) {
+            $find = $request->input('ids');
 
-        if (!is_array($find)) {
+            if (!is_array($find)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid data received',
+                ]);
+            }
+
+            $ids = implode(',', $find);
+
+            // Return a JSON response with the redirect URL
             return response()->json([
-                'status' => 'error',
-                'message' => 'Invalid data received',
+                'status' => 'success',
+                'redirect_url' => route('inventorys.mulqr') . '?ids=' . $ids,
             ]);
         }
 
-        $ids = implode(',', $find);
+        // Handle the GET request (for displaying the QR codes)
+        if ($request->isMethod('get')) {
+            $ids = explode(',', $request->query('ids'));
 
-        // Return a JSON response with the redirect URL
+            // Debug log to ensure the IDs are being passed
+            if (empty($ids)) {
+                return view('errors.general', ['message' => 'No IDs found']);
+            }
+
+            $inventories = Inventory::whereIn('id', $ids)->get();
+
+            // Make sure there are inventories to process
+            if ($inventories->isEmpty()) {
+                return view('errors.general', ['message' => 'No inventories found']);
+            }
+
+            $qrcodes = $inventories->mapWithKeys(function ($inventory) {
+                // No need for manual URL modification
+                return [$inventory->id => QrCode::size(350)->generate('https://medfix.site/inventory/'.$inventory->id)];
+            });
+
+            return view('inventorys.mulqr', compact('inventories', 'qrcodes'));
+        }
+
+        // Fallback in case the method is neither POST nor GET
         return response()->json([
-            'status' => 'success',
-            'redirect_url' => route('inventorys.mulqr') . '?ids=' . $ids,
+            'status' => 'error',
+            'message' => 'Invalid request method',
         ]);
     }
-
-    // Handle the GET request (for displaying the QR codes)
-    if ($request->isMethod('get')) {
-        $ids = explode(',', $request->query('ids'));
-
-        // Debug log to ensure the IDs are being passed
-        if (empty($ids)) {
-            return view('errors.general', ['message' => 'No IDs found']);
-        }
-
-        $inventories = Inventory::whereIn('id', $ids)->get();
-
-        // Make sure there are inventories to process
-        if ($inventories->isEmpty()) {
-            return view('errors.general', ['message' => 'No inventories found']);
-        }
-
-        $qrcodes = $inventories->mapWithKeys(function ($inventory) {
-             // No need for manual URL modification
-            return [$inventory->id => QrCode::size(350)->generate('https://medfix.site/inventory/'.$inventory->id)];
-        });
-
-        return view('inventorys.mulqr', compact('inventories', 'qrcodes'));
-    }
-
-    // Fallback in case the method is neither POST nor GET
-    return response()->json([
-        'status' => 'error',
-        'message' => 'Invalid request method',
-    ]);
-}
 
 
     public function update(Request $request, Inventory $inventory)
     {
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        $invcheck = InventoryDepartmentView::whereIn('dep_short_name', $roles)->Where('id', $id)->first();
+        if (!$invcheck) {
+            toast('คุณไม่มีสิทธิ์ในการแก้ไขข้อมูลนี้นะจ๊ะ', 'error');
+            return redirect()->route('inventorys.index');
+        }
         //dd($request->all());
         $request->validate([
             'project_id' => 'required|integer',

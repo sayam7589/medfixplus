@@ -67,13 +67,13 @@
                                     @endphp
                                     @foreach ($roles as $role)
                                         @if ($role == "user")
-                                            <span class="right badge badge-info">user</span>
-                                        @endif
-                                        @if ($role == "admin")
-                                            <span class="right badge badge-warning">admin</span>
-                                        @endif
-                                        @if ($role == "superadmin")
-                                            <span class="right badge badge-danger">superadmin</span>
+                                            <span class="right badge badge-info">{{ $role }}</span>
+                                        @elseif ($role == "admin")
+                                            <span class="right badge badge-warning">{{ $role }}</span>
+                                        @elseif ($role == "superadmin")
+                                            <span class="right badge badge-danger">{{ $role }}</span>
+                                        @else
+                                            <span class="right badge badge-secondary">{{ $role }}</span>
                                         @endif
                                     @endforeach
                                 </td>

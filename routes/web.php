@@ -100,11 +100,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/inventory_brands_destroy/{id}', [InventoryBrandController::class, 'destroy'])->name('inventory_brands.destroy')->middleware(['role:admin']);
 
 
-      ///////////////////// issue
-      Route::get('/problem_issue_create', [IssueController::class, 'create'])->name('problem_issue.create')->middleware(['role:admin']);
-      Route::post('/problem_issue_store', [IssueController::class, 'store'])->name('problem_issue.store')->middleware(['role:admin']);
-      Route::put('/problem_issue_update/{id}', [IssueController::class, 'update'])->name('problem_issue.update')->middleware(['role:admin']);
-      Route::delete('/problem_issue_destroy/{id}', [IssueController::class, 'destroy'])->name('problem_issue.destroy')->middleware(['role:admin']);
+    ///////////////////// issue
+    Route::get('/problem_issue_create', [IssueController::class, 'create'])->name('problem_issue.create')->middleware(['role:admin']);
+    Route::post('/problem_issue_store', [IssueController::class, 'store'])->name('problem_issue.store')->middleware(['role:admin']);
+    Route::put('/problem_issue_update/{id}', [IssueController::class, 'update'])->name('problem_issue.update')->middleware(['role:admin']);
+    Route::delete('/problem_issue_destroy/{id}', [IssueController::class, 'destroy'])->name('problem_issue.destroy')->middleware(['role:admin']);
 
 
         ///////////////////// solving

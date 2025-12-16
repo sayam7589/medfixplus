@@ -10,6 +10,11 @@ Use Alert;
 
 class UserPermissionController extends Controller
 {
+    public function __construct()
+    {
+        // examples:
+        $this->middleware(['role:superadmin']);
+    }
     public function index()
     {
         $roles = Role::all();

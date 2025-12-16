@@ -18,6 +18,12 @@ use App\Models\Solving;
 
 class DepartmentController extends Controller
 {
+    public function __construct()
+    {
+        // examples:
+        $this->middleware(['role:superadmin']);
+    }
+
     public function search(Request $request)
     {
         $search = $request->input('query');
@@ -47,12 +53,12 @@ class DepartmentController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'gong' => 'required|string',
             'panag' => 'nullable|string',
         ]);
-        
+
         $department = Department::create([
             'grom' => 'พอ.',
             'gong' => $request->gong,
