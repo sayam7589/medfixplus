@@ -26,7 +26,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
 
                     <!-- Profile Image -->
                     <div class="card card-primary card-outline">
@@ -59,7 +59,7 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-3">
+                <div class="col-md-12">
                     <!-- Default box -->
                     <div class="card">
                         <div class="card-header">

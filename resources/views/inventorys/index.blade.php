@@ -97,18 +97,18 @@
                                 <tr>
                                     <td><input type="checkbox" class="row-select" value="{{ $invs->id }}"></td> <!-- Row Checkbox -->
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $invs->type->type_name }}</td>
+                                    <td>{{ $invs->type_name }}</td>
                                     <td>{{ $invs->inv_name }}</td>
                                     <td>{{ $invs->inv_mac_address }}</td>
                                     <td>{{ $invs->inv_rtaf_serial }}</td>
-                                    <td>{{ $invs->department->gong }}</td>
-                                    <td>{{ $invs->inv_status == 1 ? 'ใช้งาน' : 'ไม่ใช้งาน'}}</td>
-                                    <td>{{ optional($invs->prefix)->prefix_short ?? 'ไม่พบข้อมูล' }}</td>
+                                    <td>{{ $invs->gong }}</td>
+                                    <td>{{ $invs->inv_status }}</td>
+                                    <td>{{ $invs->prefix }}</td>
                                     <td>{{ $invs->rec_fname }}</td>
                                     <td>{{ $invs->rec_lname }}</td>
                                     <td>{{ $invs->inv_setup_year == '0000-00-00' ? 'ไม่ระบุข้อมูล' : $invs->inv_setup_year}}</td>
-                                    <td>{{ $invs->project->project_name }}</td>
-                                    <td>{{ $invs->brand->brand_name }}</td>
+                                    <td>{{ $invs->project_name }}</td>
+                                    <td>{{ $invs->brand_name }}</td>
                                     <td>{{ $invs->inv_model }}</td>
                                     <td>{{ $invs->inv_detail }}</td>
                                     <td>{{ $invs->inv_serial_number }}</td>
@@ -119,12 +119,12 @@
                                     <td>{{ $invs->inv_storage_size }}</td>
                                     <td>{{ $invs->inv_os_type }}</td>
                                     <td>{{ $invs->inv_os_version }}</td>
-                                    <td>{{ $invs->inv_os_copyright == 1 ? 'มี' : 'ไม่มี'}}</td>
+                                    <td>{{ $invs->inv_os_copyright }}</td>
                                     <td>{{ $invs->inv_msoffice_version }}</td>
-                                    <td>{{ $invs->inv_msoffice_copyright == 1 ? 'มี' : 'ไม่มี'}}</td>
+                                    <td>{{ $invs->inv_msoffice_copyright }}</td>
                                     <td>{{ $invs->inv_antivirus }}</td>
-                                    <td>{{ $invs->inv_antivirus_copyright == 1 ? 'มี' : 'ไม่มี'}}</td>
-                                    <td>{{ $invs->department->panag }}</td>
+                                    <td>{{ $invs->inv_antivirus_copyright }}</td>
+                                    <td>{{ $invs->panag }}</td>
                                     <td>{{ $invs->rec_personal_tel }}</td>
                                     <td>{{ $invs->rec_org_tel }}</td>
                                     <td>{{ $invs->inv_cpu_clock }}</td>

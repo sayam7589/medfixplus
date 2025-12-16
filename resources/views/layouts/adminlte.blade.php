@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,8 +66,8 @@
                 <!-- Notifications Dropdown Menu -->
             </ul>
         </nav>
-        <!-- /.navbar --> 
-         
+        <!-- /.navbar -->
+
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -118,19 +118,44 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                    <li class="nav-item">
-                        <a href="{{ route('medfix') }}" class="nav-link">
-                            <i class="nav-icon fas fa-wrench"></i>
-                            <p>
-                            รายการเเจ้งซ่อม
-                            @php
-                                $count_medfix = DB::table('medfix')->where('medfix_status', '0')->count();
-                            @endphp
-                            <span class="right badge badge-warning">{{$count_medfix}}</span>
-                            </p>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="{{ route('medfix') }}" class="nav-link">
+                                <i class="nav-icon fas fa-wrench"></i>
+                                <p>
+                                รายการเเจ้งซ่อม
+                                @php
+                                    $count_medfix = DB::table('medfix')->where('medfix_status', '0')->count();
+                                @endphp
+                                <span class="right badge badge-warning">{{$count_medfix}}</span>
+                                </p>
+                            </a>
+                        </li>
 
+
+                        <li class="nav-item">
+                            <a href="/projects_index" class="nav-link">
+                                <i class="nav-icon fas fa-save"></i>
+                                <p>
+                                    <i class="right fas fa-angle-left"></i>
+                                    บัญชีสินทรัพย์
+                                </p>
+                            </a>
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/inventorys_index" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>รายการบัญชีสินทรัพย์</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/inventorys_create" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>เพิ่มบัญชีสินทรัพย์</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a href="/projects_index" class="nav-link">
                                 <i class="nav-icon far fa-clipboard"></i>
@@ -157,31 +182,6 @@
                         </li>
                         <li class="nav-item">
                             <a href="/projects_index" class="nav-link">
-                                <i class="nav-icon fas fa-save"></i>
-                                <p>
-                                    <i class="right fas fa-angle-left"></i>
-                                    บัญชีสินทรัพย์
-                                </p>
-                            </a>
-
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/inventorys_index" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>รายการบัญชีสินทรัพย์</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/inventorys_create" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>เพิ่มบัญชีสินทรัพย์</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="/projects_index" class="nav-link">
                                 <i class="nav-icon fas fa-exclamation-triangle"></i>
                                 <p>
                                     <i class="right fas fa-angle-left"></i>
@@ -204,16 +204,6 @@
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('department.create') }}" class="nav-link">
-                                <i class="nav-icon fas fa-building"></i>
-                                <p>
-                                    หน่วยปฏิบัติงาน
-                                </p>
-                            </a>
-                        </li>
- 
                         <li class="nav-item">
                             <a href="{{ route('inventory_brands.create') }}" class="nav-link">
                                 <i class="nav-icon fas fa-box"></i>
@@ -222,6 +212,16 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('department.create') }}" class="nav-link">
+                                <i class="nav-icon fas fa-building"></i>
+                                <p>
+                                    หน่วยปฏิบัติงาน
+                                </p>
+                            </a>
+                        </li>
+
+
                         <li class="nav-item">
                             <a href="{{ route('users.permissions.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-user-shield"></i>
