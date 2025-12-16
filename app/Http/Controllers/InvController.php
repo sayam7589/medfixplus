@@ -105,7 +105,7 @@ class InvController extends Controller
         $user = Auth::user();
         //dd($user->hasRole($shortDepName));
         if (!$user->hasRole($shortDepName)) {
-            toast('คุณไม่มีสิทธิ์ในการเพิ่มข้อมูลให้กับหน่วยงานนี้นะจ๊ะ', 'error');
+            toast('คุณไม่มีสิทธิ์ในการเพิ่มข้อมูลให้กับ '.$shortDepName, 'error');
             return redirect()->route('inventorys.create');
         }
         try {
@@ -286,7 +286,7 @@ class InvController extends Controller
         $user = Auth::user();
         //dd($user->hasRole($shortDepName));
         if (!$user->hasRole($shortDepName)) {
-            toast('คุณไม่มีสิทธิ์ในการแก้ไขข้อมูลให้กับหน่วยงานนี้นะจ๊ะ', 'error');
+            toast('คุณไม่มีสิทธิ์ในการแก้ไขข้อมูลให้กับ '.$shortDepName, 'error');
             return redirect()->route('inventorys.create');
         }
         $check = $inventory->update($request->all());
