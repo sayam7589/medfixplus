@@ -17,6 +17,7 @@ use App\Models\Issue;
 use App\Models\Solving;
 use Carbon\Carbon;
 use App\Models\InventoryDepartmentView;
+use App\Models\Department;
 use Illuminate\Support\Facades\Auth;
 
 class InvController extends Controller
@@ -99,20 +100,27 @@ class InvController extends Controller
 
         $request->session()->put('formData', $validate);
 
-          // Database operation
+
+        $shortDepName = Department::where('id', $validate['rec_organize'])->value('short_name');
+        $user = Auth::user();
+        //dd($user->hasRole($shortDepName));
+        if (!$user->hasRole($shortDepName)) {
+            toast('คุณไม่มีสิทธิ์ในการเพิ่มข้อมูลให้กับหน่วยงานนี้นะจ๊ะ', 'error');
+            return redirect()->route('inventorys.create');
+        }
         try {
             $check = Inventory::create($validate);
 
             if ($check) {
-                toast('เพิ่มโครงการสำเร็จเเล้วนะจ๊ะ', 'success');
+                toast('เพิ่มข้อมูลสำเร็จเเล้วนะจ๊ะ', 'success');
                 return redirect()->route('inventorys.create');
             }
 
         } catch (\Exception $e) {
-        // Log error for debugging
-        // Show error message
-        toast('เกิดข้อผิดพลาดนะจ๊ะ','error');
-        return redirect()->route('inventorys.create');
+            // Log error for debugging
+            // Show error message
+            toast('เกิดข้อผิดพลาดนะจ๊ะ','error');
+            return redirect()->route('inventorys.create');
         }
     }
     /**
@@ -274,6 +282,13 @@ class InvController extends Controller
             'rec_organize' => 'nullable|string|max:255',
             'rec_address' => 'nullable|string|max:255',
         ]);
+        $shortDepName = Department::where('id', $validate['rec_organize'])->value('short_name');
+        $user = Auth::user();
+        //dd($user->hasRole($shortDepName));
+        if (!$user->hasRole($shortDepName)) {
+            toast('คุณไม่มีสิทธิ์ในการแก้ไขข้อมูลให้กับหน่วยงานนี้นะจ๊ะ', 'error');
+            return redirect()->route('inventorys.create');
+        }
         $check = $inventory->update($request->all());
 
         if($check){

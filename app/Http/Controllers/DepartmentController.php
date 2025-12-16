@@ -41,23 +41,6 @@ class DepartmentController extends Controller
         return response()->json($departments);
     }
 
-    public function search2(Request $request)
-    {
-        $user = Auth::user();
-        $roles = $user->getRoleNames();
-        $search = $request->input('query');
-
-        // Query ข้อมูลจากตาราง department ทุกคอลัมน์ที่มีข้อมูลตรงกับ keyword
-        $departments = Department::where('grom', 'like', "%{$search}%")
-            ->orWhere('gong', 'like', "%{$search}%")
-            ->orWhere('panag', 'like', "%{$search}%")
-            ->orWhere('fay', 'like', "%{$search}%")
-            ->whereIn('short_name', $roles)
-            ->get(['id', 'grom', 'gong', 'panag', 'fay']); // ดึงข้อมูล 'id' มาด้วย
-
-        return response()->json($departments);
-    }
-
     public function create()
     {
         $departments = Department::all();

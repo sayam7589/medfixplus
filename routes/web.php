@@ -19,7 +19,6 @@ Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/departments/search', [DepartmentController::class, 'search'])->name('departments.search');
-Route::get('/departments/search2', [DepartmentController::class, 'search2'])->name('departments.search2');
 Route::get('/tutorial', function () { return view('tutorial');});
 
 ///////////////////// Line_OA

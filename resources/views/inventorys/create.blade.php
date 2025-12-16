@@ -579,7 +579,7 @@ function clearFields() {
                 var query = $(this).val();
                 if (query != '') {
                     $.ajax({
-                        url: '//medfix.site/departments/search2',
+                        url: '//medfix.site/departments/search',
                         method: "GET",
                         data: { query: query },
                         success: function(data) {
