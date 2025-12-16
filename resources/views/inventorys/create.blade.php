@@ -277,7 +277,7 @@
                                                     <option value="MS-Office 2019" {{ isset($formData['inv_msoffice_version']) && $formData['inv_msoffice_version'] == 'MS-Office 2019' ? 'selected' : '' }}>MS-Office 2019</option>
                                                     <option value="MS-Office 2021" {{ isset($formData['inv_msoffice_version']) && $formData['inv_msoffice_version'] == 'MS-Office 2021' ? 'selected' : '' }}>MS-Office 2021</option>
                                                     <option value="MS-Office 365" {{ isset($formData['inv_msoffice_version']) && $formData['inv_msoffice_version'] == 'MS-Office 365' ? 'selected' : '' }}>MS-Office 365</option>
-                                                </select>                                                
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -326,9 +326,9 @@
                                             <div class="form-group">
                                                 <label for="inv_setup_year">วันที่ติดตั้ง</label>
                                                 <input type="date" name="inv_setup_year" class="form-control" id="inv_setup_year" placeholder="ปีที่ติดตั้ง" value="{{ isset($formData['inv_setup_year']) ? $formData['inv_setup_year'] : '' }}" >
-                                        
+
                                             </div>
-                                        </div>    
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="inv_status">สถานะการใช้งาน</label>
@@ -339,7 +339,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -363,11 +363,11 @@
                         </div>
                     </div>
                 </div>
-            </section>              
+            </section>
 
 
             <!--person part-->
-                            <br>    
+                            <br>
                             <section class="content-header">
                                     <div class="container-fluid">
                                         <div class="row">
@@ -377,7 +377,7 @@
                                         </div>
                                     </div>
                             </section>
-                            
+
                             <section class="content">
                                 <div class="container-fluid">
                                     <div class="row">
@@ -427,14 +427,14 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_personal_tel">เบอร์โทรติดต่อ (ตัวเลขเท่านั้น)</label>
-                                                                <input type="text" name="rec_personal_tel" class="form-control" id="rec_personal_tel" 
+                                                                <input type="text" name="rec_personal_tel" class="form-control" id="rec_personal_tel"
                                                                        placeholder="เบอร์โทรติดต่อ" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_org_tel">เบอร์โทรหน่วย (ตัวเลขเท่านั้น)</label>
-                                                                <input type="text" name="rec_org_tel" class="form-control" id="rec_org_tel" 
+                                                                <input type="text" name="rec_org_tel" class="form-control" id="rec_org_tel"
                                                                        placeholder="เบอร์โทรหน่วย" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
@@ -453,7 +453,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
                             </section>
                                 <!--save-->
                                 <div class="container-fluid">
@@ -463,11 +463,11 @@
                                                 <button type="submit" class="btn btn-primary">Save</button>
                                                 <button type="button"  class="btn btn-primary" onclick="clearFields()">Clear</button>
                                             </div>
-                                        </div>    
+                                        </div>
                                     </div>
                                 </div>
-                         
-                            
+
+
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -510,7 +510,7 @@ function clearFields() {
         $('#inv_msoffice_copyright').prop('disabled', false);
         $('#inv_antivirus').prop('disabled', false);
         $('#inv_antivirus_copyright').prop('disabled', false);
-}    
+}
 /*
     $(document).ready(function() {
         // Function to update the disabled state of the inv_author field
@@ -579,7 +579,7 @@ function clearFields() {
                 var query = $(this).val();
                 if (query != '') {
                     $.ajax({
-                        url: '//medfix.site/departments/search',
+                        url: '//medfix.site/departments/search2',
                         method: "GET",
                         data: { query: query },
                         success: function(data) {
@@ -607,7 +607,7 @@ function clearFields() {
 
                 // ใส่ชื่อหน่วยงานที่เลือกในช่อง input
 
-                
+
                 $(inputSelector).val(departmentText);
 
                 // เก็บค่า department_id ใน hidden input
@@ -623,6 +623,6 @@ function clearFields() {
     });
 </script>
 
-    
+
 
 @endsection
