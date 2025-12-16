@@ -52,7 +52,7 @@ class DepartmentController extends Controller
             ->orWhere('gong', 'like', "%{$search}%")
             ->orWhere('panag', 'like', "%{$search}%")
             ->orWhere('fay', 'like', "%{$search}%")
-            ->whereIn('dep_short_name', $roles)
+            ->whereIn('short_name', $roles)
             ->get(['id', 'grom', 'gong', 'panag', 'fay']); // ดึงข้อมูล 'id' มาด้วย
 
         return response()->json($departments);
