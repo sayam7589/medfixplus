@@ -28,14 +28,15 @@ class InvController extends Controller
         $roles = $user->getRoleNames();
         //$inventory = InventoryDepartmentView::all();
         $inventory = InventoryDepartmentView::whereIn('dep_short_name', $roles)->get();
+        $title = '! WARNING !';
+        $text = "คุณต้องการลบข้อมูลสินทรัพย์นี้นี้ใช่หรือไม่";
+        confirmDelete($title, $text);
         //dd($inventory);
         //dd($roles);
         return view('inventorys.index', compact('inventory'));
         // $inventory = Inventory::all();
 
-        // $title = '! WARNING !';
-        // $text = "คุณต้องการลบข้อมูลสินทรัพย์นี้นี้ใช่หรือไม่";
-        // confirmDelete($title, $text);
+
 
         // //dd($inventory);
         // return view('inventorys.index', compact('inventory'));
