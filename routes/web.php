@@ -25,28 +25,22 @@ Route::get('/tutorial', function () { return view('tutorial');});
 Route::post('/line/webhook', [LineController::class, 'webhook']);
 
 
-///////////////////// login
-//Route::get('/register', [ViewController::class, 'showRegister'])->name('register');
-//Route::post('/register', [AuthController::class, 'register']);
-
 // Line Notify
 Route::post('/notify', [App\Http\Controllers\NotifyController::class, 'send']);
 
+
 Route::group(['middleware' => ['auth']], function () {
     ///////////////////// Repair
-    Route::get('/inventory_search', [MedfixController::class, 'search'])->name('inventory_search');
-    Route::post('/inventory_search', [MedfixController::class, 'search_sm'])->name('inventory_search_sm');
-    Route::get('/medfix', [MedfixController::class, 'index'])->name('medfix');
-    Route::put('/closejob/{id}', [MedfixController::class, 'closejob'])->name('closejob')->middleware(['role:admin']);
-    Route::post('/regismedfix', [MedfixController::class, 'regismedfix'])->name('regismedfix');
-    Route::put('/storemedfix/{id}', [MedfixController::class, 'store'])->name('storemedfix');
+    Route::get('/inventory_search', [MedfixController::class, 'search'])->name('inventory_search')->middleware(['role:user']);
+    Route::post('/inventory_search', [MedfixController::class, 'search_sm'])->name('inventory_search_sm')->middleware(['role:user']);
+    Route::post('/regismedfix', [MedfixController::class, 'regismedfix'])->name('regismedfix')->middleware(['role:user']);
+    Route::put('/storemedfix/{id}', [MedfixController::class, 'store'])->name('storemedfix')->middleware(['role:user']);
     Route::get('/inventory/{id}', [InvController::class, 'profile'])->name('inventory')->middleware(['role:user']);
+    Route::get('/medfix', [MedfixController::class, 'index'])->name('medfix')->middleware(['role:admin']);
+    Route::put('/closejob/{id}', [MedfixController::class, 'closejob'])->name('closejob')->middleware(['role:admin']);
     Route::delete('/medfix_destroy/{id}', [MedfixController::class, 'destroy'])->name('medfix.destroy')->middleware(['role:admin']);
-    ///////////////////// logout
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:sanctum');
 
     ///////////////////// Dashbaord
-     ///////////////////// Dashbaord
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['role:admin']);
     Route::get('/charts/inventory-by-org-type', [DashboardController::class, 'inventoryByOrgType'])
         ->name('charts.inventory.byOrgType');
@@ -84,15 +78,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('inventorys', InvController::class);
 
 
-    ///////////////////// User Permission
-    Route::get('/404notpermission', function () {
-        return view('users.notpermission');
-    })->name('users.notpermission');
-
-    Route::get('users/permission', [UserPermissionController::class, 'index'])->name('users.permissions.index')->middleware(['role:superadmin']);
-    Route::get('users/{user}/permission', [UserPermissionController::class, 'edit'])->name('users.permissions.edit')->middleware(['role:superadmin']);
-    Route::post('users/{user}/permission', [UserPermissionController::class, 'update'])->name('users.permissions.update')->middleware(['role:superadmin']);
-
     ///////////////////// Brands
     Route::get('/inventory_brands_create', [InventoryBrandController::class, 'create'])->name('inventory_brands.create')->middleware(['role:admin']);
     Route::post('/inventory_brands', [InventoryBrandController::class, 'store'])->name('inventory_brands.store')->middleware(['role:admin']);
@@ -107,18 +92,33 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/problem_issue_destroy/{id}', [IssueController::class, 'destroy'])->name('problem_issue.destroy')->middleware(['role:admin']);
 
 
-        ///////////////////// solving
+    ///////////////////// solving
     Route::get('/problem_solving_create', [SolvingController::class, 'create'])->name('problem_solving.create')->middleware(['role:admin']);
     Route::post('/problem_solving_store', [SolvingController::class, 'store'])->name('problem_solving.store')->middleware(['role:admin']);
     Route::put('/problem_solving_update/{id}', [SolvingController::class, 'update'])->name('problem_solving.update')->middleware(['role:admin']);
     Route::delete('/problem_solving_destroy/{id}', [SolvingController::class, 'destroy'])->name('problem_solving.destroy')->middleware(['role:admin']);
 
 
-      /////////////////////department
-      Route::get('department.create', [DepartmentController::class, 'create'])->name('department.create')->middleware(['role:admin']);
-      Route::post('department.store', [DepartmentController::class, 'store'])->name('department.store')->middleware(['role:admin']);
-      Route::put('/department_update/{id}', [DepartmentController::class, 'update'])->name('department.update')->middleware(['role:admin']);
-      Route::delete('/department_destroy/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy')->middleware(['role:admin']);
+    /////////////////////department
+    Route::get('department.create', [DepartmentController::class, 'create'])->name('department.create')->middleware(['role:superadmin']);
+    Route::post('department.store', [DepartmentController::class, 'store'])->name('department.store')->middleware(['role:superadmin']);
+    Route::put('/department_update/{id}', [DepartmentController::class, 'update'])->name('department.update')->middleware(['role:superadmin']);
+    Route::delete('/department_destroy/{id}', [DepartmentController::class, 'destroy'])->name('department.destroy')->middleware(['role:superadmin']);
 
+
+    /////////////////////permission and role
+    Route::get('users/permission', [UserPermissionController::class, 'index'])->name('users.permissions.index')->middleware(['role:superadmin']);
+    Route::get('users/{user}/permission', [UserPermissionController::class, 'edit'])->name('users.permissions.edit')->middleware(['role:superadmin']);
+    Route::post('users/{user}/permission', [UserPermissionController::class, 'update'])->name('users.permissions.update')->middleware(['role:superadmin']);
+
+
+    ///////////////////// User not have Permission
+    Route::get('/404notpermission', function () {
+        return view('users.notpermission');
+    })->name('users.notpermission');
+
+
+    ///////////////////// logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:sanctum');
 
 });
