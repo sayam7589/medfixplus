@@ -310,7 +310,7 @@
                                                     <b>เบอร์โทร:</b> {{ $repair->medfix_tel }}<br>
                                                     <hr>
                                                     <div class="mb-3">
-                                                        <label for="voicename" class="form-label">ช่างซ่อม</label>
+                                                        <label for="voicename" class="form-label">ปิดงาน</label>
                                                         <input type="hidden" name="inv_id"
                                                             value="{{ $repair->inv_id }}">
                                                         <input type="text" class="form-control" id="voicename"
@@ -658,7 +658,7 @@
                                                                 <b>แจ้งซ่อม:</b>
                                                                 {{ $medfix->user->rank . $medfix->user->fname . ' ' . $medfix->user->lname }}</span>
                                                             | <span class="time"><i class="fas fa-user-secret"></i>
-                                                                <b>ช่างซ่อม:</b>
+                                                                <b>ปิดงาน:</b>
                                                                 {{ $medfix->technician->rank . $medfix->technician->fname . ' ' . $medfix->technician->lname }}</span>
                                                         </div>
                                                         <div class="timeline-footer">
