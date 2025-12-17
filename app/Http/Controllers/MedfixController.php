@@ -10,15 +10,23 @@ use Illuminate\Support\Facades\Auth;
 Use Alert;
 use App\Models\Department;
 use App\Models\Inventory;
+use App\Models\MedfixFullView;
 
 class MedfixController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+
         $title = '! WARNING !';
         $text = "คุณต้องการลบรายการนี้ใช่หรือไม่";
         confirmDelete($title, $text);
-        $medfixes = Medfix::orderBy('id', 'asc')->get();
+        //$medfixes = MedfixFullView::whereIn('dep_short_name', $roles)->orderBy('id', 'asc')->get();
+        $medfixes = Medfix::leftJoin('view_inventory_department as vid', 'medfix.inv_id', '=', 'vid.id')
+                    ->select('medfix.*', 'vid.dep_short_name')
+                    ->whereIn('vid.dep_short_name', $roles)
+                    ->get();
         return view('medfix.index', compact('medfixes'));
     }
 
@@ -122,6 +130,16 @@ class MedfixController extends Controller
 
     public function destroy($id)
     {
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+
+        $medfixesDep = MedfixFullView::where('id', $id)->value('dep_short_name');
+
+        if (!$user->hasRole($medfixesDep)) {
+            toast('คุณไม่มีสิทธิ์ในการลบข้อมูลให้กับ '.$medfixesDep, 'error');
+            return redirect()->route('medfix');
+        }
+
         $medfix = Medfix::findOrFail($id);
         if($medfix->delete()){
             toast('ลบข้อมูล เสร็จสิ้น!','success');
