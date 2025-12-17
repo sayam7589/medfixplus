@@ -329,13 +329,16 @@ class InvController extends Controller
     public function profile($id)
     {
         $personal_data = PersonalHasInv::where('inv_id',  $id)->first();
+
         $personal = ([
+            'prefix' => '',
             'fname' => '',
             'lname' => ''
         ]);
         //dd($personal_data->fname);
         if ($personal_data != null) {
             $personal = [
+                'prefix' => $personal_data->prefix,
                 'fname' => $personal_data->fname,
                 'lname' => $personal_data->lname
             ];
