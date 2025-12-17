@@ -18,9 +18,9 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        if (session()->has('token')) {
-            return redirect()->route('dashboard');
-        }
+        // if (session()->has('token')) {
+        //     return redirect()->route('dashboard');
+        // }
 
         $client = new Client();
 

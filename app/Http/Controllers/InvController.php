@@ -374,6 +374,8 @@ class InvController extends Controller
         $issues = Issue::all();
         $solvings = Solving::all();
 
+        //dd($medfixs);
+
         $historys = DB::table('medfix')
             ->join('prefix', 'medfix.medfix_owner_prefix', '=', 'prefix.id')
             ->join('department', 'medfix.medfix_user_org', '=', 'department.id') // Join กับ department
