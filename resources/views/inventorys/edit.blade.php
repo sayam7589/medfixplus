@@ -192,7 +192,7 @@
                                                     <option value="11" {{ $inventory->inv_ram_speed == '11' ? 'selected' : '' }}>11</option>
                                                     <option value="12" {{ $inventory->inv_ram_speed == '12' ? 'selected' : '' }}>12</option>
                                                     <option value="16" {{ $inventory->inv_ram_speed == '16' ? 'selected' : '' }}>16</option>
-                                               
+
                                                 </select>
                                             </div>
                                         </div>
@@ -342,7 +342,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -368,13 +368,13 @@
                                             </div>
                                 </div>
                         </div>
-    
+
                     </div>
                 </div>
-            </section>             
+            </section>
 
             <!--person part-->
-                            <br>    
+                            <br>
                             <section class="content-header">
                                     <div class="container-fluid">
                                         <div class="row">
@@ -384,7 +384,7 @@
                                         </div>
                                     </div>
                             </section>
-                            
+
                             <section class="content">
                                 <div class="container-fluid">
                                     <div class="row">
@@ -435,14 +435,14 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_personal_tel">เบอร์โทรติดต่อ</label>
-                                                                <input type="text" name="rec_personal_tel" value="{{ $inventory->rec_personal_tel }}" class="form-control" id="rec_personal_tel" 
+                                                                <input type="text" name="rec_personal_tel" value="{{ $inventory->rec_personal_tel }}" class="form-control" id="rec_personal_tel"
                                                                        placeholder="เบอร์โทรติดต่อ" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="rec_org_tel">เบอร์โทรหน่วย</label>
-                                                                <input type="text" name="rec_org_tel" class="form-control"  value="{{ $inventory->rec_org_tel }}" id="rec_org_tel" 
+                                                                <input type="text" name="rec_org_tel" class="form-control"  value="{{ $inventory->rec_org_tel }}" id="rec_org_tel"
                                                                        placeholder="เบอร์โทรหน่วย" onkeypress="return isNumberKey(event)">
                                                             </div>
                                                         </div>
@@ -458,11 +458,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            
+
                                             </div>
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
                             </section>
                                 <!--save-->
                                 <div class="container-fluid">
@@ -471,11 +471,11 @@
                                                 <div class="card-body">
                                                     <button type="submit" class="btn btn-warning">Save</button>
                                                 </div>
-                                            </div>    
+                                            </div>
                                         </div>
                                 </div>
-                             
-                                            
+
+
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -515,7 +515,7 @@
             $(document).on('click', listSelector + ' li', function() {
                 var departmentId = $(this).data('id') || '1';
                 var departmentText = $(this).text();
-                
+
 
                 // ใส่ชื่อหน่วยงานที่เลือกในช่อง input
                 $(inputSelector).val(departmentText);
@@ -543,8 +543,8 @@
         return true;
     }
 </script>
-<script>   
-/* 
+<script>
+/*
 $(document).ready(function() {
     // Function to update the disabled state of the inv_author field
     function updateAuthorField() {
