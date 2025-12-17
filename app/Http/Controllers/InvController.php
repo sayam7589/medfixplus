@@ -242,7 +242,7 @@ class InvController extends Controller
     {
         $user = Auth::user();
         $roles = $user->getRoleNames();
-        $invcheck = InventoryDepartmentView::whereIn('dep_short_name', $roles)->Where('id', $id)->first();
+        $invcheck = InventoryDepartmentView::whereIn('dep_short_name', $roles)->Where('id', $inventory->id)->first();
         if (!$invcheck) {
             toast('คุณไม่มีสิทธิ์ในการแก้ไขข้อมูลนี้นะจ๊ะ', 'error');
             return redirect()->route('inventorys.index');
@@ -282,7 +282,7 @@ class InvController extends Controller
             'rec_organize' => 'nullable|string|max:255',
             'rec_address' => 'nullable|string|max:255',
         ]);
-        $shortDepName = Department::where('id', $validate['rec_organize'])->value('short_name');
+        $shortDepName = Department::where('id', $request->rec_organize)->value('short_name');
         $user = Auth::user();
         //dd($user->hasRole($shortDepName));
         if (!$user->hasRole($shortDepName)) {

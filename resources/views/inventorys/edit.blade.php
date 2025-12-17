@@ -328,7 +328,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="inv_setup_year">วันที่ติดตั้ง</label>
+                                                <label for="inv_setup_year">วันที่ติดตั้ง (ปี ค.ศ.)</label>
                                                 <input type="date" name="inv_setup_year" class="form-control" id="inv_setup_year"  value="{{ $inventory->inv_setup_year }}"  placeholder="ปีที่ติดตั้ง" >
                                             </div>
                                         </div>
