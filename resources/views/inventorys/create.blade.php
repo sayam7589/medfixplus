@@ -511,14 +511,14 @@ function clearFields() {
         $('#inv_antivirus').prop('disabled', false);
         $('#inv_antivirus_copyright').prop('disabled', false);
 }
-/*
+
     $(document).ready(function() {
         // Function to update the disabled state of the inv_author field
         function updateAuthorField() {
             // Get the selected value of the inv_type field
             var selectedValue = $('#inv_type').val();
             // Check if the selected value is '2' or '3'
-            if (selectedValue > 2) {
+            if (selectedValue >= 3 && selectedValue <= 7) {
                 $('#inv_ram').prop('disabled', true);
                 $('#inv_mac_address').prop('disabled', true);
                 $('#inv_ram_speed').prop('disabled', true);
@@ -533,7 +533,25 @@ function clearFields() {
                 $('#inv_msoffice_copyright').prop('disabled', true);
                 $('#inv_antivirus').prop('disabled', true);
                 $('#inv_antivirus_copyright').prop('disabled', true);
-            } else {
+            }
+            else if(selectedValue >= 12  && selectedValue <= 21){
+                 $('#inv_ram').prop('disabled', true);
+                $('#inv_mac_address').prop('disabled', true);
+                $('#inv_ram_speed').prop('disabled', true);
+                $('#inv_storage_type').prop('disabled', true);
+                $('#inv_storage_size').prop('disabled', true);
+                $('#inv_cpu').prop('disabled', true);
+                $('#inv_cpu_clock').prop('disabled', true);
+                $('#inv_os_type').prop('disabled', true);
+                $('#inv_os_version').prop('disabled', true);
+                $('#inv_os_copyright').prop('disabled', true);
+                $('#inv_msoffice_version').prop('disabled', true);
+                $('#inv_msoffice_copyright').prop('disabled', true);
+                $('#inv_antivirus').prop('disabled', true);
+                $('#inv_antivirus_copyright').prop('disabled', true);
+            }
+
+            else {
                 $('#inv_ram').prop('disabled', false);
                 $('#inv_mac_address').prop('disabled', false);
                 $('#inv_ram_speed').prop('disabled', false);
@@ -557,7 +575,7 @@ function clearFields() {
         // Call the function initially to set the correct state based on the default value
         updateAuthorField();
     });
-*/
+
 </script>
 
 <script>
