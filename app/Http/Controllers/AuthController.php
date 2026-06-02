@@ -22,18 +22,47 @@ class AuthController extends Controller
             return redirect()->route('dashboard');
         }
 
+        $cleanedUsername = strstr($request->username, '@', true) ?: $request->username;
+
+        // ======================================================
+        // BYPASS MODE: ใช้ตอน API otp.rtaf.mi.th ล่ม
+        // ตั้งค่า BYPASS_MFA_API=false ใน .env เมื่อ API กลับมาปกติ
+        // ======================================================
+        if (env('BYPASS_MFA_API', false)) {
+            $user = User::where('username', $cleanedUsername)->first();
+
+            if (!$user) {
+                return redirect()->route('login')->with('error', 'ไม่พบข้อมูลผู้ใช้ในระบบ กรุณาติดต่อผู้ดูแลระบบ');
+            }
+
+            $abilities = ['view-dashboard', 'edit-profile'];
+            $sanctumToken = $user->createToken('token-name', $abilities)->plainTextToken;
+
+            session(['token' => $sanctumToken]);
+            session(['user_rank' => $user->rank]);
+            session(['user_fname' => $user->fname]);
+            session(['user_lname' => $user->lname]);
+
+            Auth::login($user);
+
+            return redirect()->intended('/dashboard')->with('success', 'Login successful! (Bypass Mode)');
+        }
+        // ======================================================
+        // END BYPASS MODE
+        // ======================================================
+
+        // --- โค้ด API เดิม (ใช้งานเมื่อ BYPASS_MFA_API=false) ---
         $client = new Client();
 
-        $cleanedUsername = strstr($request->username, '@', true) ?: $request->username;
         $pass = $request->passwordl;
-        
+
         $response = $client->post('https://otp.rtaf.mi.th/api/v2/mfa/login', [
             'json' => [
                 'user' => $cleanedUsername,  // This cuts off everything after @ if present
                 'pass' => $request->password,
             ]
         ]);
-    
+
         $data = json_decode($response->getBody(), true);
 
         if (isset($data['token'])) {

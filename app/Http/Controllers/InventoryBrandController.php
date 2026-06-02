@@ -28,7 +28,7 @@ class InventoryBrandController extends Controller
         $inventory_brand = Inventory_brand::create([
             'brand_name' => $request->brand,
         ]);
-        toast('บันทึกข้อมูล เสร็จสิ้น!','success');
+        toast('บันทึกข้อมูล เสร็จสิ้น!', 'success');
         return redirect()->route('inventory_brands.create');
     }
 
@@ -50,7 +50,7 @@ class InventoryBrandController extends Controller
         $brand->update([
             'brand_name' => $request->brand,
         ]);
-        toast('บันทึกข้อมูล เสร็จสิ้น!','success');
+        toast('บันทึกข้อมูล เสร็จสิ้น!', 'success');
         return redirect()->route('inventory_brands.create');
     }
     public function destroy($id)
@@ -58,7 +58,7 @@ class InventoryBrandController extends Controller
         $brand = Inventory_brand::findOrFail($id);
         $brand->delete();
 
-        toast('ลบข้อมูล เสร็จสิ้น!','success');
+        toast('ลบข้อมูล เสร็จสิ้น!', 'success');
         return redirect()->route('inventory_brands.create');
     }
 }
