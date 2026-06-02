@@ -109,7 +109,7 @@
     <section class="content" style="margin-top: 15px;">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
 
                     <!-- Profile Image -->
                     <div class="card card-info card-outline">
@@ -144,7 +144,7 @@
                                     <b>Serial No.</b> <a class="float-right">{{ $inv->inv_serial_number }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>PC Name</b> <a class="float-right">{{ $inv->inv_name }}</a>
+                                    <b>Device Name</b> <a class="float-right">{{ $inv->inv_name }}</a>
                                 </li>
                             </ul>
                             @if ($countSixMonth == 0)
@@ -218,11 +218,11 @@
                                                     <label for="medfix_owner_prefix" class="form-label">ยศ/คำนำหน้า
                                                         (เจ้าของเครื่อง)</label>
                                                     @php
-                                                        $rank = trim(session()->get('user_rank'));
+                                                        $rank = $personal['prefix']
                                                     @endphp
                                                     <select class="form-control" id="medfix_owner_prefix" name="medfix_owner_prefix">
                                                         @foreach ($prefix as $pf)
-                                                            <option value="{{ $pf->id }}" {{ $rank == $pf->prefix_short ? 'selected' : '' }}>
+                                                            <option value="{{ $pf->id }}" {{ $rank == $pf->id ? 'selected' : '' }}>
                                                                 {{ $pf->prefix_short }}
                                                             </option>
                                                         @endforeach
@@ -492,7 +492,7 @@
 
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> เริ่มใช้ครั้งแรกที่</strong>
 
-                            <p class="text-muted">{{ $inv->department->gong.' '.$inv->department->panag.' '.$inv->department->fay.' / ' . $inv->rec_address }}</p>
+                            <p class="text-muted">{{ $inv->rec_address }}</p>
 
                             <hr>
 
@@ -517,7 +517,7 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">

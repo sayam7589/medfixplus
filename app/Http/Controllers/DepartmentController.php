@@ -19,11 +19,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends Controller
 {
-    public function __construct()
-    {
-        // examples:
-        $this->middleware(['role:superadmin']);
-    }
+
 
     public function search(Request $request)
     {
