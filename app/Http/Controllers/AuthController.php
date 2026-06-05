@@ -28,7 +28,7 @@ class AuthController extends Controller
         // BYPASS MODE: ใช้ตอน API otp.rtaf.mi.th ล่ม
         // ตั้งค่า BYPASS_MFA_API=false ใน .env เมื่อ API กลับมาปกติ
         // ======================================================
-        if (true) { // BYPASS_MFA_API — เปลี่ยนเป็น false เมื่อ API กลับมาปกติ
+        if (false) { // BYPASS_MFA_API — เปลี่ยนเป็น true เมื่อ API ล่ม
             $user = User::where('username', $cleanedUsername)->first();
 
             if (!$user) {
