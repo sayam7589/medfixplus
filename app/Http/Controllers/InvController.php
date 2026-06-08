@@ -154,7 +154,15 @@ class InvController extends Controller
         $brands = Inventory_brand::all();
         $prefixs = Prefix::all();
 
-        return view('inventorys.edit', compact('inventory','project','types', 'brands','prefixs'));
+        // ดึงเฉพาะหน่วยที่ user มีสิทธิ์ (อิงตาม role ที่ตรงกับ short_name)
+        $myDepartments = Department::whereIn('short_name', $roles)
+            ->orderBy('short_name')
+            ->orderBy('gong')
+            ->orderBy('panag')
+            ->orderBy('fay')
+            ->get();
+
+        return view('inventorys.edit', compact('inventory','project','types', 'brands','prefixs','myDepartments'));
 
 
     }
