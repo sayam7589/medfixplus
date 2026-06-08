@@ -56,16 +56,7 @@ class InvController extends Controller
         $prefixs = Prefix::all();
         $formData = $request->session()->get('formData', []);
 
-        // ดึงเฉพาะหน่วยที่ user มีสิทธิ์ (อิงตาม role ที่ตรงกับ short_name)
-        $roles = Auth::user()->getRoleNames();
-        $myDepartments = Department::whereIn('short_name', $roles)
-            ->orderBy('short_name')
-            ->orderBy('gong')
-            ->orderBy('panag')
-            ->orderBy('fay')
-            ->get();
-
-        return view('inventorys.create', compact('inventory', 'types', 'brands', 'formData','prefixs','myDepartments'));
+        return view('inventorys.create', compact('inventory', 'types', 'brands', 'formData','prefixs'));
 
     }
 

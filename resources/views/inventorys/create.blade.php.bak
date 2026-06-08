@@ -2,48 +2,6 @@
 
 @section('style')
     <!-- Style (Page) -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-    <style>
-        /* ปรับ Select2 ให้สูง/สวยเข้ากับ Bootstrap form-control */
-        .select2-container--bootstrap4 .select2-selection--single {
-            height: calc(2.25rem + 2px) !important;
-            padding: .375rem .75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            border: 1px solid #ced4da;
-            border-radius: .25rem;
-        }
-        .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
-            padding-left: 0;
-            line-height: 1.5;
-            color: #495057;
-        }
-        .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
-            height: calc(2.25rem + 2px);
-        }
-        .select2-container--bootstrap4.select2-container--focus .select2-selection {
-            border-color: #80bdff;
-            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-        }
-        .select2-results__option {
-            padding: 8px 12px;
-            font-size: 0.95rem;
-        }
-        .select2-results__option--highlighted {
-            background-color: #007bff !important;
-        }
-        .select2-dropdown {
-            border: 1px solid #ced4da;
-            border-radius: .25rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,.08);
-        }
-        .select2-search--dropdown .select2-search__field {
-            padding: .375rem .75rem;
-            border: 1px solid #ced4da;
-            border-radius: .25rem;
-        }
-    </style>
 @endsection
 
 @section('title', 'Create Project')
@@ -483,52 +441,12 @@
                                                     </div>
 
 
-                                                    {{-- ============================================================
-                                                         ORIGINAL CODE (เก็บไว้สำหรับ rollback - text + autocomplete)
-                                                         ============================================================
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <label for="department2" class="form-label">หน่วย/สังกัด</label>
                                                             <input type="text" class="form-control" id="department2" name="rec_address" value=" " placeholder="พิมพ์ชื่อหน่วยของท่าน" autocomplete="off" >
                                                             <div id="departmentList2"></div>
                                                             <input type="hidden" id="department_id2" name="rec_organize" value="1" required>
-                                                        </div>
-                                                    </div>
-                                                    ============================================================ --}}
-
-                                                    {{-- NEW: Dropdown (Select2) filtered by user roles --}}
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="department2" class="form-label">
-                                                                    หน่วย/สังกัด <span class="text-danger">*</span>
-                                                                </label>
-                                                                @if($myDepartments->count() > 0)
-                                                                    <select class="form-control select2-dept" id="department2" name="rec_organize" style="width: 100%;" required>
-                                                                        <option value="">-- เลือกหน่วย/สังกัด --</option>
-                                                                        @foreach($myDepartments as $dep)
-                                                                            @php
-                                                                                $parts = array_filter([$dep->short_name, $dep->gong, $dep->panag, $dep->fay], fn($v) => !empty(trim((string)$v)));
-                                                                                $label = implode(' → ', $parts);
-                                                                                $addressText = implode(' -> ', $parts);
-                                                                            @endphp
-                                                                            <option value="{{ $dep->id }}" data-address="{{ $addressText }}">{{ $label }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    <input type="hidden" id="rec_address_hidden" name="rec_address" value="">
-                                                                    <small class="form-text text-muted mt-1">
-                                                                        <i class="fas fa-info-circle"></i>
-                                                                        แสดงเฉพาะหน่วยที่ท่านมีสิทธิ์ ({{ $myDepartments->count() }} รายการ)
-                                                                    </small>
-                                                                @else
-                                                                    <div class="alert alert-warning mb-0" role="alert">
-                                                                        <i class="fas fa-exclamation-triangle"></i>
-                                                                        ท่านไม่มีสิทธิ์ในการเพิ่มสินทรัพย์ให้กับหน่วยใดๆ กรุณาติดต่อผู้ดูแลระบบ
-                                                                    </div>
-                                                                    <input type="hidden" name="rec_organize" value="">
-                                                                    <input type="hidden" name="rec_address" value="">
-                                                                @endif
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -719,43 +637,10 @@ function clearFields() {
 
         // เรียกใช้ฟังก์ชันสำหรับ input แต่ละช่อง
         //setupAutocomplete('#department1', '#departmentList1', '#department_id1');
-        // ปิดการใช้งานเมื่อเปลี่ยนเป็น dropdown แล้ว (เก็บไว้สำหรับ rollback)
-        // setupAutocomplete('#department2', '#departmentList2', '#department_id2');
+        setupAutocomplete('#department2', '#departmentList2', '#department_id2');
     });
 </script>
 
-{{-- Select2 init for หน่วย/สังกัด dropdown --}}
-<script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
-<script>
-    $(document).ready(function () {
-        $('.select2-dept').select2({
-            theme: 'bootstrap4',
-            placeholder: '-- เลือกหน่วย/สังกัด --',
-            allowClear: true,
-            language: {
-                noResults: function () { return 'ไม่พบหน่วยที่ค้นหา'; },
-                searching: function () { return 'กำลังค้นหา...'; },
-                inputTooShort: function () { return 'พิมพ์เพื่อค้นหา...'; }
-            },
-            width: '100%'
-        });
 
-        // sync rec_address (text ของหน่วยที่เลือก) ไปยัง hidden input
-        $('#department2').on('change', function () {
-            var selected = $(this).find(':selected');
-            var addressText = selected.data('address') || '';
-            $('#rec_address_hidden').val(addressText);
-        });
-
-        // auto-select ถ้ามีรายการเดียว
-        var $dept = $('#department2');
-        if ($dept.length) {
-            var realOptions = $dept.find('option').filter(function () { return $(this).val() !== ''; });
-            if (realOptions.length === 1) {
-                $dept.val(realOptions.val()).trigger('change');
-            }
-        }
-    });
-</script>
 
 @endsection
