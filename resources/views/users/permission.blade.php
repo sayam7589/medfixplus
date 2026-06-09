@@ -77,10 +77,18 @@
                         <div class="card-body">
                             <form action="{{ route('users.permissions.update', $user->id) }}" method="POST">
                                 @csrf
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-success btn-sm" id="checkAllRoles">
+                                        <i class="fas fa-check-double"></i> เลือกทั้งหมด
+                                    </button>
+                                    <button type="button" class="btn btn-secondary btn-sm" id="uncheckAllRoles">
+                                        <i class="fas fa-times"></i> ล้างทั้งหมด
+                                    </button>
+                                </div>
                                 <div class="form-group">
                                     @foreach ($roles as $role)
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="roles[]"
+                                            <input class="form-check-input role-checkbox" type="checkbox" name="roles[]"
                                                 value="{{ $role->name }}" id="role_{{ $role->id }}"
                                                 {{ $user->hasRole($role->name) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="role_{{ $role->id }}">
@@ -110,4 +118,23 @@
 
 @section('script')
     <!-- Script(Page) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkAllBtn = document.getElementById('checkAllRoles');
+            const uncheckAllBtn = document.getElementById('uncheckAllRoles');
+            const checkboxes = document.querySelectorAll('.role-checkbox');
+
+            if (checkAllBtn) {
+                checkAllBtn.addEventListener('click', function () {
+                    checkboxes.forEach(cb => cb.checked = true);
+                });
+            }
+
+            if (uncheckAllBtn) {
+                uncheckAllBtn.addEventListener('click', function () {
+                    checkboxes.forEach(cb => cb.checked = false);
+                });
+            }
+        });
+    </script>
 @endsection
