@@ -116,25 +116,17 @@
 @endsection
 
 
-@section('script')
+@section('scripts')
     <!-- Script(Page) -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const checkAllBtn = document.getElementById('checkAllRoles');
-            const uncheckAllBtn = document.getElementById('uncheckAllRoles');
-            const checkboxes = document.querySelectorAll('.role-checkbox');
+        $(function () {
+            $('#checkAllRoles').on('click', function () {
+                $('.role-checkbox').prop('checked', true);
+            });
 
-            if (checkAllBtn) {
-                checkAllBtn.addEventListener('click', function () {
-                    checkboxes.forEach(cb => cb.checked = true);
-                });
-            }
-
-            if (uncheckAllBtn) {
-                uncheckAllBtn.addEventListener('click', function () {
-                    checkboxes.forEach(cb => cb.checked = false);
-                });
-            }
+            $('#uncheckAllRoles').on('click', function () {
+                $('.role-checkbox').prop('checked', false);
+            });
         });
     </script>
 @endsection
