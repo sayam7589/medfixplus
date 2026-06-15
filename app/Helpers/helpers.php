@@ -113,7 +113,8 @@ function getThaiMonthAbbreviation($monthNumber)
     return $thaiMonths[$monthNumber] ?? null;
 }
 
-/*
+// หมายเหตุ: ฟังก์ชันนี้เคยถูก comment ไว้ ทำให้ NotifyController::send() เรียกแล้วเกิด fatal error
+// กู้คืนเพื่อให้ endpoint /notify ทำงานได้ (ถ้าไม่ได้ตั้ง LINE_NOTIFY_TOKEN จะคืน false อย่างปลอดภัย)
 if (!function_exists('sendLineNotify')) {
     function sendLineNotify(string $message): bool
     {
@@ -153,8 +154,6 @@ if (!function_exists('sendLineNotify')) {
         }
     }
 }
-
-*/
 
 if (!function_exists('getPrefixShortById')) {
     /**

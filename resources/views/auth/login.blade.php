@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MEDFIX</title>
+    <title>เข้าสู่ระบบ — MEDFIX+</title>
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Google Font: Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="adminlte/plugins/fontawesome-free/css/all.min.css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="adminlte/dist/css/adminlte.min.css">
+    <!-- MEDFIX+ Modern Theme -->
+    <link rel="stylesheet" href="css/medfix-theme.css">
+    <style>
+        body { font-family: 'Kanit', sans-serif; }
+    </style>
 </head>
 
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="login-logo">
-            <a href="adminlte/index2.html">MED<b>FIX+</b></a>
+        <div class="login-logo text-center">
+            <span class="logo-badge"><i class="fas fa-briefcase-medical"></i></span><br>
+            <a href="{{ route('login') }}">MED<b>FIX+</b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
                 @if (session('error'))
                     <p class="login-box-msg text-danger">{{ session('error') }}</p>
+                @elseif (session('success'))
+                    <p class="login-box-msg text-success">{{ session('success') }}</p>
                 @else
                     <p class="login-box-msg">กรุณาเข้าสู่ระบบด้วย email ทอ.</p>
                 @endif
@@ -59,7 +68,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">เข้าสู่ระบบ</button>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -106,7 +115,7 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
                             </div>
                         </div>
                     </div>

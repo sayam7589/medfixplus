@@ -46,7 +46,7 @@ class MedfixController extends Controller
             'department_id1' => 'required',
             'medfix_detail' => 'required',
             'medfix_tel' => 'required',
-            'medfix_pic' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
+            'medfix_pic' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
         //dd($request->medfix_pic);
         if($request->medfix_pic != null){
@@ -111,7 +111,7 @@ class MedfixController extends Controller
         if($request->comment != ""){
             $comment = $request->comment;
         }
-        $medfix = Medfix::find($id);
+        $medfix = Medfix::findOrFail($id);
         $medfix->medfix_technician_user_id = Auth::user()->id;
         $medfix->issue_id = $request->issue;
         $medfix->solving_id = $request->solving;
@@ -125,7 +125,6 @@ class MedfixController extends Controller
             Alert::warning('พบข้อผิดพลาด', 'กรุณาตรวจสอบว่ากรอกข้อมูลครับถ้วนแล้ว');
             return redirect()->route('inventory', $request->inv_id);
         }
-        return redirect()->route('medfix.index')->with('success', 'Medfix updated successfully.');
     }
 
     public function destroy($id)
@@ -135,7 +134,8 @@ class MedfixController extends Controller
 
         $medfixesDep = MedfixFullView::where('id', $id)->value('dep_short_name');
 
-        if (!$user->hasRole($medfixesDep)) {
+        // กัน hasRole(null) error กรณีไม่พบข้อมูลหน่วยของรายการนี้
+        if (!$medfixesDep || !$user->hasRole($medfixesDep)) {
             toast('คุณไม่มีสิทธิ์ในการลบข้อมูลให้กับ '.$medfixesDep, 'error');
             return redirect()->route('medfix');
         }

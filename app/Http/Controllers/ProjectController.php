@@ -72,7 +72,7 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'project_name' => 'required|string|max:255',
             'project_detail' => 'nullable|string|max:255',
             'project_company' => 'required|string|max:255',
@@ -81,7 +81,8 @@ class ProjectController extends Controller
             'project_date' => 'required|date',
         ]);
 
-        $check = Project::create($request->all());
+        // ใช้ข้อมูลที่ผ่าน validation เท่านั้น (กัน mass assignment)
+        $check = Project::create($validated);
 
         if($check){
             //toast('บันทึกโครงการสำเร็จเเล้วนะจ๊ะ','success');
@@ -117,7 +118,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        $request->validate([
+        $validated = $request->validate([
             'project_name' => 'required|string|max:255',
             'project_detail' => 'required|string',
             'project_company' => 'required|string|max:255',
@@ -126,7 +127,8 @@ class ProjectController extends Controller
             'project_date' => 'required|date',
         ]);
 
-        $check = $project->update($request->all());
+        // ใช้ข้อมูลที่ผ่าน validation เท่านั้น (กัน mass assignment)
+        $check = $project->update($validated);
 
         if($check){
             toast('บันทึกข้อมูลสำเร็จเเล้วนะจ๊ะ','success');

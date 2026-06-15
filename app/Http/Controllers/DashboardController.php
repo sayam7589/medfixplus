@@ -78,6 +78,14 @@ class DashboardController extends Controller
 
     public function filterRepairs(Request $request)
 {
+    // validate กัน input ผิดรูปแบบทำให้ Carbon throw → 500
+    $request->validate([
+        'start_month' => 'required|integer|between:1,12',
+        'start_year'  => 'required|integer|min:1900|max:2600',
+        'end_month'   => 'required|integer|between:1,12',
+        'end_year'    => 'required|integer|min:1900|max:2600',
+    ]);
+
     $startMonth = $request->input('start_month');
     $startYear  = $request->input('start_year');
     $endMonth   = $request->input('end_month');

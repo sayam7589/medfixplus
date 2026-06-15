@@ -79,7 +79,7 @@ class DepartmentController extends Controller
     {
         $request->validate([
             'gong' => 'required|string',
-            'panang' => 'nullable|string',
+            'panag' => 'nullable|string', // เดิมสะกดผิดเป็น 'panang' ทำให้ field นี้ไม่ถูก validate
         ]);
 
         $department = Department::findOrFail($id);

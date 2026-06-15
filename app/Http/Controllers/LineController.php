@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class LineController extends Controller
 {
@@ -12,19 +13,27 @@ class LineController extends Controller
         $events = $request->input('events', []);
 
         foreach ($events as $event) {
-            if ($event['type'] === 'message' && $event['message']['type'] === 'text') {
-                $userId = $event['source']['userId'];
-                $question = $event['message']['text'];
+            // กัน key หายจาก payload ที่ไม่สมบูรณ์
+            if (($event['type'] ?? null) === 'message' && ($event['message']['type'] ?? null) === 'text') {
+                $userId = $event['source']['userId'] ?? null;
+                $question = $event['message']['text'] ?? '';
 
-               
-                $response = Http::post('http://127.0.0.1:9000/ask/', [
-                    'question' => $question
-                ]);
+                if (!$userId) {
+                    continue;
+                }
 
-                $answer = $response->successful()
-                    ? $response->body() // plain text จาก FastAPI
-                    : 'Error connecting to FastAPI.';
+                try {
+                    $response = Http::timeout(30)->post('http://127.0.0.1:9000/ask/', [
+                        'question' => $question
+                    ]);
 
+                    $answer = $response->successful()
+                        ? $response->body() // plain text จาก FastAPI
+                        : 'Error connecting to FastAPI.';
+                } catch (\Exception $e) {
+                    Log::error('LINE webhook -> FastAPI error: ' . $e->getMessage());
+                    $answer = 'Error connecting to FastAPI.';
+                }
 
                 $this->sendLineMessage($userId, $answer);
             }
@@ -37,7 +46,13 @@ class LineController extends Controller
     {
         $channelAccessToken = env('CHANNEL_ACCESS_TOKEN_LINE');
 
-        Http::timeout(30)->withHeaders([
+        if (!$channelAccessToken) {
+            Log::error('CHANNEL_ACCESS_TOKEN_LINE ไม่ได้ถูกตั้งค่าในไฟล์ .env');
+            return;
+        }
+
+        try {
+            Http::timeout(30)->withHeaders([
             'Authorization' => "Bearer {$channelAccessToken}",
             'Content-Type' => 'application/json',
         ])->post('https://api.line.me/v2/bot/message/push', [
@@ -48,7 +63,10 @@ class LineController extends Controller
                     'text' => $message,
                 ]
             ],
-        ]);
+            ]);
+        } catch (\Exception $e) {
+            Log::error('LINE push message error: ' . $e->getMessage());
+        }
     }
 }
 

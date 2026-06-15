@@ -1,6 +1,6 @@
 @extends('layouts.qrcode')
 
-@section('title', 'Multiple QR Codes')
+@section('title', 'พิมพ์ QR Code หลายรายการ')
 
 @section('content')
 <div class="row justify-content-center  mb-2">
@@ -9,7 +9,7 @@
         <div class="qr-card">
             <div class ="card-title">
                 <h4>Medfix+</h4>
-                <h4>เเจ้งซ่อม, ลงทะเบียนผู้ใช้งาน</h4>
+                <h4>แจ้งซ่อม, ลงทะเบียนผู้ใช้งาน</h4>
             </div>
             <div class="qr-code">
                 {!! $qrcodes[$inventory->id] !!}

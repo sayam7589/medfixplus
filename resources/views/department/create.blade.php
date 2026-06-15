@@ -1,5 +1,7 @@
 @extends('layouts.adminlte')
 
+@section('title', 'หน่วยปฏิบัติงาน')
+
 @section('style')
     <!-- Style (Page) -->
     <!-- DataTables-->
@@ -20,7 +22,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/dashboard">หน้าหลัก</a></li>
-                            <li class="breadcrumb-item active">กอง/เเผนก</li>
+                            <li class="breadcrumb-item active">กอง/แผนก</li>
                         </ol>
                     </div>
                 </div>
@@ -39,7 +41,7 @@
                             <!-- jquery validation -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">เพิ่มกอง/เเผนก</h3>
+                                    <h3 class="card-title"><i class="fas fa-building mr-2 text-muted"></i>เพิ่มกอง/แผนก</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -66,11 +68,12 @@
                         
                                         <!-- Panag Input and Submit Button -->
                                         <div class="col-md-6">
-                                            <label for="panag" class="mr-2">&nbsp;เเผนก</label>
-                                            <div class="form-group d-flex align-items-center">
-                                  
-                                                <input id="panag" name="panag" type="text" class="form-control mr-2" placeholder="ชื่อเเผนก" required>
-                                                <button type="submit" class="btn btn-primary">เพิ่ม</button>
+                                            <div class="form-group">
+                                                <label for="panag">แผนก</label>
+                                                <div class="d-flex align-items-center">
+                                                    <input id="panag" name="panag" type="text" class="form-control mr-2" placeholder="ชื่อแผนก" required>
+                                                    <button type="submit" class="btn btn-primary text-nowrap"><i class="fas fa-plus mr-1"></i> เพิ่ม</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -92,9 +95,6 @@
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>
                         </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                            <i class="fas fa-times"></i>
-                        </button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -104,7 +104,7 @@
                             <tr>
                                 <th>ลำดับ</th>
                                 <th>กอง</th>
-                                <th>เเผนก</th>
+                                <th>แผนก</th>
                                 <th>เพิ่มเติม</th>
                             </tr>
                         </thead>
@@ -135,6 +135,7 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
+                                                            <h5 class="modal-title"><i class="fas fa-pen mr-2 text-muted"></i>แก้ไขกอง/แผนก</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
@@ -144,7 +145,7 @@
                                                             <input type="text" name="gong" id="gong" class="form-control" value="{{ $department->gong }}">
                                                         </div>
                                                         <div class="modal-body">
-                                                            <label for="panag">เเผนก</label>
+                                                            <label for="panag">แผนก</label>
                                                             <input type="text" name="panag" id="panag" class="form-control" value="{{ $department->panag }}">
                                                         </div>
                                                         <div class="modal-footer">
@@ -177,18 +178,6 @@
 @section('scripts')
     <!-- Script(Page) -->
     <!-- DataTables  & Plugins-->
-    <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <!-- Page specific script-->
     <script>
         $(function() {

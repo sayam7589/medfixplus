@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class NotifyController extends Controller
 {
@@ -14,6 +15,10 @@ class NotifyController extends Controller
      */
     public function send(Request $request)
     {
+        $request->validate([
+            'message' => 'nullable|string|max:1000',
+        ]);
+
         $message = $request->input('message', 'Hello from Laravel!');
         $result = sendLineNotify($message);
 

@@ -31,8 +31,21 @@ class UserPermissionController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $user->syncRoles($request->roles);
-        $user->syncPermissions($request->permissions);
-        return redirect()->route('users.permissions.edit', $user)->with('success', 'Permissions updated successfully.');
+        $request->validate([
+            'roles' => 'nullable|array',
+            'permissions' => 'nullable|array',
+        ]);
+
+        // กัน error กรณีไม่ติ๊ก checkbox ใดเลย (เดิม syncRoles(null) จะ throw)
+        $user->syncRoles($request->roles ?? []);
+
+        // sync permissions เฉพาะเมื่อฟอร์มส่งมา (ฟอร์มปัจจุบันมีแค่ roles)
+        if ($request->has('permissions')) {
+            $user->syncPermissions($request->permissions);
+        }
+
+        // เดิมใช้ ->with('success') ซึ่งไม่ถูกแสดงผล (ระบบใช้ SweetAlert) → ไม่มีแจ้งเตือนหลังบันทึก
+        toast('บันทึกสิทธิ์การใช้งานเรียบร้อยแล้ว', 'success');
+        return redirect()->route('users.permissions.edit', $user);
     }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.adminlte')
 
+@section('title', 'วิธีการแก้ไข')
+
 @section('style')
     <!-- Style (Page) -->
     <!-- DataTables-->
@@ -15,12 +17,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>วิธีเเก้ไขปัญหา</h1>
+                        <h1>วิธีแก้ไขปัญหา</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/dashboard">หน้าหลัก</a></li>
-                            <li class="breadcrumb-item active">วิธีเเก้ไขปัญหา</li>
+                            <li class="breadcrumb-item active">วิธีแก้ไขปัญหา</li>
                         </ol>
                     </div>
                 </div>
@@ -36,7 +38,7 @@
                         <div class="col-6">
                             <form action="{{ route('problem_solving.store') }}" method="POST">
                                 @csrf
-                                <label for="solving_title">วิธีการเเก้ไขใหม่: </label>
+                                <label for="solving_title">วิธีการแก้ไขใหม่: </label>
                                 <div class="input-group input-group-sm">
                                     <input id="solving_title" name="solving_title" type="text" class="form-control"
                                         placeholder="รายละเอียด" required>
@@ -55,13 +57,10 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">วิธีเเก้ไขปัญหา</h3>
+                    <h3 class="card-title">วิธีแก้ไขปัญหา</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                            <i class="fas fa-times"></i>
                         </button>
                     </div>
                 </div>
@@ -71,7 +70,7 @@
                         <thead>
                             <tr>
                                 <th>ลำดับ</th>
-                                <th>วิธีเเก้ไข</th>
+                                <th>วิธีแก้ไข</th>
                                 <th>เพิ่มเติม</th>
                             </tr>
                         </thead>
@@ -132,18 +131,6 @@
 @section('scripts')
     <!-- Script(Page) -->
     <!-- DataTables  & Plugins-->
-    <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <!-- Page specific script-->
     <script>
         $(function() {

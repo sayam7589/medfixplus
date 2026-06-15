@@ -4,7 +4,7 @@
     <!-- Style (Page) -->
 @endsection
 
-@section('title', 'Edit Project')
+@section('title', 'แก้ไขโครงการจัดซื้อ')
 
 @section('content')
 <form action="{{route('projects.update', $project->id)}}" method="POST" enctype="multipart/form-data">
@@ -22,7 +22,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/dashboard">หน้าหลัก</a></li>
-                            <li class="breadcrumb-item active">เเก้ไขโครงการจัดซื้อ</li>
+                            <li class="breadcrumb-item active">แก้ไขโครงการจัดซื้อ</li>
                         </ol>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                           <!-- jquery validation -->
                         <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title">บันทึกข้อมูล</h3>
+                                <h3 class="card-title"><i class="far fa-clipboard mr-2 text-muted"></i>ข้อมูลโครงการ</h3>
                             </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->                        
@@ -69,7 +69,7 @@
                                         </div>
                                         @if ($project->project_file)
                                             <div class="mt-2">
-                                                Current file: <a href="{{ asset('storage/' . $project->project_file) }}" target="_blank">{{ $project->project_file }}</a>
+                                                <small class="form-text text-muted"><i class="fas fa-paperclip mr-1"></i>ไฟล์ปัจจุบัน: <a href="{{ asset('storage/' . $project->project_file) }}" target="_blank" rel="noopener">{{ $project->project_file }}</a></small>
                                             </div>
                                         @endif
                                     </div>
@@ -77,16 +77,12 @@
                                         <label for="project_date">วันอนุมัติโครงการ</label>
                                         <input type="date" name="project_date" class="form-control" id="project_date" value="{{ $project->project_date }}" required>
                                     </div>
-                                    <div class="form-group mb-0">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="terms" class="custom-control-input" id="exampleCheck1" >
-                                            <label class="custom-control-label" for="exampleCheck1">I agree to the <a href="#">terms of service</a>.</label>
-                                        </div>
-                                    </div>
+                                    {{-- ลบ checkbox "I agree to the terms of service" — เศษ template AdminLTE
+                                         ไม่ได้ใช้ใน controller (unchecked ก็ไม่ถูกส่งอยู่แล้ว) --}}
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-warning">Save</button>
+                                    <button type="submit" class="btn btn-warning"><i class="fas fa-save mr-1"></i> บันทึกการแก้ไข</button>
                                 </div>
                         </div>
                         <!-- /.card -->

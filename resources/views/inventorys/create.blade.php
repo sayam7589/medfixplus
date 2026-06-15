@@ -4,49 +4,9 @@
     <!-- Style (Page) -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-    <style>
-        /* ปรับ Select2 ให้สูง/สวยเข้ากับ Bootstrap form-control */
-        .select2-container--bootstrap4 .select2-selection--single {
-            height: calc(2.25rem + 2px) !important;
-            padding: .375rem .75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            border: 1px solid #ced4da;
-            border-radius: .25rem;
-        }
-        .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
-            padding-left: 0;
-            line-height: 1.5;
-            color: #495057;
-        }
-        .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
-            height: calc(2.25rem + 2px);
-        }
-        .select2-container--bootstrap4.select2-container--focus .select2-selection {
-            border-color: #80bdff;
-            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-        }
-        .select2-results__option {
-            padding: 8px 12px;
-            font-size: 0.95rem;
-        }
-        .select2-results__option--highlighted {
-            background-color: #007bff !important;
-        }
-        .select2-dropdown {
-            border: 1px solid #ced4da;
-            border-radius: .25rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,.08);
-        }
-        .select2-search--dropdown .select2-search__field {
-            padding: .375rem .75rem;
-            border: 1px solid #ced4da;
-            border-radius: .25rem;
-        }
-    </style>
 @endsection
 
-@section('title', 'Create Project')
+@section('title', 'เพิ่มบัญชีสินทรัพย์')
 
 @section('content')
     <form id="myForm" action="{{ route('inventorys.store') }}" method="POST" enctype="multipart/form-data">
@@ -79,7 +39,7 @@
                             <!-- jquery validation -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">บันทึกข้อมูล</h3>
+                                    <h3 class="card-title"><i class="fas fa-laptop-medical mr-2 text-muted"></i>ข้อมูลสินทรัพย์</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -201,7 +161,7 @@
                                             <div class="form-group">
                                                 <label for="inv_ram">RAM</label>
                                               <select name="inv_ram" class="form-control" id="inv_ram" required>
-                                                    <option value="">ประเภทเเรม</option>
+                                                    <option value="">ประเภทแรม</option>
                                                         <option value="DDR2" {{ isset($formData['inv_ram']) && $formData['inv_ram'] == 'DDR2' ? 'selected' : '' }}>DDR2</option>
                                                         <option value="DDR3" {{ isset($formData['inv_ram']) && $formData['inv_ram'] == 'DDR3' ? 'selected' : '' }}>DDR3</option>
                                                         <option value="DDR4" {{ isset($formData['inv_ram']) && $formData['inv_ram'] == 'DDR4' ? 'selected' : '' }}>DDR4</option>
@@ -428,7 +388,7 @@
                                             <!-- jquery validation -->
                                             <div class="card card-primary">
                                                 <div class="card-header">
-                                                    <h3 class="card-title">บันทึกข้อมูลผู้รับ</h3>
+                                                    <h3 class="card-title"><i class="fas fa-user-check mr-2 text-muted"></i>ข้อมูลผู้รับ</h3>
                                                 </div>
                                                 <!-- /.card-header -->
                                                 <!-- form start -->
@@ -501,7 +461,7 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="department2" class="form-label">
-                                                                    หน่วย/สังกัด <span class="text-danger">*</span>
+                                                                    หน่วย/สังกัด
                                                                 </label>
                                                                 @if($myDepartments->count() > 0)
                                                                     <select class="form-control select2-dept" id="department2" name="rec_organize" style="width: 100%;" required>
@@ -540,10 +500,10 @@
                                 <!--save-->
                                 <div class="container-fluid">
                                     <div class="col-md-12">
-                                        <div class="card">
+                                        <div class="card mf-form-actions">
                                             <div class="card-body">
-                                                <button type="submit" class="btn btn-primary">Save</button>
-                                                <button type="button"  class="btn btn-primary" onclick="clearFields()">Clear</button>
+                                                <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-1"></i> บันทึก</button>
+                                                <button type="button" class="btn btn-default" onclick="clearFields()"><i class="fas fa-eraser mr-1"></i> ล้างฟอร์ม</button>
                                             </div>
                                         </div>
                                     </div>

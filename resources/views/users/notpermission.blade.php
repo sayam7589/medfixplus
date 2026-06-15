@@ -4,6 +4,8 @@
     <!-- Style (Page) -->
 @endsection
 
+@section('title', 'ไม่มีสิทธิ์เข้าถึง')
+
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -11,12 +13,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>404 Error Page</h1>
+                        <h1>ไม่มีสิทธิ์เข้าถึง</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">404 Error Page</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active">ไม่มีสิทธิ์เข้าถึง</li>
                         </ol>
                     </div>
                 </div>
@@ -25,20 +27,17 @@
 
         <!-- Main content -->
         <section class="content">
-
-            <div class="error-page">
-                <h2 class="headline text-warning"> 404</h2>
-
-                <div class="error-content">
-                    <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! You not have permission on this page นะจ๊ะ.</h3>
-
-                    <p>ถ้าต้องการใช้งานในส่วนนี้กรุณาติดต่อ ผู้ดูแลระบบ sayam_pai@rtaf.mi.th</p>
-
-                </div>
-                <!-- /.error-content -->
+            <div class="mf-state-page">
+                <span class="mf-state-icon"><i class="fas fa-lock"></i></span>
+                <h3>คุณไม่มีสิทธิ์ใช้งานหน้านี้</h3>
+                <p class="text-muted">
+                    หากต้องการใช้งานส่วนนี้ กรุณาติดต่อผู้ดูแลระบบ<br>
+                    <a href="mailto:sayam_pai@rtaf.mi.th">sayam_pai@rtaf.mi.th</a>
+                </p>
+                <a href="{{ route('dashboard') }}" class="btn btn-primary mt-2">
+                    <i class="fas fa-home mr-1"></i> กลับหน้าหลัก
+                </a>
             </div>
-            <!-- /.error-page -->
-
         </section>
         <!-- /.content -->
     </div>

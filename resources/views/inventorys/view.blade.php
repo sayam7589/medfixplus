@@ -4,7 +4,7 @@
     <!-- Style (Page) -->
 @endsection
 
-@section('title', 'View Project')
+@section('title', 'ข้อมูลครุภัณฑ์')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -247,8 +247,8 @@
                     <div id="qrcode"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="printQRCode()">Print</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-primary" onclick="printQRCode()"><i class="fas fa-print mr-1"></i> พิมพ์</button>
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@
     </style>
     @endsection
 
-@section('title', 'Projects')
+@section('title', 'รายการโครงการจัดซื้อ')
 
 @section('content')
 
@@ -73,7 +73,7 @@
                                     <td>{{ optional($project)->project_detail ?? 'ไม่พบข้อมูล' }}</td>
                                     <td>{{ optional($project)->project_company_contact ?? 'ไม่พบข้อมูล' }}</td>
                                     <td>
-                                        <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-warning btn-sm">ตรวจสอบ/เเก้ไข</a>
+                                        <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-warning btn-sm">ตรวจสอบ/แก้ไข</a>
                                         <a href="{{ route('projects.delete', $project->id) }}" class="btn btn-danger btn-sm delete-btn">ลบ</a>
  
                                     </td>

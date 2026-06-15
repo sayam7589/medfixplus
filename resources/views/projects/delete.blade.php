@@ -5,7 +5,7 @@
     
 @endsection
 
-@section('title', 'Project')
+@section('title', 'โครงการจัดซื้อ')
 
 @section('content')
 <form>

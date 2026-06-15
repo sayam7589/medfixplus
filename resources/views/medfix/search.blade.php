@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inventory MED RTAF</title>
+    <title>ค้นหาครุภัณฑ์ — MEDFIX+</title>
 
-    <!-- Google Font: Source Sans Pro -->
+    <!-- Google Font: Kanit (เฉพาะ weight ที่ใช้จริง) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
@@ -19,36 +17,28 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <!-- MEDFIX+ Theme (โหลดหลัง adminlte.min.css) -->
+    <link rel="stylesheet" href="{{ asset('css/medfix-theme.css') }}">
 
     <style>
-        body {
-            font-family: 'Kanit', sans-serif;
+        body { font-family: 'Kanit', sans-serif; background: #f6f8fa; }
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { font-family: 'Kanit', sans-serif; }
+
+        .mf-qr-navbar {
+            background: rgba(255, 255, 255, .92) !important;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e6ebf1;
+        }
+        .mf-qr-navbar .navbar-brand { font-weight: 700; color: #0f172a !important; }
+        .mf-qr-navbar .brand-icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 30px; height: 30px; margin-right: .45rem; border-radius: 9px;
+            background: linear-gradient(135deg, #14b8a6, #0c7187); color: #fff; font-size: .85rem;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        .h1,
-        .h2,
-        .h3,
-        .h4,
-        .h5,
-        .h6 {
-            font-family: 'Kanit', sans-serif;
-        }
-
-        .navbar,
-        .sidebar,
-        .content-wrapper,
-        .main-footer {
-            font-family: 'Kanit', sans-serif;
-        }
         .dropdown-menu li:hover {
-            background-color: #ddd; /* สีของ highlight */
-            cursor: pointer; /* ทำให้เมาส์เปลี่ยนเป็น pointer */
+            background-color: #f1f5f9;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -56,8 +46,8 @@
 <body>
     <!-- Alert -->
     @include('sweetalert::alert')
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">MEDFIX+</a>
+    <nav class="navbar navbar-expand-lg navbar-light mf-qr-navbar">
+        <a class="navbar-brand d-flex align-items-center" href="#"><span class="brand-icon"><i class="fas fa-briefcase-medical"></i></span>MED<b>FIX+</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -97,7 +87,8 @@
                         {{ session()->get('user_lname') }}
                     @endauth
                 </label>
-                <button class="btn btn-danger my-2" type="submit">SignOut</button>
+                {{-- หมายเหตุ: ปุ่มนี้เดิมไม่ได้ต่อกับ logout จริง (form ไม่มี action) — คงพฤติกรรมเดิม เปลี่ยนเฉพาะข้อความ --}}
+                <button class="btn btn-danger my-2" type="submit"><i class="fas fa-sign-out-alt mr-1"></i>ออกจากระบบ</button>
             </form>
         </div>
     </nav>
@@ -112,7 +103,7 @@
                     <!-- About Me Box -->
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">ค้นหา</h3>
+                            <h3 class="card-title"><i class="fas fa-search mr-2 text-muted"></i>ค้นหาครุภัณฑ์ตามกอง</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -196,7 +187,7 @@
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts_thai.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>

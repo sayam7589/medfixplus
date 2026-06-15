@@ -4,7 +4,7 @@
     <!-- Style (Page) -->
 @endsection
 
-@section('title', 'Create Project')
+@section('title', 'เพิ่มโครงการจัดซื้อ')
 
 @section('content')
     <form action="{{ route('projects.store') }}" method="POST">
@@ -38,7 +38,7 @@
                             <!-- jquery validation -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">บันทึกข้อมูล</h3>
+                                    <h3 class="card-title"><i class="far fa-clipboard mr-2 text-muted"></i>ข้อมูลโครงการ</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -76,7 +76,7 @@
                                     </div>
                                     <!-- /.card-body -->
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-1"></i> บันทึก</button>
                                     </div>
                             </div>
                             <!-- /.card -->

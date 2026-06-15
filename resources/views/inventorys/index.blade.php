@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title></title>
     <style>
     .content {
         display: none;
@@ -15,7 +14,7 @@
 
 @endsection
 
-@section('title', 'Inventorys')
+@section('title', 'รายการบัญชีสินทรัพย์')
 
 @section('content')
    <!-- Display flash message -->
@@ -87,7 +86,7 @@
                                 <th>ลิขสิทธิ์โปรแกรมป้องกันไวรัส</th>
                                 <th>เบอร์โทรติดต่อ</th>
                                 <th>เบอร์โทรหน่วย</th>
-                                <th>เเผนกผู้ใช้</th>
+                                <th>แผนกผู้ใช้</th>
                                 <th>ความเร็ว CPU(GHz)</th>
                                 <th>เพิ่มเติม</th>
                             </tr>
@@ -129,7 +128,7 @@
                                     <td>{{ $invs->rec_org_tel }}</td>
                                     <td>{{ $invs->inv_cpu_clock }}</td>
                                     <td>
-                                        <a href="{{ route('inventorys.edit', $invs->id) }}" class="btn btn-warning btn-sm">ตรวจสอบ/เเก้ไข</a>
+                                        <a href="{{ route('inventorys.edit', $invs->id) }}" class="btn btn-warning btn-sm">ตรวจสอบ/แก้ไข</a>
                                         <a href="{{ route('inventorys.qr', $invs->id) }}" class="btn btn-primary btn-sm" target="_blank">QR</a>
                                         <a href="{{ route('inventorys.destroy', $invs->id) }}" class="btn btn-danger btn-sm delete-btn" data-confirm-delete="true">ลบ</a>
                                     </td>

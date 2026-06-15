@@ -101,8 +101,8 @@ class InvController extends Controller
             'rec_prefix' => 'nullable|string|max:255',
             'rec_fname' => 'nullable|string|max:255',
             'rec_lname' => 'nullable|string|max:255',
-            'rec_personal_tel' => 'nullable||integer',
-            'rec_org_tel' => 'nullable||integer',
+            'rec_personal_tel' => 'nullable|integer',
+            'rec_org_tel' => 'nullable|integer',
             'rec_organize' => 'nullable|string|max:255',
             'rec_address' => 'nullable|string|max:255',
         ]);
@@ -110,10 +110,10 @@ class InvController extends Controller
         $request->session()->put('formData', $validate);
 
 
-        $shortDepName = Department::where('id', $validate['rec_organize'])->value('short_name');
+        $shortDepName = Department::where('id', $validate['rec_organize'] ?? null)->value('short_name');
         $user = Auth::user();
         //dd($user->hasRole($shortDepName));
-        if (!$user->hasRole($shortDepName)) {
+        if (!$shortDepName || !$user->hasRole($shortDepName)) {
             toast('คุณไม่มีสิทธิ์ในการเพิ่มข้อมูลให้กับ '.$shortDepName, 'error');
             return redirect()->route('inventorys.create');
         }
@@ -125,9 +125,12 @@ class InvController extends Controller
                 return redirect()->route('inventorys.create');
             }
 
+            // fallback กรณี create ไม่สำเร็จ (เดิมไม่มี return → หน้าขาว)
+            toast('เกิดข้อผิดพลาดนะจ๊ะ', 'error');
+            return redirect()->route('inventorys.create');
+
         } catch (\Exception $e) {
-            // Log error for debugging
-            // Show error message
+            \Log::error('Inventory store error: ' . $e->getMessage());
             toast('เกิดข้อผิดพลาดนะจ๊ะ','error');
             return redirect()->route('inventorys.create');
         }
@@ -265,7 +268,7 @@ class InvController extends Controller
             return redirect()->route('inventorys.index');
         }
         //dd($request->all());
-        $request->validate([
+        $validated = $request->validate([
             'project_id' => 'required|integer',
             'inv_type' => 'required|integer',
             'inv_brand' => 'nullable|integer',
@@ -294,19 +297,20 @@ class InvController extends Controller
             'rec_prefix' => 'nullable|string|max:255',
             'rec_fname' => 'nullable|string|max:255',
             'rec_lname' => 'nullable|string|max:255',
-            'rec_personal_tel' => 'nullable||integer',
-            'rec_org_tel' => 'nullable||integer',
+            'rec_personal_tel' => 'nullable|integer',
+            'rec_org_tel' => 'nullable|integer',
             'rec_organize' => 'nullable|string|max:255',
             'rec_address' => 'nullable|string|max:255',
         ]);
         $shortDepName = Department::where('id', $request->rec_organize)->value('short_name');
         $user = Auth::user();
         //dd($user->hasRole($shortDepName));
-        if (!$user->hasRole($shortDepName)) {
+        if (!$shortDepName || !$user->hasRole($shortDepName)) {
             toast('คุณไม่มีสิทธิ์ในการแก้ไขข้อมูลให้กับ '.$shortDepName, 'error');
             return redirect()->route('inventorys.create');
         }
-        $check = $inventory->update($request->all());
+        // ใช้ข้อมูลที่ผ่าน validation เท่านั้น (เดิมใช้ $request->all() เสี่ยง mass assignment)
+        $check = $inventory->update($validated);
 
         if($check){
             toast('บันทึกข้อมูลสำเร็จเเล้วนะจ๊ะ', 'success');
@@ -326,6 +330,15 @@ class InvController extends Controller
 
     public function destroy(Inventory $inventory)
     {
+        // ตรวจสิทธิ์ตามหน่วยงาน เช่นเดียวกับ edit/update (เดิมไม่มีการตรวจ → ลบข้ามหน่วยได้)
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        $invcheck = InventoryDepartmentView::whereIn('dep_short_name', $roles)->where('id', $inventory->id)->first();
+        if (!$invcheck) {
+            toast('คุณไม่มีสิทธิ์ในการลบข้อมูลนี้นะจ๊ะ', 'error');
+            return redirect()->route('inventorys.index');
+        }
+
         try {
             $check = $inventory->delete();
 
@@ -360,7 +373,7 @@ class InvController extends Controller
                 'lname' => $personal_data->lname
             ];
         }
-        $inv = Inventory::find($id);
+        $inv = Inventory::findOrFail($id);
         $prefix = Prefix::all();
         $medfix_status = Medfix::where('inv_id', '=', $id)->where('medfix_status', '=', 0)->count();
         $medfix_status2 = Medfix::where('inv_id', '=', $id)->where('medfix_status', '<', 4)->count();

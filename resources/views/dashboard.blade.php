@@ -1,16 +1,10 @@
 @extends('layouts.adminlte')
 
+@section('title', 'แดชบอร์ด')
+
 @section('style')
 <style>
 /* ====== Overall Style ====== */
-.main-highlight .card {
-  box-shadow: 0 10px 24px rgba(0,0,0,.08);
-  border-radius: 1rem;
-}
-.main-highlight .card-header {
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-}
 .main-highlight .gong-select-wrap {
   display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
   column-gap: .75rem; row-gap: .5rem;
@@ -34,7 +28,7 @@
   transition: all .2s ease-in-out;
 }
 .filter-inline select.form-control:focus {
-  border-color: #007bff; box-shadow: 0 0 3px rgba(0,123,255,.3);
+  border-color: #0c7187; box-shadow: 0 0 3px rgba(12,113,135,.3);
 }
 .filter-inline .btn {
   height: 32px; line-height: 1; border-radius: 50rem; padding: 0 .9rem; font-weight: 500;
@@ -43,6 +37,19 @@
 .filter-inline .btn:hover { transform: translateY(-1px); }
 
 #invTypeBar, #lineChart { width: 100%; }
+
+/* แถบ progress ตารางปัญหาที่พบบ่อย (เดิม class BS3 ไม่มีสี) */
+.mf-progress-bar {
+  background: linear-gradient(90deg, #14b8a6, #0c7187);
+  border-radius: 20px;
+}
+.progress.progress-xs { background: #eef2f6; border-radius: 20px; }
+
+/* donut ปัญหาที่พบบ่อย */
+.issue-donut-wrap { width: 100%; max-width: 235px; margin: 0 auto; }
+
+/* หัวการ์ดกราฟ: ให้ filter ตกบรรทัดได้บนจอแคบ */
+.card-primary .card-header.d-flex { flex-wrap: wrap; row-gap: .5rem; }
 </style>
 @endsection
 
@@ -52,11 +59,11 @@
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
-        <div class="col-sm-6"><h1>Dashboard</h1></div>
+        <div class="col-sm-6"><h1>แดชบอร์ด</h1></div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Dashboards</li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">หน้าหลัก</a></li>
+            <li class="breadcrumb-item active">แดชบอร์ด</li>
           </ol>
         </div>
       </div>
@@ -67,34 +74,54 @@
   <section class="content">
     <div class="container-fluid">
 
-      <!-- KPI Small Boxes -->
+      <!-- KPI Cards (clean minimal — ลิงก์/ข้อมูลเดิมทุกตัว) -->
       <div class="row">
         <div class="col-lg-3 col-6">
-          <div class="small-box bg-warning">
-            <div class="inner"><h3>{{ $medfix_count }}</h3><p>รายการแจ้งซ่อม</p></div>
-            <div class="icon"><i class="ion ion-bag"></i></div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <div class="mf-kpi">
+            <div class="mf-kpi-top">
+              <div>
+                <p class="mf-kpi-label">รายการแจ้งซ่อม</p>
+                <h3 class="mf-kpi-value">{{ $medfix_count }}</h3>
+              </div>
+              <span class="mf-kpi-icon is-warning"><i class="fas fa-tools"></i></span>
+            </div>
+            <a href="{{ route('medfix') }}" class="mf-kpi-link">รายละเอียด <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-6">
-          <div class="small-box bg-success">
-            <div class="inner"><h3>{{ $inventory_count }}</h3><p>รายการสินทรัพย์</p></div>
-            <div class="icon"><i class="ion ion-stats-bars"></i></div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <div class="mf-kpi">
+            <div class="mf-kpi-top">
+              <div>
+                <p class="mf-kpi-label">รายการสินทรัพย์</p>
+                <h3 class="mf-kpi-value">{{ $inventory_count }}</h3>
+              </div>
+              <span class="mf-kpi-icon is-success"><i class="fas fa-boxes"></i></span>
+            </div>
+            <a href="/inventorys_index" class="mf-kpi-link">รายละเอียด <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-6">
-          <div class="small-box bg-danger">
-            <div class="inner"><h3>{{ $project_count }}</h3><p>โครงการจัดซื้อ</p></div>
-            <div class="icon"><i class="ion ion-person-add"></i></div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <div class="mf-kpi">
+            <div class="mf-kpi-top">
+              <div>
+                <p class="mf-kpi-label">โครงการจัดซื้อ</p>
+                <h3 class="mf-kpi-value">{{ $project_count }}</h3>
+              </div>
+              <span class="mf-kpi-icon is-primary"><i class="fas fa-file-signature"></i></span>
+            </div>
+            <a href="/projects_index" class="mf-kpi-link">รายละเอียด <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-6">
-          <div class="small-box bg-info">
-            <div class="inner"><h3>{{ $user_count }}</h3><p>ผู้ใช้งาน</p></div>
-            <div class="icon"><i class="ion ion-pie-graph"></i></div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <div class="mf-kpi">
+            <div class="mf-kpi-top">
+              <div>
+                <p class="mf-kpi-label">ผู้ใช้งาน</p>
+                <h3 class="mf-kpi-value">{{ $user_count }}</h3>
+              </div>
+              <span class="mf-kpi-icon is-info"><i class="fas fa-users"></i></span>
+            </div>
+            <a href="{{ route('users.permissions.index') }}" class="mf-kpi-link">รายละเอียด <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -104,7 +131,7 @@
         <div class="col-12">
           <div class="card card-outline card-info">
             <div class="card-header text-center">
-              <h2 class="card-title font-weight-bold">กราฟเเท่งเเสดงประเภทครุภัณฑ์</h2>
+              <h3 class="card-title font-weight-bold">กราฟแท่งแสดงประเภทครุภัณฑ์</h3>
             </div>
             <div class="card-body">
               <div class="gong-select-wrap mb-3">
@@ -173,10 +200,17 @@
           </div>
         </div>
 
-        <!-- Common Issues Table -->
+        <!-- Common Issues: donut + table -->
         <div class="col-md-6">
           <div class="card">
             <div class="card-header"><h3 class="card-title">ปัญหาที่พบบ่อย</h3></div>
+            @if($repairsByIssue->count())
+            <div class="card-body pb-0 pt-3">
+              <div class="issue-donut-wrap">
+                <canvas id="issueDonut" style="min-height:200px;height:210px;max-height:220px;"></canvas>
+              </div>
+            </div>
+            @endif
             <div class="card-body p-0">
               <table class="table table-striped">
                 <thead>
@@ -190,12 +224,14 @@
                       <td>{{ $i+1 }}</td>
                       <td>{{ $repair->issue_name }}</td>
                       <td>
+                        {{-- เดิมใช้ progress-bar-danger (Bootstrap 3) → แถบไม่มีสี --}}
                         <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-danger" style="width: {{ $repair->percentage }}%"></div>
+                          <div class="progress-bar mf-progress-bar" style="width: {{ $repair->percentage ?? 0 }}%"></div>
                         </div>
                       </td>
-                      <td><span class="badge bg-info">{{ $repair->successful_repairs }}</span></td>
-                      <td><span class="badge bg-danger">{{ $repair->percentage }}%</span></td>
+                      {{-- ตัวเลขสถิติใช้โทนกลาง (เดิม bg-danger สีแดงทั้งที่ไม่ใช่ค่าลบ + class ไม่ตรงธีม) --}}
+                      <td><span class="badge badge-info">{{ $repair->successful_repairs }}</span></td>
+                      <td><span class="badge badge-neutral">{{ $repair->percentage ?? 0 }}%</span></td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -213,33 +249,75 @@
 <script src="{{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
 <script>
 $(function () {
+  // ====== ค่ากลางของกราฟ (โทนเดียวกับธีม MEDFIX+) ======
+  const MF = {
+    primary: '#0c7187',
+    accent:  '#14b8a6',
+    text:    '#64748b',
+    grid:    'rgba(100,116,139,.12)',
+    tooltipBg: 'rgba(15,23,42,.92)'
+  };
+  if (typeof Chart !== 'undefined') {
+    Chart.defaults.global.defaultFontFamily = "'Kanit', sans-serif";
+    Chart.defaults.global.defaultFontColor  = MF.text;
+    Chart.defaults.global.defaultFontSize   = 13;
+  }
+  // tooltip สไตล์เดียวกันทุกกราฟ
+  const mfTooltip = {
+    backgroundColor: MF.tooltipBg,
+    titleFontSize: 13, bodyFontSize: 13,
+    titleFontStyle: '600',
+    xPadding: 12, yPadding: 10,
+    cornerRadius: 8, caretSize: 6,
+    displayColors: false
+  };
+
   // ====== LINE CHART (ซ่อม) ======
   const lineCanvas = document.getElementById('lineChart');
   let lineChart;
   if (lineCanvas && typeof Chart !== 'undefined') {
     const labelsInit = {!! json_encode($repairs->pluck('month_thai')) !!};
     const dataInit   = {!! json_encode($repairs->pluck('total_repairs')) !!};
-    lineChart = new Chart(lineCanvas.getContext('2d'), {
+
+    // gradient ใต้เส้น โทน teal จาง ๆ
+    const lineCtx = lineCanvas.getContext('2d');
+    const lineGradient = lineCtx.createLinearGradient(0, 0, 0, 280);
+    lineGradient.addColorStop(0, 'rgba(20,184,166,0.25)');
+    lineGradient.addColorStop(1, 'rgba(20,184,166,0.02)');
+
+    lineChart = new Chart(lineCtx, {
       type: 'line',
       data: {
         labels: labelsInit,
         datasets: [{
           label: 'จำนวนการแจ้งซ่อม',
-          borderColor: 'rgba(60,141,188,1)',
-          backgroundColor: 'rgba(60,141,188,0.1)',
-          pointBackgroundColor: '#3b8bba',
-          pointBorderColor: '#fff',
+          borderColor: MF.accent,
+          borderWidth: 3,
+          backgroundColor: lineGradient,
+          pointBackgroundColor: '#fff',
+          pointBorderColor: MF.accent,
+          pointBorderWidth: 2.5,
+          pointRadius: 4.5,
+          pointHoverRadius: 7,
+          pointHoverBackgroundColor: MF.accent,
+          pointHoverBorderColor: '#fff',
           data: dataInit,
           fill: true,
-          lineTension: 0.3
+          lineTension: 0.35
         }]
       },
       options: {
         responsive: true, maintainAspectRatio: false,
         legend: { display: false },
+        tooltips: Object.assign({}, mfTooltip, {
+          callbacks: { label: (t) => ` แจ้งซ่อม ${Number(t.yLabel).toLocaleString()} รายการ` }
+        }),
         scales: {
-          xAxes: [{ gridLines: { display:false } }],
-          yAxes: [{ ticks: { beginAtZero:true }, gridLines: { color:'rgba(0,0,0,.06)' } }]
+          xAxes: [{ gridLines: { display:false }, ticks: { padding: 8 } }],
+          yAxes: [{
+            ticks: { beginAtZero:true, precision:0, padding: 10, maxTicksLimit: 6 },
+            gridLines: { color: MF.grid, zeroLineColor: MF.grid, drawBorder: false }
+          }]
         }
       }
     });
@@ -265,43 +343,80 @@ $(function () {
     } catch (e) { console.error('กรองสถิติการซ่อมล้มเหลว:', e); }
   });
 
+  // ====== DONUT (ปัญหาที่พบบ่อย — top 6 จากข้อมูลที่หน้านี้มีอยู่แล้ว) ======
+  const donutCanvas = document.getElementById('issueDonut');
+  if (donutCanvas && typeof Chart !== 'undefined') {
+    const issueLabels = {!! json_encode($repairsByIssue->take(6)->pluck('issue_name')) !!};
+    const issueData   = ({!! json_encode($repairsByIssue->take(6)->pluck('successful_repairs')) !!}).map(Number);
+    if (issueLabels.length) {
+      new Chart(donutCanvas.getContext('2d'), {
+        type: 'doughnut',
+        data: {
+          labels: issueLabels,
+          datasets: [{
+            data: issueData,
+            backgroundColor: ['#0c7187', '#14b8a6', '#3aa7c4', '#7fd1c5', '#b6dde8', '#cbd5e1'],
+            borderColor: '#fff',
+            borderWidth: 2,
+            hoverBorderColor: '#fff'
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          cutoutPercentage: 70,
+          legend: { display: false }, // ตารางด้านล่างทำหน้าที่เป็น legend อยู่แล้ว
+          tooltips: Object.assign({}, mfTooltip, {
+            callbacks: {
+              label: (t, d) => {
+                const v = d.datasets[0].data[t.index] || 0;
+                const total = d.datasets[0].data.reduce((a, b) => a + b, 0) || 1;
+                return ` ${d.labels[t.index]}: ${v.toLocaleString()} ครั้ง (${Math.round(v / total * 100)}%)`;
+              }
+            }
+          })
+        }
+      });
+    }
+  }
+
   // ====== BAR CHART (inv_type by gong) ======
   const gongSelect = document.getElementById('gongSelect');
   const barCanvas  = document.getElementById('invTypeBar');
   if (!barCanvas) return;
   const barCtx = barCanvas.getContext('2d');
 
-  const gradient = barCtx.createLinearGradient(0, 0, 0, 400);
-  gradient.addColorStop(0, 'rgba(0,123,255,0.9)');
-  gradient.addColorStop(1, 'rgba(0,123,255,0.2)');
+  // gradient โทน navy-teal ของธีม
+  const gradient = barCtx.createLinearGradient(0, 0, 0, 420);
+  gradient.addColorStop(0, 'rgba(12,113,135,0.92)');
+  gradient.addColorStop(1, 'rgba(20,184,166,0.4)');
 
   let invTypeBarChart = new Chart(barCtx, {
     type: 'bar',
     data: { labels: [], datasets: [{
       label: 'จำนวนครุภัณฑ์ (ตามประเภท)',
       data: [], backgroundColor: gradient,
-      borderColor: 'rgba(0,123,255,1)', borderWidth: 1,
-      hoverBackgroundColor: 'rgba(0,123,255,0.8)',
-      hoverBorderColor: '#0056b3'
+      borderColor: 'transparent', borderWidth: 0,
+      maxBarThickness: 52,
+      barPercentage: 0.7,
+      categoryPercentage: 0.65,
+      hoverBackgroundColor: 'rgba(12,113,135,1)'
     }]},
     options: {
       responsive:true, maintainAspectRatio:false,
-      animation:{ duration:1200, easing:'easeOutQuart' },
+      animation:{ duration:900, easing:'easeOutQuart' },
       legend:{ display:false },
-      tooltips:{
-        backgroundColor:'#333', titleFontSize:13, bodyFontSize:12,
-        xPadding:10, yPadding:8, displayColors:false,
-        callbacks:{ label:(t)=>`จำนวน ${t.yLabel.toLocaleString()} รายการ` }
-      },
+      tooltips: Object.assign({}, mfTooltip, {
+        callbacks:{ label:(t)=>` จำนวน ${Number(t.yLabel).toLocaleString()} รายการ` }
+      }),
       scales:{
         xAxes:[{ gridLines:{ display:false },
-          ticks:{ fontColor:'#555', maxRotation:35, minRotation:0, autoSkip:true }
+          ticks:{ maxRotation:35, minRotation:0, autoSkip:true, padding:6 }
         }],
-        yAxes:[{ ticks:{ beginAtZero:true, stepSize:1, fontColor:'#555' },
-          gridLines:{ color:'rgba(0,0,0,0.05)' }
+        yAxes:[{ ticks:{ beginAtZero:true, precision:0, padding:10, maxTicksLimit:8 },
+          gridLines:{ color: MF.grid, zeroLineColor: MF.grid, drawBorder:false }
         }]
       },
-      hover:{ animationDuration:400 }
+      hover:{ animationDuration:300 }
     }
   });
 

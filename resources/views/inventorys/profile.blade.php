@@ -1,51 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inventory MED RTAF</title>
+    <title>ข้อมูลครุภัณฑ์ — MEDFIX+</title>
 
-    <!-- Google Font: Source Sans Pro -->
+    <!-- Google Font: Kanit (เฉพาะ weight ที่ใช้จริง) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <!-- MEDFIX+ Theme (โหลดหลัง adminlte.min.css) -->
+    <link rel="stylesheet" href="{{ asset('css/medfix-theme.css') }}">
 
     <style>
-        body {
-            font-family: 'Kanit', sans-serif;
+        body { font-family: 'Kanit', sans-serif; background: #f6f8fa; }
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { font-family: 'Kanit', sans-serif; }
+
+        /* navbar หน้า QR profile โทนเดียวกับระบบหลัก */
+        .mf-qr-navbar {
+            background: rgba(255, 255, 255, .92) !important;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e6ebf1;
+        }
+        .mf-qr-navbar .navbar-brand { font-weight: 700; color: #0f172a !important; }
+        .mf-qr-navbar .brand-icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 30px; height: 30px; margin-right: .45rem; border-radius: 9px;
+            background: linear-gradient(135deg, #14b8a6, #0c7187); color: #fff; font-size: .85rem;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        .h1,
-        .h2,
-        .h3,
-        .h4,
-        .h5,
-        .h6 {
-            font-family: 'Kanit', sans-serif;
-        }
-
-        .navbar,
-        .sidebar,
-        .content-wrapper,
-        .main-footer {
-            font-family: 'Kanit', sans-serif;
-        }
         .dropdown-menu li:hover {
-            background-color: #ddd; /* สีของ highlight */
-            cursor: pointer; /* ทำให้เมาส์เปลี่ยนเป็น pointer */
+            background-color: #f1f5f9;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -53,8 +44,8 @@
 <body>
     <!-- Alert -->
     @include('sweetalert::alert')
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">MEDFIX+</a>
+    <nav class="navbar navbar-expand-lg navbar-light mf-qr-navbar">
+        <a class="navbar-brand d-flex align-items-center" href="#"><span class="brand-icon"><i class="fas fa-briefcase-medical"></i></span>MED<b>FIX+</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -99,7 +90,7 @@
                 <a href="#" class="btn btn-danger my-2"
                     onclick="document.getElementById('signout').submit()">
                     <i class="nav-icon fas fa-sign-out-alt"></i>
-                        Sign Out
+                        ออกจากระบบ
                 </a>
             </form>
         </div>
@@ -450,7 +441,7 @@
                                             <center><b>ระเบียบกองทัพอากาศ ว่าด้วยการรักษาความปลอดภัยระบบสารสนเทศ พ.ศ.๒๕๖๓</b> <br><b>หมวด ๔</b> การบริหารจัดการทรัพย์สิน<br> <b>ส่วนที่ ๑</b> ความรับผิดชอบต่อทรัพย์สิน</center>
                                             <br>
                                             <p class="text-danger"><b>ข้อ ๒๘</b> ..."ให้มีวิธีการจัดทำและจัดการป้ายชื่อสำหรับ ทรัพย์สิน ซึ่งทรัพย์สินทั้งหมดต้องมีการระบุผู้ถือครองหรือผู้รับผิดชอบ"
-                                             <a href="{{ asset('files/rtaf_2563.pdf') }}" target="blank"> อ่านเพิ่มเติม..</a>
+                                             <a href="{{ asset('files/rtaf_2563.pdf') }}" target="_blank" rel="noopener"> อ่านเพิ่มเติม..</a>
                                             </p>
                                             <br>กรุณาลงทะเบียนผู้ถือครองทรัพย์สิน
                                         </div>
@@ -499,13 +490,14 @@
                             <strong><i class="fas fa-user-alt mr-1"></i> บุคคลอ้างอิง</strong>
 
                             <p class="text-muted">
+                                {{-- เดิมใช้ class "tag" ของ Bootstrap 3 — ไม่มีสไตล์ใน BS4 --}}
                                 @if ($inv->prefix == "" || $inv->rec_fname == "" || $inv->rec_lname == "")
-                                    <span class="tag tag-danger">ไม่ระบุ</span>
+                                    <span class="badge badge-secondary">ไม่ระบุ</span>
                                 @else
-                                    <span class="tag tag-danger">{{ $inv->prefix->prefix_short . $inv->rec_fname . ' ' . $inv->rec_lname }}</span>
+                                    <span class="badge badge-neutral">{{ $inv->prefix->prefix_short . $inv->rec_fname . ' ' . $inv->rec_lname }}</span>
                                 @endif
-                                <br><span class="tag tag-success">โทร:{{ $inv->rec_org_tel }}</span>
-                                <br><span class="tag tag-info">มือถือ:{{ $inv->rec_personal_tel }}</span>
+                                <br><span class="badge badge-secondary"><i class="fas fa-phone-alt mr-1"></i>โทร: {{ $inv->rec_org_tel }}</span>
+                                <br><span class="badge badge-secondary"><i class="fas fa-mobile-alt mr-1"></i>มือถือ: {{ $inv->rec_personal_tel }}</span>
                             </p>
 
                             <hr>
@@ -553,16 +545,15 @@
                                                 @endphp
                                                 @foreach($repairsByIssue as $repair)
                                                 <tr>
-                                                    <th scope="row">{{ $c }}</td>
+                                                    <th scope="row">{{ $c }}</th>
                                                     <td>{{ $repair->issue_name }}</td>
                                                     <td>
+                                                        {{-- เดิม progress-bar-danger (BS3) → แถบไม่มีสี --}}
                                                         <div class="progress progress-xs">
-                                                            <div class="progress-bar progress-bar-danger" style="width: {{ $repair->percentage }}%"></div>
+                                                            <div class="progress-bar mf-progress-bar" style="width: {{ $repair->percentage }}%"></div>
                                                         </div>
-
-
                                                     </td>
-                                                    <td><span class="badge bg-info">{{ $repair->successful_repairs }}</span> <span class="badge bg-danger">{{ $repair->percentage }}%</span></td>
+                                                    <td><span class="badge badge-info">{{ $repair->successful_repairs }}</span> <span class="badge badge-neutral">{{ $repair->percentage }}%</span></td>
                                                 </tr>
                                                 @php
                                                     $c++;
@@ -693,7 +684,7 @@
                                         <tbody>
                                             @foreach ($historys as $history)
                                             <tr>
-                                                <th scope="row">{{toThaiDateFormatWithoutTime($history->activity_date)}}</td>
+                                                <th scope="row">{{toThaiDateFormatWithoutTime($history->activity_date)}}</th>
                                                 <td>{{$history->activity_type}}</td>
                                                 <td>{{$history->prefix.$history->fname.' '.$history->lname}}</td>
                                                 <td>{{$history->organize}}</td>
@@ -796,22 +787,15 @@
                     label: 'Percentage of Successful Repairs',
                     data: percentages, // เปอร์เซ็นต์ของการซ่อมสำเร็จ
                     backgroundColor: [
-                        '#FF6384', // สีทึบ (ไม่มีความโปร่งใส)
-                        '#36A2EB',
-                        '#FFCE56',
-                        '#4BC0C0',
-                        '#9966FF',
-                        '#FF9F40'
+                        '#0c7187', // โทนธีม MEDFIX+ (clean medical)
+                        '#14b8a6',
+                        '#3aa7c4',
+                        '#7fd1c5',
+                        '#b6dde8',
+                        '#cbd5e1'
                     ],
-                    borderColor: [
-                        '#FF6384', // สีของเส้นขอบเหมือนกัน
-                        '#36A2EB',
-                        '#FFCE56',
-                        '#4BC0C0',
-                        '#9966FF',
-                        '#FF9F40'
-                    ],
-                    borderWidth: 1
+                    borderColor: '#ffffff',
+                    borderWidth: 2
                 }]
             },
             options: {
