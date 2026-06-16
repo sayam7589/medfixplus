@@ -90,7 +90,7 @@ class InvController extends Controller
             'inv_os_version' => 'nullable|string|max:255',
             'inv_os_copyright' => 'nullable|integer',
             'inv_name' => 'required|string|max:255',
-            'inv_msoffice_version' => 'nullable|string|max:255',
+            'inv_msoffice_version' => 'nullable|string|max:255',y[]
             'inv_msoffice_copyright' => 'nullable|integer',
             'inv_antivirus' => 'nullable|string|max:255',
             'inv_antivirus_copyright' => 'nullable|integer',

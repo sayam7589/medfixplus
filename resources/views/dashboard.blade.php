@@ -10,7 +10,13 @@
   column-gap: .75rem; row-gap: .5rem;
 }
 .main-highlight select#gongSelect {
-  min-width: 180px; max-width: 220px; height: 32px; font-size: .9rem;
+  min-width: 200px;
+  max-width: 240px;
+  height: auto;
+  padding: .35rem 1.75rem .35rem .75rem;
+  font-size: .9rem;
+  line-height: 1.5;
+  vertical-align: middle;
 }
 
 /* Filter (Month/Year) */
