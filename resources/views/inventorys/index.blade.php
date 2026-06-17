@@ -249,74 +249,11 @@
         }
     },
     {
-        extend: 'pdfHtml5',
-        text: 'Export to PDF',
-        orientation: 'landscape',
-        pageSize: 'A4',
-        title: '',
-        filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
+        extend: 'print',
+        text: 'Print',
         exportOptions: {
             columns: ':not(:first-child):not(:last-child)'
-        },
-    customize: function (doc) {
-    doc.defaultStyle = {
-        font: 'THSarabunNew',
-        fontSize: 12,
-        alignment: 'center'
-    };
-
-    doc.content.unshift({
-        text: 'รายงานบัญชีสินทรัพย์',
-        fontSize: 24,
-        bold: true,
-        alignment: 'center',
-        margin: [0, 0, 0, 20]
-    });
-
-
-    doc.content[1].layout = {
-        hLineWidth: function (i, node) {
-            return (i === 1) ? 0.5 : 0.3;
-        },
-        vLineWidth: function () { return 0.2; },
-        hLineColor: function () { return '#aaa'; },
-        vLineColor: function () { return '#aaa'; },
-    };
-
-    doc.content[1].alignment = 'center';
-
-    // ✅ แบ่ง page break ทุก 10 แถว
-    var tableBody = doc.content[1].table.body;
-    var header = tableBody[0]; // row header
-    var newBody = [header]; // เริ่มด้วย header
-
-    for (var i = 1; i < tableBody.length; i++) {
-        newBody.push(tableBody[i]);
-    }
-
-    doc.content[1].table.body = newBody;
-
-    // ✅ เพิ่มลายเซ็นท้ายเอกสาร
-    doc.content.push({
-        alignment: 'right',
-        margin: [0, 100, 0, 0],
-        fontSize: 13,
-        font: 'THSarabunNew',
-        table: {
-            body: [[{
-                text: `(ลงชื่อ) ................................................................  (เจ้าหน้าที่ตรวจสอบ)\n` +
-                `ตำแหน่ง ........................................................... \n` +
-                `............/............./.............(ว/ด/ป)`,
-                alignment: 'center',
-                fontSize: 14,
-                lineHeight: 1.3,
-                margin: [500, 0, 0, 0],
-                border: [false, false, false, false]
-            }]]
-        },
-        layout: 'noBorders'
-    });
-}
+        }
     }
     ],
 
