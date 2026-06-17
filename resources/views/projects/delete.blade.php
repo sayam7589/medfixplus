@@ -102,7 +102,7 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
-            "buttons": ["excel", "pdf"]
+            "buttons": ["excel", { extend: 'print', text: 'PDF' }]
         });
         table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
