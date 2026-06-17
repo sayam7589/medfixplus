@@ -256,51 +256,83 @@
         title: '',
         filename: 'รายงานบัญชีสินทรัพย์', // ✅ ชื่อไฟล์ PDF ที่จะดาวน์โหลด
         exportOptions: {
-            columns: ':not(:first-child):not(:last-child)'
+            // ✅ เลือกเฉพาะคอลัมน์สำคัญให้พอดีกระดาษ A4 แนวนอน
+            // 1=ลำดับ, 2=ประเภทสินทรัพย์, 3=ชื่อเครื่อง, 4=macaddress, 5=เลขครุภัณฑ์,
+            // 6=หน่วยผู้ใช้, 7=สถานะ, 8=คำนำหน้า, 9=ชื่อ, 10=นามสกุล, 11=วันที่ติดตั้ง
+            columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         },
     customize: function (doc) {
+    // ✅ ลด margin ของกระดาษให้กว้างขึ้น
+    doc.pageMargins = [20, 40, 20, 40];
+
     doc.defaultStyle = {
         font: 'THSarabunNew',
-        fontSize: 12,
+        fontSize: 11,
         alignment: 'center'
     };
 
     doc.content.unshift({
         text: 'รายงานบัญชีสินทรัพย์',
-        fontSize: 24,
+        fontSize: 22,
         bold: true,
         alignment: 'center',
-        margin: [0, 0, 0, 20]
+        margin: [0, 0, 0, 15]
     });
 
+    // ✅ กำหนดความกว้างคอลัมน์ให้พอดี A4 แนวนอน (รวม ~800pt)
+    doc.content[1].table.widths = [
+        25,   // ลำดับ
+        '*',  // ประเภทสินทรัพย์
+        60,   // ชื่อเครื่อง
+        75,   // macaddress
+        65,   // เลขครุภัณฑ์
+        60,   // หน่วยผู้ใช้
+        45,   // สถานะ
+        40,   // คำนำหน้า
+        55,   // ชื่อ
+        55,   // นามสกุล
+        55    // วันที่ติดตั้ง
+    ];
 
     doc.content[1].layout = {
-        hLineWidth: function (i, node) {
-            return (i === 1) ? 0.5 : 0.3;
-        },
+        hLineWidth: function (i) { return (i === 1) ? 0.5 : 0.3; },
         vLineWidth: function () { return 0.2; },
         hLineColor: function () { return '#aaa'; },
         vLineColor: function () { return '#aaa'; },
+        paddingLeft: function () { return 3; },
+        paddingRight: function () { return 3; },
+        paddingTop: function () { return 3; },
+        paddingBottom: function () { return 3; },
     };
 
     doc.content[1].alignment = 'center';
 
-    // ✅ แบ่ง page break ทุก 10 แถว
+    // ✅ ปรับ style header
     var tableBody = doc.content[1].table.body;
-    var header = tableBody[0]; // row header
-    var newBody = [header]; // เริ่มด้วย header
-
-    for (var i = 1; i < tableBody.length; i++) {
-        newBody.push(tableBody[i]);
+    if (tableBody[0]) {
+        tableBody[0].forEach(function (cell) {
+            cell.fillColor = '#2c3e50';
+            cell.color = '#ffffff';
+            cell.bold = true;
+            cell.fontSize = 11;
+        });
     }
 
-    doc.content[1].table.body = newBody;
+    // ✅ ลดขนาดฟอนต์ของเซลล์ข้อมูล + word wrap
+    for (var r = 1; r < tableBody.length; r++) {
+        tableBody[r].forEach(function (cell) {
+            if (typeof cell === 'object') {
+                cell.fontSize = 10;
+                cell.noWrap = false;
+            }
+        });
+    }
 
     // ✅ เพิ่มลายเซ็นท้ายเอกสาร
     doc.content.push({
         alignment: 'right',
-        margin: [0, 100, 0, 0],
-        fontSize: 13,
+        margin: [0, 40, 20, 0],
+        fontSize: 12,
         font: 'THSarabunNew',
         table: {
             body: [[{
@@ -308,9 +340,8 @@
                 `ตำแหน่ง ........................................................... \n` +
                 `............/............./.............(ว/ด/ป)`,
                 alignment: 'center',
-                fontSize: 14,
+                fontSize: 12,
                 lineHeight: 1.3,
-                margin: [500, 0, 0, 0],
                 border: [false, false, false, false]
             }]]
         },
