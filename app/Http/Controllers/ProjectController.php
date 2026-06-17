@@ -120,11 +120,11 @@ class ProjectController extends Controller
     {
         $validated = $request->validate([
             'project_name' => 'required|string|max:255',
-            'project_detail' => 'required|string',
+            'project_detail' => 'nullable|string',
             'project_company' => 'required|string|max:255',
             'project_company_contact' => 'required|string|max:255',
             'project_file' => 'nullable|string|max:255',
-            'project_date' => 'required|date',
+            'project_date' => 'nullable|date',
         ]);
 
         // ใช้ข้อมูลที่ผ่าน validation เท่านั้น (กัน mass assignment)

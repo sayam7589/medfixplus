@@ -15,3 +15,9 @@ Laravel app สำหรับระบบ MEDFIX+ (ทหาร/โรงพย
 | API MFA ล่ม (login ไม่ได้) | `app/Http/Controllers/AuthController.php` | ดูหัวข้อ "MFA API Login" ใน memory/ |
 
 → Details: memory/fixes/mfa-api-bypass.md
+
+## Design — Impeccable
+ติดตั้งสกิล **Impeccable** ไว้ที่ `.claude/skills/impeccable/` (frontend design vocabulary, 23 commands).
+- เรียกใช้ตอนทำงาน UI/หน้าจอ/Blade: `/impeccable <command> <target>` เช่น `/impeccable polish`, `/impeccable critique`, `/impeccable audit`
+- ตรวจ AI slop / anti-patterns: `node .claude/skills/impeccable/scripts/detect.mjs <path>` (ออฟไลน์ ไม่ต้องต่อเน็ต)
+- ครั้งแรกของโปรเจกต์ ควรรัน `/impeccable init` เพื่อสร้าง `PRODUCT.md` (บริบทแบรนด์/ผู้ใช้) ก่อน
