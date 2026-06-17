@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="project_date">วันอนุมัติโครงการ</label>
-                                        <input type="date" name="project_date" class="form-control" id="project_date" value="{{ $project->project_date }}" required>
+                                        <input type="date" name="project_date" class="form-control" id="project_date" value="{{ $project->project_date }}">
                                     </div>
                                     {{-- ลบ checkbox "I agree to the terms of service" — เศษ template AdminLTE
                                          ไม่ได้ใช้ใน controller (unchecked ก็ไม่ถูกส่งอยู่แล้ว) --}}
