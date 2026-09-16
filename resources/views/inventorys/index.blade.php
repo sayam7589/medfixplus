@@ -67,7 +67,7 @@
                                 <th>ชื่อ</th>
                                 <th>นามสกุล</th>
                                 <th>วันที่ติดตั้ง</th>
-                                <th>ประเภท</th>
+                                <th>โครงการจัดซื้อ</th>
                                 <th>ยี่ห้อ</th>
                                 <th>รุ่น</th>
                                 <th>รายละเอียดเพิ่มเติม</th>
@@ -123,9 +123,9 @@
                                     <td>{{ $invs->inv_msoffice_copyright }}</td>
                                     <td>{{ $invs->inv_antivirus }}</td>
                                     <td>{{ $invs->inv_antivirus_copyright }}</td>
-                                    <td>{{ $invs->panag }}</td>
                                     <td>{{ $invs->rec_personal_tel }}</td>
                                     <td>{{ $invs->rec_org_tel }}</td>
+                                    <td>{{ $invs->panag }}</td>
                                     <td>{{ $invs->inv_cpu_clock }}</td>
                                     <td>
                                         <a href="{{ route('inventorys.edit', $invs->id) }}" class="btn btn-warning btn-sm">ตรวจสอบ/แก้ไข</a>
@@ -232,10 +232,10 @@
             { "visible": false },  // MS Office Copyright
             { "visible": false },  // Antivirus
             { "visible": false },  // Antivirus Copyright
-            { "visible": false },  // Personal Tel
-            { "visible": false },  // Org Tel
-            { "visible": false },  // CPU Clock
-            { "visible": false },
+            { "visible": false },  // เบอร์โทรติดต่อ (rec_personal_tel)
+            { "visible": false },  // เบอร์โทรหน่วย (rec_org_tel)
+            { "visible": false },  // แผนกผู้ใช้ (panag)
+            { "visible": false },  // ความเร็ว CPU (inv_cpu_clock)
 
             // Add more as needed
             { "visible": true }   // Action buttons

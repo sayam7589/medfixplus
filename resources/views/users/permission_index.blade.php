@@ -105,7 +105,11 @@
     $(function () {
       $("#example1").DataTable({
         "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["excel", { extend: 'print', text: 'PDF' }]
+        "buttons": [
+                    // ตัดคอลัมน์สุดท้าย (ปุ่มจัดการ) ออกจากไฟล์ที่ส่งออก
+                    { extend: 'excel', text: 'Export to Excel', exportOptions: { columns: ':not(:last-child)' } },
+                    { extend: 'print', text: 'PDF', exportOptions: { columns: ':not(:last-child)' } }
+                ]
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
       $('#example2').DataTable({
         "paging": true,

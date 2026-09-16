@@ -16,3 +16,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# ===== เครื่องมือผู้ช่วย AI — ไม่ใช่ส่วนหนึ่งของระบบ ไม่ต้องขึ้น git =====
+/.claude
+/memory
+/docs/laravel-to-nextjs
+/Claude outputs
