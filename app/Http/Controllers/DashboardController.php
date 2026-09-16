@@ -104,7 +104,7 @@ class DashboardController extends Controller
         ->map(function ($item) {
             $item->month_thai = getThaiMonthAbbreviation($item->month);
             return $item;
-        });
+        }); 
 
     return response()->json([
         'labels' => $repairs->pluck('month_thai'),
