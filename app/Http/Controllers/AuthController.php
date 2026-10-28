@@ -8,6 +8,8 @@ use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\RateLimiter;
 
 class AuthController extends Controller
 {
@@ -33,28 +35,75 @@ class AuthController extends Controller
         $cleanedUsername = strstr($request->username, '@', true) ?: $request->username;
 
         // ======================================================
-        // BYPASS MODE: ใช้ตอน API otp.rtaf.mi.th ล่ม
-        // ตั้งค่า BYPASS_MFA_API=false ใน .env เมื่อ API กลับมาปกติ
+        // BYPASS MODE — โหมดสำรองตอน API otp.rtaf.mi.th ล่ม
+        //
+        // เปิด/ปิดที่ .env  →  BYPASS_MFA_API=true|false
+        // รหัสผ่านสำรองที่ .env  →  BYPASS_MFA_PASSWORD_HASH=<bcrypt hash>
+        //
+        // เงื่อนไขการเข้า ต้องครบทั้ง 3 ข้อ
+        //   1. ผู้ใช้ต้องมีอยู่ใน DB อยู่แล้ว
+        //   2. ผู้ใช้ต้องมี role 'superadmin'
+        //   3. ต้องใส่รหัสผ่านสำรองให้ถูกต้อง
+        //
+        // ปิดกลับทันทีที่ API กลับมาปกติ → ดู memory/fixes/mfa-api-bypass.md
         // ======================================================
-        if (false) { // BYPASS_MFA_API — เปลี่ยนเป็น true เมื่อ API ล่ม
-            $user = User::where('username', $cleanedUsername)->first();
+        if (config('app.bypass_mfa_api')) {
+            $throttleKey = 'bypass-login:' . $request->ip();
 
-            if (!$user) {
-                return redirect()->route('login')->with('error', 'ไม่พบข้อมูลผู้ใช้ในระบบ กรุณาติดต่อผู้ดูแลระบบ');
+            if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+                $seconds = RateLimiter::availableIn($throttleKey);
+                Log::warning('Bypass login throttled', [
+                    'ip'       => $request->ip(),
+                    'username' => $cleanedUsername,
+                ]);
+                return redirect()->route('login')->with(
+                    'error',
+                    'พยายามเข้าสู่ระบบบ่อยเกินไป กรุณารออีก ' . $seconds . ' วินาที'
+                );
             }
 
-            $abilities = ['view-dashboard', 'edit-profile'];
+            $hash = (string) config('app.bypass_mfa_password_hash');
+            $user = User::where('username', $cleanedUsername)->first();
+
+            $passwordOk   = $hash !== '' && Hash::check($request->password, $hash);
+            $isSuperadmin = $user !== null && $user->hasRole('superadmin');
+
+            if (!$passwordOk || !$isSuperadmin) {
+                RateLimiter::hit($throttleKey, 900);
+                Log::warning('Bypass login denied', [
+                    'ip'            => $request->ip(),
+                    'username'      => $cleanedUsername,
+                    'user_found'    => $user !== null,
+                    'is_superadmin' => $isSuperadmin,
+                    'password_ok'   => $passwordOk,
+                ]);
+                return redirect()->route('login')->with(
+                    'error',
+                    'เข้าสู่ระบบไม่สำเร็จ ขณะนี้ระบบยืนยันตัวตนขัดข้อง เปิดให้เฉพาะผู้ดูแลระบบเท่านั้น'
+                );
+            }
+
+            RateLimiter::clear($throttleKey);
+
+            $abilities    = ['view-dashboard', 'edit-profile'];
             $sanctumToken = $user->createToken('token-name', $abilities)->plainTextToken;
 
-            session(['token' => $sanctumToken]);
-            session(['user_rank' => $user->rank]);
-            session(['user_fname' => $user->fname]);
-            session(['user_lname' => $user->lname]);
+            session([
+                'token'      => $sanctumToken,
+                'user_rank'  => $user->rank,
+                'user_fname' => $user->fname,
+                'user_lname' => $user->lname,
+            ]);
 
             Auth::login($user);
             $request->session()->regenerate();
 
-            toast('เข้าสู่ระบบสำเร็จ', 'success');
+            Log::info('Bypass login success', [
+                'ip'       => $request->ip(),
+                'username' => $cleanedUsername,
+            ]);
+
+            toast('เข้าสู่ระบบสำเร็จ (โหมดสำรอง)', 'success');
             return redirect()->intended('/dashboard');
         }
         // ======================================================
